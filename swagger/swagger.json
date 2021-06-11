@@ -1,0 +1,101 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Fundoo Notes Backend APP",
+        "description": "Fundoo notes API",
+        "version": "1.0.0"
+    },
+    "host": "localhost:5000",
+    "basePath": "/",
+    "tags": [],
+    "$schemes": [
+        "http"
+    ],
+    "consumes": [],
+    "produces": [],
+    "paths": {
+        "/user/register": {
+            "post": {
+                "tags": [],
+                "description": "user registration",
+                "parameters": [{
+                    "name": "register user",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/User"
+                    }
+                }],
+                "responses": {
+                    "201": {
+                        "description": "Registered"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/user/login": {
+            "post": {
+                "tags": [],
+                "description": "user login",
+                "parameters": [{
+                    "name": "Credentials",
+                    "in": "body",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Login"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "JWT": {
+            "type": "apiKey",
+            "name": "token",
+            "in": "Headers"
+        }
+    },
+    "definitions": {
+        "User": {
+            "type": "object",
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "Login": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
