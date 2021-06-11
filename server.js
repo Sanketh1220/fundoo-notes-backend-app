@@ -2,9 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const databaseConnection = require('./config/dbConfig');
 const app = express();
-// const swaggerUI = require('swagger-ui-express');
+const swaggerUI = require('swagger-ui-express');
 const logger = require('./config/logger');
-// const swagger = require('./swagger/swagger.json');
+const swagger = require('./swagger/swagger.json');
 
 databaseConnection();
 
@@ -16,7 +16,7 @@ app.use(express.urlencoded({
 //parse the request from user
 app.use(express.json());
 
-// app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swagger))
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swagger))
 
 require('./app/routes/addressBook')(app);
 
