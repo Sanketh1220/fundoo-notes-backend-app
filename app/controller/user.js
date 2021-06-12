@@ -1,4 +1,3 @@
-const mongoose = require('mongoose')
 const userService = require('../services/user');
 
 const {userDataValidation} = require('../middleware/validation');
@@ -43,6 +42,17 @@ class UserController {
 
         userService.loginUser(userData, (error, token) => {
             return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "User login successful!", token: token}));
+        })
+    }
+
+    passwordResetLinkApi(req, res) {
+        const userData = {
+            email: req.body.email,
+            password: req.body.password
+        }
+
+        userService.resetPasswordLink(userData, (error, data) => {
+            return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "User login successful!", data: data}));
         })
     }
 }

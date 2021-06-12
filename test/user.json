@@ -1,0 +1,101 @@
+{
+    "userCreatePos": {
+        "firstName": "Rajan",
+        "lastName": "Koushik",
+        "email": "rajan.koushik@gmail.com",
+        "password": "rajan@123"
+    },
+
+    "userCreatePosRes": {
+        "success": true,
+        "message": "User registered!",
+        "data": {
+            "_id": "60c212d9fd29bfe17d819d84",
+            "firstName": "Kamalesh",
+            "lastName": "Gandhi",
+            "email": "kamalesh.gandhi@gmail.com",
+            "password": "$2b$10$DHUVSuseek5MRhfZs1u4yemev.6yjsGP/cbn9vhXNaGQsYolfPu/2",
+            "createdAt": "2021-06-10T13:25:45.714Z",
+            "updatedAt": "2021-06-10T13:25:45.714Z"
+        }
+    },
+
+    "userCreateNegFirstName": {
+        "firstName": "",
+        "lastName": "Koushik",
+        "email": "rajan.koushik@gmail.com",
+        "password": "rajan@123"
+    },
+
+    "userCreateNegFirstNameRes": {
+        "statusCode": 400,
+        "message": "\"firstName\" is not allowed to be empty"
+    },
+
+    "userCreateNegLastName": {
+        "firstName": "Rajan",
+        "lastName": "",
+        "email": "rajan.koushik@gmail.com",
+        "password": "rajan@123"
+    },
+
+    "userCreateNegLastNameRes": {
+        "statusCode": 400,
+        "message": "\"lastName\" is not allowed to be empty"
+    },
+
+    "userCreateNegEmail": {
+        "firstName": "Rajan",
+        "lastName": "Koushik",
+        "email": "rajan.koushik@gmailcom",
+        "password": "sanSan@123"
+    },
+
+    "userCreateNegEmailRes": {
+        "statusCode": 400,
+        "message": "\"lastName\" is not allowed to be empty"
+    },
+
+    "userCreateNegPassword": {
+        "firstName": "Rajan",
+        "lastName": "Koushik",
+        "email": "rajan.koushik@gmail.com",
+        "password": ""
+    },
+
+    "userCreateNegPasswordRes": {
+        "statusCode": 400,
+        "message": "\"password\" is not allowed to be empty"
+    },
+
+    "userLoginPos": {
+        "email": "kamalesh.gandhi@gmail.com",
+        "password": "Kamalesh@123"
+    },
+
+    "userLoginPosRes": {
+        "success": true,
+        "message": "User login successful!",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJlbWFpbCI6ImthbWFsZXNoLmdhbmRoaUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IkthbWFsZXNoQDEyMyJ9LCJpYXQiOjE2MjMzMzE5NjUsImV4cCI6MTYyMzMzNTU2NX0.ZaDbwyWHJ4y_L_9yeHZzYlwPs1HE-4PYHem9uJAEMrg"
+    },
+
+    "userLoginNegEmail": {
+        "email": "kamalesh.gandhi@gmailom",
+        "password": "Kamalesh@123"
+    },
+
+    "userLoginNegEmailRes": {
+        "statusCode": 500,
+        "message": "This user doesn't exist! Please register."
+    },
+
+    "userLoginNegPassword": {
+        "email": "kamalesh.gandhi@gmail.com",
+        "password": "Kamalesh@13"
+    },
+
+    "userLoginNegPasswordRes": {
+        "statusCode": 500,
+        "message": "Please enter correct password"
+    }
+}

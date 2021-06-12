@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
-const { example } = require("yargs");
-const { c } = require("tar");
+const crypto = require('crypto');
 const SALT_WORK_FACTOR = 10;
+const Token = require('./token');
+const sendEmail = require("../../utils/sendEmail");
 
 const UserInfoSchema = new mongoose.Schema({
     firstName: {
@@ -33,7 +34,7 @@ const UserInfoSchema = new mongoose.Schema({
     versionKey: false
 })
 
-UserInfoSchema.pre('save', function(next) {
+UserInfoSchema.pre('save', function (next) {
     var user = this;
 
     // only hash the password if it has been modified (or is new)
@@ -77,21 +78,22 @@ class UserModel {
     createInfo(userData, callBack) {
 
         var query = userData.email;
-        UserInfoModel.findOne({email:query}, (error, example) => {
-            if(error) callBack(error, null);
-            if(example){
-                return callBack ("This user is already registered, Please sign in!", null)
-            }
-            else {
-                const user = new UserInfoModel ({
+        UserInfoModel.findOne({
+            email: query
+        }, (err, example) => {
+            if (err) callBack(err, null);
+            if (example) {
+                return callBack("This user is already registered, Please sign in!", null)
+            } else {
+                const user = new UserInfoModel({
                     firstName: userData.firstName,
                     lastName: userData.lastName,
                     email: userData.email,
                     password: userData.password
                 });
-        
+
                 user.save({}, (error, data) => {
-                    return((error) ? (callBack(error, null)) : (callBack(null, data)));
+                    return ((error) ? (callBack(error, null)) : (callBack(null, data)));
                 })
             }
         });
@@ -103,15 +105,48 @@ class UserModel {
      * @param {*} callBack 
      */
     loginUser(userData, callBack) {
-        UserInfoModel.findOne({'email': userData.email}, (error, data) => {
-            if(error) {
+        UserInfoModel.findOne({
+            'email': userData.email
+        }, (error, data) => {
+            if (error) {
                 return callBack(error, null);
             } else if (!data) {
-                return callBack ("This user doesn't exist! Please register.", null);
+                return callBack("This user doesn't exist! Please register.", null);
             }
-            return callBack(null, data); 
+            return callBack(null, data);
         });
     }
+
+    // resetPasswordLink(userData, callBack) {
+    //     try {
+    //         const user = UserInfoModel.findById({
+    //             password: userData.password
+    //         });
+    //         if (!user) {
+    //             return callBack("user with given email doesn't exist", null);
+    //         }
+
+    //         let token = Token.findOne({
+    //             userId: user._id
+    //         });
+    //         console.log("Token object at line 132",token);
+    //         if (!token) {
+    //             token = new Token({
+    //                 userId: user._id,
+    //                 token: crypto.randomBytes(32).toString("hex"),
+    //             }).save();
+    //             console.log("Token object at line 138",token);
+    //         }
+
+    //         const link = `${process.env.BASE_URL}/passwordReset/${user._id}/${token.token}`;
+    //         sendEmail(user.email, "Password Reset", link);
+    //         console.log("User's email at line 142", user.email);
+
+    //         return callBack(null, "Password reset link sent to your email account");
+    //     } catch (error) {
+    //         console.log(error, "error Occurred")
+    //     }
+    // }
 }
 
 //exporting the class to utilize or call function created in this class

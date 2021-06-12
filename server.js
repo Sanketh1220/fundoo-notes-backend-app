@@ -18,7 +18,7 @@ app.use(express.json());
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swagger))
 
-require('./app/routes/addressBook')(app);
+require('./app/routes/user')(app);
 
 //defining a simple root statement
 app.get('/', (req, res) => {
