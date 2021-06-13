@@ -17,11 +17,12 @@ class UserService {
         });
     }
 
-    // resetPasswordLink(userData, callBack) {
-    //     userModel.resetPasswordLink(userData, (error, data) => {
-    //         return ((error) ? callBack(error.null) : callBack(null, data));
-    //     })
-    // }
+    resetPasswordLink(userData, callBack) {
+        console.log("Hello this is data", userData)
+        userModel.resetPassword(userData, (error, data) => {
+            return ((error) ? callBack(error.null) : callBack(null, data));
+        })
+    }
 
     loginUser(userData, callBack) {
         const token = helperClass.generateAccessToken({userData});

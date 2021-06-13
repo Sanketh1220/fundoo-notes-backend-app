@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Sanketh1220/fundoo-notes-backend-app#readme",
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.18.0",
     "@hapi/joi": "^17.1.1",
     "bcrypt": "^5.0.1",
     "crypto": "^1.0.1",

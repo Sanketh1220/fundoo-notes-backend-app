@@ -1,3 +1,4 @@
+const mocha = require('mocha');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 require('superagent');
@@ -13,7 +14,7 @@ chai.use(chaiHttp);
  * Positive and Negative - Registration of User Testing
  */
 describe('POST user/register', () => {
-    it('givenValidDataItShould_makePOSTRequestAndRegisterUser_andReturnsStatusCodeAs200', (done) => {
+    it.only('givenValidDataItShould_makePOSTRequestAndRegisterUser_andReturnsStatusCodeAs200', (done) => {
         let userData = userInputs.userCreatePos
         chai.request(server)
             .post('/user/register')

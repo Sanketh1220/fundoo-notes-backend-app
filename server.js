@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 })
 
 //declaring a port number for server to run
-app.listen(PORT, ()=>{
+app.listen(process.env.PORT, ()=>{
     logger.log("info", "Server is up and running!");
 })
 

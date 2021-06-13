@@ -117,36 +117,39 @@ class UserModel {
         });
     }
 
-    // resetPasswordLink(userData, callBack) {
-    //     try {
-    //         const user = UserInfoModel.findById({
-    //             password: userData.password
-    //         });
-    //         if (!user) {
-    //             return callBack("user with given email doesn't exist", null);
-    //         }
+    resetPassword(userData, callBack) {
+        console.log("Models", userData);
+        try {
+            const user = UserInfoModel.findOne({
+                email: userData.email
+            });
 
-    //         let token = Token.findOne({
-    //             userId: user._id
-    //         });
-    //         console.log("Token object at line 132",token);
-    //         if (!token) {
-    //             token = new Token({
-    //                 userId: user._id,
-    //                 token: crypto.randomBytes(32).toString("hex"),
-    //             }).save();
-    //             console.log("Token object at line 138",token);
-    //         }
+            if (!user) {
+                return callBack("user with given email doesn't exist", null);
+            }
 
-    //         const link = `${process.env.BASE_URL}/passwordReset/${user._id}/${token.token}`;
-    //         sendEmail(user.email, "Password Reset", link);
-    //         console.log("User's email at line 142", user.email);
+            let token = Token.findOne({
+                userId: user._id
+            });
+            console.log("Token Id at line 134", token);
 
-    //         return callBack(null, "Password reset link sent to your email account");
-    //     } catch (error) {
-    //         console.log(error, "error Occurred")
-    //     }
-    // }
+            if (!token) {
+                token = new Token({
+                    userId: user._id,
+                    token: crypto.randomBytes(32).toString("hex"),
+                }).save();
+            }
+
+            const link = `${process.env.BASE_URL}/passwordReset/${user._id}/${token.token}`;
+            sendEmail(user.email, "Password Reset", link);
+
+            console.log("link at line 143", link);
+
+            return callBack(null, "Password reset link sent to your email account");
+        } catch (error) {
+            console.log(error, "error Occurred")
+        }
+    }
 }
 
 //exporting the class to utilize or call function created in this class
