@@ -52,7 +52,7 @@ class UserController {
 
         console.log("Controller Data: ", userData)
         userService.resetPasswordLink(userData, (error, data) => {
-            return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "User Reset Sent successfully!", data: data}));
+            return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "Password reset link Sent to your email successfully!"}));
         })
     }
 }
