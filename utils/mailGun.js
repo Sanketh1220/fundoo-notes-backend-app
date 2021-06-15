@@ -37,8 +37,25 @@ class MailGun {
 
         mg.messages().send(data, function (err) {
             console.log(err);
-        })
+        });
 
+    }
+
+    sendPasswordResetLink(userData) {
+        const token = generateAccessToken(userData);
+        const data = {
+            from: 'noreply@fundooNotes.com',
+            to: userData.email,
+            subject: "Reset Password link, Fundoo Notes App",
+            html: `
+            <h2>Please click on the link given below to reset your password</h2>
+            <p>${process.env.BASE_URL}/authentication/activate/${token}</p>
+        `
+        }
+
+        mg.messages().send(data, function (err) {
+            console.log(err);
+        });
     }
 }
 
