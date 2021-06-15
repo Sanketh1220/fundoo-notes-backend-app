@@ -13,7 +13,7 @@ function databaseConnection() {
     mongoose.set('useFindAndModify', false);
     mongoose.set('useUnifiedTopology', true);
 
-    mongoose.connect(URL, {
+    mongoose.connect(process.env.URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false

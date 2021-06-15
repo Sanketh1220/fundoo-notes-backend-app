@@ -45,16 +45,16 @@ class UserController {
         })
     }
 
-    passwordResetLinkApi(req, res) {
-        const userData = {
-            email: req.body.email
-        }
+    // passwordResetLinkApi(req, res) {
+    //     const userData = {
+    //         email: req.body.email
+    //     }
 
-        console.log("Controller Data: ", userData)
-        userService.resetPasswordLink(userData, (error, data) => {
-            return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "User Reset Sent successfully!", data: data}));
-        })
-    }
+    //     console.log("Controller Data: ", userData)
+    //     userService.resetPasswordLink(userData, (error, data) => {
+    //         return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "User Reset Sent successfully!", data: data}));
+    //     })
+    // }
 }
 
 //exporting th whole class to utilize or call function created in this class

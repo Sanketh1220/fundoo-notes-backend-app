@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const SALT_WORK_FACTOR = 10;
-const Token = require('./token');
-const sendEmail = require("../../utils/sendEmail");
+const sendEmail = require("../../utils/mailGun");
 
 const UserInfoSchema = new mongoose.Schema({
     firstName: {
@@ -76,27 +75,18 @@ class UserModel {
      * @param {*} callBack 
      */
     createInfo(userData, callBack) {
-
-        var query = userData.email;
-        UserInfoModel.findOne({
-            email: query
-        }, (err, example) => {
-            if (err) callBack(err, null);
-            if (example) {
-                return callBack("This user is already registered, Please sign in!", null)
-            } else {
-                const user = new UserInfoModel({
-                    firstName: userData.firstName,
-                    lastName: userData.lastName,
-                    email: userData.email,
-                    password: userData.password
-                });
-
-                user.save({}, (error, data) => {
-                    return ((error) ? (callBack(error, null)) : (callBack(null, data)));
-                })
-            }
+        const user = new UserInfoModel({
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            email: userData.email,
+            password: userData.password
         });
+
+        console.log('models user data', user);
+        user.save({}, (error, data) => {
+            return ((error) ? (callBack(error, null)) : (callBack(null, data)));
+        })
+        sendEmail(userData.email)
     }
 
     /**
@@ -117,39 +107,39 @@ class UserModel {
         });
     }
 
-    resetPassword(userData, callBack) {
-        console.log("Models", userData);
-        try {
-            const user = UserInfoModel.findOne({
-                email: userData.email
-            });
+    // resetPassword(userData, callBack) {
+    //     console.log("Models", userData);
+    //     try {
+    //         const user = UserInfoModel.findOne({
+    //             email: userData.email
+    //         });
 
-            if (!user) {
-                return callBack("user with given email doesn't exist", null);
-            }
+    //         if (!user) {
+    //             return callBack("user with given email doesn't exist", null);
+    //         }
 
-            let token = Token.findOne({
-                userId: user._id
-            });
-            console.log("Token Id at line 134", token);
+    //         let token = Token.findOne({
+    //             userId: user._id
+    //         });
+    //         console.log("Token Id at line 134", token);
 
-            if (!token) {
-                token = new Token({
-                    userId: user._id,
-                    token: crypto.randomBytes(32).toString("hex"),
-                }).save();
-            }
+    //         if (!token) {
+    //             token = new Token({
+    //                 userId: user._id,
+    //                 token: crypto.randomBytes(32).toString("hex"),
+    //             }).save();
+    //         }
 
-            const link = `${process.env.BASE_URL}/passwordReset/${user._id}/${token.token}`;
-            sendEmail(user.email, "Password Reset", link);
+    //         const link = `${process.env.BASE_URL}/passwordReset/${user._id}/${token.token}`;
+    //         sendEmail(user.email, "Password Reset", link);
 
-            console.log("link at line 143", link);
+    //         console.log("link at line 143", link);
 
-            return callBack(null, "Password reset link sent to your email account");
-        } catch (error) {
-            console.log(error, "error Occurred")
-        }
-    }
+    //         return callBack(null, "Password reset link sent to your email account");
+    //     } catch (error) {
+    //         console.log(error, "error Occurred")
+    //     }
+    // }
 }
 
 //exporting the class to utilize or call function created in this class
