@@ -2,7 +2,7 @@ const mailgun = require('mailgun-js');
 const {
     generateAccessToken
 } = require('../app/middleware/helper');
-const DOMAIN = "sandbox86a49b94607f464fb8fd6fa7a3ea2ce5.mailgun.org";
+const DOMAIN = process.env.DOMAIN;
 const mg = mailgun({
     apiKey: MAILGUN_APIKEY,
     domain: DOMAIN
