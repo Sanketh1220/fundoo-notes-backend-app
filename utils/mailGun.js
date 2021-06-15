@@ -1,19 +1,45 @@
 const mailgun = require('mailgun-js');
+const {
+    generateAccessToken
+} = require('../app/middleware/helper');
 const DOMAIN = "sandbox86a49b94607f464fb8fd6fa7a3ea2ce5.mailgun.org";
 const mg = mailgun({
     apiKey: MAILGUN_APIKEY,
     domain: DOMAIN
 });
+class MailGun {
 
-module.exports = function sendMail(email) {
-    const data = {
-        from: 'noreply@hello.com',
-        to: email,
-        subject: 'Hello',
-        text: 'Testing some mailgun'
-    };
+    sendMail(email) {
+        const data = {
+            from: 'noreply@fundooNotes.com',
+            to: email,
+            subject: 'Hello',
+            text: 'Testing some mailgun'
+        };
 
-    mg.messages().send(data, function (err) {
-        console.log(err);
-    })
+        mg.messages().send(data, function (err) {
+            console.log(err);
+        })
+    }
+
+    sendActivationLink(userData) {
+        const token = generateAccessToken(userData);
+
+        const data = {
+            from: 'noreply@fundooNotes.com',
+            to: userData.email,
+            subject: "Account activation link",
+            html: `
+            <h2>Please click on the link given below to activate your account</h2>
+            <p>${process.env.BASE_URL}/authentication/activate/${token}</p>
+        `
+        }
+
+        mg.messages().send(data, function (err) {
+            console.log(err);
+        })
+
+    }
 }
+
+module.exports = new MailGun();

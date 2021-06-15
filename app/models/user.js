@@ -86,7 +86,7 @@ class UserModel {
         user.save({}, (error, data) => {
             return ((error) ? (callBack(error, null)) : (callBack(null, data)));
         })
-        sendEmail(userData.email)
+        sendEmail.sendActivationLink(userData);
     }
 
     /**
