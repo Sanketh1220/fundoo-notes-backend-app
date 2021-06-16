@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
-const crypto = require('crypto');
 const SALT_WORK_FACTOR = 10;
 const sendEmail = require("../../utils/mailGun");
 
@@ -24,10 +23,6 @@ const UserInfoSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    },
-    resetLink: {
-        data: String,
-        default: ''
     }
 }, {
     // generates the time stamp the data is been added
@@ -88,7 +83,7 @@ class UserModel {
         user.save({}, (error, data) => {
             return ((error) ? (callBack(error, null)) : (callBack(null, data)));
         })
-        sendEmail.sendActivationLink(userData);
+        // sendEmail.sendActivationLink(userData);
     }
 
     /**
@@ -140,11 +135,26 @@ class UserModel {
      */
     resetPassword(userData, email, callBack) {
         try {
-            UserInfoModel.findByIdAndUpdate(email, {
-                password: userData.password
-            }, {new : true}, (error, data) => {
-                return((error) ? (callBack(error, null)) : (callBack(null, data)));
+            const salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
+            const hashPassword = bcrypt.hashSync(userData.password, salt);
+            console.log("Hashed Password", hashPassword);
+            console.log("email in models, ", email);//correct
+            UserInfoModel.findOne({'email': email}, (err, data) => {
+                const myData = data;
+                console.log("myData at models", myData);
+                if(err) {
+                    console.log(err)
+                }
+                UserInfoModel.findByIdAndUpdate(myData.id, {
+                    firstName: myData.firstName,
+                    lastName: myData.lastName,
+                    email: myData.email,
+                    password: hashPassword
+                }, {new : true}, (error, data) => {
+                        return((error) ? (callBack(error, null)) : (callBack(null, data)));
+                });
             });
+            sendEmail.sendSuccessEmail(myData); 
         } catch (error) {
             console.log(error);
         }

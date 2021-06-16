@@ -57,6 +57,23 @@ class MailGun {
             console.log(err);
         });
     }
+
+    sendSuccessEmail(userData) {
+        const data = {
+            from: 'noreply@fundooNotes.com',
+            to: userData.email,
+            subject: "Password Reset Successful!",
+            html: `
+            <h2>Password reset successful!, Now login using new password and use notes app.</h2>
+            <h2>Thank You</h2>
+            <p>Fundoo Notes App!</p>
+        `
+        }
+
+        mg.messages().send(data, function (err) {
+            console.log(err);
+        });
+    }
 }
 
 module.exports = new MailGun();

@@ -74,13 +74,11 @@ class UserController {
             password: req.body.password,
             confirmPassword: req.body.confirmPassword
         }
-
+        
         const usertoken = req.headers.token;
-        console.log(usertoken);
-
         if(userPassword.password == userPassword.confirmPassword) {
             userService.resetPassword(userPassword, usertoken, (error, data) => {
-                return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "Password reset link Sent to your email successfully!"}));
+                return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "Password is changed successfully!"}));
             })
         }else {
             return res.status(500).send({message: "Please enter same password in both password and confirmPassword fields"});

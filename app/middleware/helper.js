@@ -66,8 +66,6 @@ class HelperClass {
      */
     getEmailFromToken(token){
         const decoded = jwt.verify(token, process.env.SECRET_TOKEN);
-        console.log(decoded);
-        console.log(decoded.email);
         return decoded.email
     }
 }
