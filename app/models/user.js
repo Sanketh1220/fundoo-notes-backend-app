@@ -137,8 +137,7 @@ class UserModel {
         try {
             const salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
             const hashPassword = bcrypt.hashSync(userData.password, salt);
-            console.log("Hashed Password", hashPassword);
-            console.log("email in models, ", email);//correct
+    
             UserInfoModel.findOne({'email': email}, (err, data) => {
                 const myData = data;
                 console.log("myData at models", myData);
@@ -153,8 +152,8 @@ class UserModel {
                 }, {new : true}, (error, data) => {
                         return((error) ? (callBack(error, null)) : (callBack(null, data)));
                 });
+                sendEmail.sendSuccessEmail(myData); 
             });
-            sendEmail.sendSuccessEmail(myData); 
         } catch (error) {
             console.log(error);
         }
