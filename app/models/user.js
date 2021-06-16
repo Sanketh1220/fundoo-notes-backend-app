@@ -9,13 +9,11 @@ const UserInfoSchema = new mongoose.Schema({
         type: String,
         required: true,
         validate: /^[a-zA-Z ]{2,30}$/,
-        unique: true
     },
     lastName: {
         type: String,
         required: true,
         validate: /^[a-zA-Z]{2,30}$/,
-        unique: true
     },
     email: {
         type: String,
@@ -27,6 +25,10 @@ const UserInfoSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    resetLink: {
+        data: String,
+        default: ''
+    }
 }, {
     // generates the time stamp the data is been added
     timestamps: true,
@@ -107,7 +109,7 @@ class UserModel {
         });
     }
 
-    resetPassword(userData, callBack) {
+    forgotPassword(userData, callBack) {
         console.log("Models", userData);
         try {
             const user = UserInfoModel.findOne({

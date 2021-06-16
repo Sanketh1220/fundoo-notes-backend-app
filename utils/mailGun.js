@@ -49,7 +49,7 @@ class MailGun {
             subject: "Reset Password link, Fundoo Notes App",
             html: `
             <h2>Please click on the link given below to reset your password</h2>
-            <p>${process.env.BASE_URL}/authentication/activate/${token}</p>
+            <p>${process.env.BASE_URL}/resetPassword/${token}</p>
         `
         }
 

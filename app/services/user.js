@@ -17,9 +17,9 @@ class UserService {
         });
     }
 
-    resetPasswordLink(userData, callBack) {
+    forgotPassword(userData, callBack) {
         console.log("Hello this is data", userData)
-        userModel.resetPassword(userData, (error, data) => {
+        userModel.forgotPassword(userData, (error, data) => {
             return ((error) ? callBack(error.null) : callBack(null, data));
         })
     }

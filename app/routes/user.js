@@ -5,14 +5,14 @@ const tokenCheck = require('../middleware/helper');
 module.exports = (app) => {
 
     //registration api POST request
-    app.post('/user/register', userController.registrationApi);
+    app.post('/register', userController.registrationApi);
 
     //login api POST request
-    app.post('/user/login', userController.loginApi);
+    app.post('/login', userController.loginApi);
 
     //sends password reset link
-    app.post('/user/passwordReset', userController.passwordResetLinkApi);
+    app.post('/forgotPassword', userController.forgotPasswordApi);
 
     //reset user password
-    // app.post('/user/password-reset/:userId/:token', );
+    app.post('/resetPassword/:userId/:token', userController.passwordResetApi);
 }

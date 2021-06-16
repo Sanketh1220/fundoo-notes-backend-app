@@ -8,7 +8,7 @@ class UserController {
      * @param {*} A valid req is expected
      * @param {*} res
      */
-    registrationApi(req, res) {
+    async registrationApi(req, res) {
         let dataValidation = userDataValidation.validate(req.body);
         if (dataValidation.error) {
             return res.status(400).send({
@@ -23,7 +23,7 @@ class UserController {
             password: req.body.password
         }
 
-        userService.createUserInfo(userData, (error, data) => {
+        await userService.createUserInfo(userData, (error, data) => {
             return ((error) ? res.status(500).send({success: false, message: "Some error occurred while registering user" }) : res.send({success: true, message: "User registered!", data: data}));
         });
     }
@@ -45,15 +45,30 @@ class UserController {
         })
     }
 
-    passwordResetLinkApi(req, res) {
+    forgotPasswordApi(req, res) {
         const userData = {
             email: req.body.email
         }
 
         console.log("Controller Data: ", userData)
-        userService.resetPasswordLink(userData, (error, data) => {
+        userService.forgotPassword(userData, (error, data) => {
             return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "Password reset link Sent to your email successfully!"}));
         })
+    }
+    
+    passwordResetApi(req, res) {
+        const userPassword = {
+            password: req.body.password,
+            confirmPassword: req.body.confirmPassword
+        }
+
+        if(userPassword.password == userPassword.confirmPassword) {
+            userService.resetPassword(userPassword, (error, data) => {
+                return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "Password reset link Sent to your email successfully!"}));
+            })
+        }else {
+            return res.status(500).send({message: "Please enter same password in both password and confirmPassword fields"});
+        }
     }
 }
 
