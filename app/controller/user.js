@@ -74,10 +74,10 @@ class UserController {
             password: req.body.password,
             confirmPassword: req.body.confirmPassword
         }
-        
-        const usertoken = req.headers.token;
+
+        const userToken = req.headers.token;
         if(userPassword.password == userPassword.confirmPassword) {
-            userService.resetPassword(userPassword, usertoken, (error, data) => {
+            userService.resetPassword(userPassword, userToken, (error, data) => {
                 return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "Password is changed successfully!"}));
             })
         }else {
