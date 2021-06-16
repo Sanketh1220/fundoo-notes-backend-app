@@ -46,6 +46,12 @@ class UserController {
         })
     }
 
+    /**
+    * @description this function handles the forgot password api to send link to user for resetting password
+    * @param {*} req 
+    * @param {*} res 
+    * @returns 
+    */
     forgotPasswordApi(req, res) {
         const userData = {
             email: req.body.email
@@ -57,6 +63,12 @@ class UserController {
         })
     }
     
+    /**
+    * @description this function handles reset password api where user can update his password into database
+    * @param {*} req 
+    * @param {*} res 
+    * @returns 
+    */
     passwordResetApi(req, res) {
         const userPassword = {
             password: req.body.password,
@@ -65,10 +77,6 @@ class UserController {
 
         const usertoken = req.headers.token;
         console.log(usertoken);
-
-        // const decoded = jwt.verify(usertoken, process.env.SECRET_TOKEN);
-        // console.log(decoded);
-        // console.log(decoded.email);
 
         if(userPassword.password == userPassword.confirmPassword) {
             userService.resetPassword(userPassword, usertoken, (error, data) => {

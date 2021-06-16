@@ -59,10 +59,16 @@ class HelperClass {
         }
     }
 
+    /**
+     * @description function written to verify and decode data from token
+     * @param {*} token 
+     * @returns decoded email of user
+     */
     getEmailFromToken(token){
         const decoded = jwt.verify(token, process.env.SECRET_TOKEN);
         console.log(decoded);
         console.log(decoded.email);
+        return decoded.email
     }
 }
 

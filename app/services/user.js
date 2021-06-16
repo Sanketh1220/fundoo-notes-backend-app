@@ -17,6 +17,11 @@ class UserService {
         });
     }
 
+    /**
+     * @description function created to login user
+     * @param {*} A valid userData is expected 
+     * @param {*} callBack 
+     */
     loginUser(userData, callBack) {
         const token = helperClass.generateAccessToken({userData});
 
@@ -31,21 +36,30 @@ class UserService {
         });
     }
 
+    /**
+     * @description function created to send forgot password link to user
+     * @param {*} A valid userData is expected 
+     * @param {*} callBack 
+     */
     forgotPassword(userData, callBack) {
         userModel.forgotPassword(userData, (error, data) => {
             return ((error) ? callBack(error.null) : callBack(null, data));
         })
     }
 
+    /**
+     * @description function created to update password of user
+     * @param {*} A valid userData is expected 
+     * @param {*} callBack 
+     */
     resetPassword(userData, token, callBack) {
         const email = helperClass.getEmailFromToken(token);
 
-        userModel.resetPassword(userData, (email, callBack) => {
+        userModel.resetPassword(userData, email, (error, data) => {
             if(error) {
-
                 callBack(error, null);
             }
-            return callBack(null, token);
+            return callBack(null, data);
         });
     }
 }

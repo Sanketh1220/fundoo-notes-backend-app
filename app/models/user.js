@@ -109,6 +109,11 @@ class UserModel {
         });
     }
 
+    /**
+     * @description function written to send reset password link to user 
+     * @param {*} A valid userData is expected
+     * @param {*} callBack 
+     */
     forgotPassword(userData, callBack) {
         console.log("Models", userData);
         try {
@@ -128,6 +133,11 @@ class UserModel {
         }
     }
 
+    /**
+     * @description function written to update password of user into database
+     * @param {*} A valid userData is expected
+     * @param {*} callBack 
+     */
     resetPassword(userData, email, callBack) {
         try {
             UserInfoModel.findByIdAndUpdate(email, {
