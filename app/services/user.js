@@ -17,13 +17,6 @@ class UserService {
         });
     }
 
-    forgotPassword(userData, callBack) {
-        console.log("Hello this is data", userData)
-        userModel.forgotPassword(userData, (error, data) => {
-            return ((error) ? callBack(error.null) : callBack(null, data));
-        })
-    }
-
     loginUser(userData, callBack) {
         const token = helperClass.generateAccessToken({userData});
 
@@ -33,6 +26,24 @@ class UserService {
             }
             else if(helperClass.bcryptDataCheck(userData.password, data.password)){
                 return callBack("Please enter correct password", error);
+            }
+            return callBack(null, token);
+        });
+    }
+
+    forgotPassword(userData, callBack) {
+        userModel.forgotPassword(userData, (error, data) => {
+            return ((error) ? callBack(error.null) : callBack(null, data));
+        })
+    }
+
+    resetPassword(userData, token, callBack) {
+        const email = helperClass.getEmailFromToken(token);
+
+        userModel.resetPassword(userData, (email, callBack) => {
+            if(error) {
+
+                callBack(error, null);
             }
             return callBack(null, token);
         });

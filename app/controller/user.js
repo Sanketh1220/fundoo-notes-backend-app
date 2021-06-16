@@ -1,4 +1,5 @@
 const userService = require('../services/user');
+const jwt = require('jsonwebtoken');
 
 const {userDataValidation} = require('../middleware/validation');
 
@@ -62,8 +63,15 @@ class UserController {
             confirmPassword: req.body.confirmPassword
         }
 
+        const usertoken = req.headers.token;
+        console.log(usertoken);
+
+        // const decoded = jwt.verify(usertoken, process.env.SECRET_TOKEN);
+        // console.log(decoded);
+        // console.log(decoded.email);
+
         if(userPassword.password == userPassword.confirmPassword) {
-            userService.resetPassword(userPassword, (error, data) => {
+            userService.resetPassword(userPassword, usertoken, (error, data) => {
                 return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "Password reset link Sent to your email successfully!"}));
             })
         }else {

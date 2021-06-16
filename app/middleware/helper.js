@@ -13,7 +13,7 @@ class HelperClass {
      */
     generateAccessToken(employeeData) {
         return jwt.sign(employeeData, SECRET_TOKEN, {
-            expiresIn: '3600s'
+            expiresIn: '36000s'
         });
     }
 
@@ -57,6 +57,12 @@ class HelperClass {
                 message: "Unauthorized User, Provide token to get authorized!"
             });
         }
+    }
+
+    getEmailFromToken(token){
+        const decoded = jwt.verify(token, process.env.SECRET_TOKEN);
+        console.log(decoded);
+        console.log(decoded.email);
     }
 }
 

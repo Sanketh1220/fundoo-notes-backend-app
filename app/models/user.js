@@ -127,6 +127,18 @@ class UserModel {
             console.log(error, "error Occurred")
         }
     }
+
+    resetPassword(userData, email, callBack) {
+        try {
+            UserInfoModel.findByIdAndUpdate(email, {
+                password: userData.password
+            }, {new : true}, (error, data) => {
+                return((error) ? (callBack(error, null)) : (callBack(null, data)));
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
 
 //exporting the class to utilize or call function created in this class

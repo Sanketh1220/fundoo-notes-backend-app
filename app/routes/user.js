@@ -14,5 +14,5 @@ module.exports = (app) => {
     app.post('/forgotPassword', userController.forgotPasswordApi);
 
     //reset user password
-    app.post('/resetPassword/:userId/:token', userController.passwordResetApi);
+    app.put('/resetPassword', userController.passwordResetApi);
 }
