@@ -31,18 +31,33 @@ class UserService {
      * @param {*} A valid userData is expected 
      * @param {*} callBack 
      */
-    loginUser(userData, callBack) {
-        const token = helperClass.generateAccessToken({userData});
+    // loginUser(userData, callBack) {
+    //     const token = helperClass.generateAccessToken({userData});
 
-        userModel.loginUser(userData, (error, data) => {
-            if (error) {
-                callBack(error, null);
+    //     userModel.loginUser(userData, (error, data) => {
+    //         if (error) {
+    //             callBack(error, null);
+    //         }
+    //         else if(helperClass.bcryptDataCheck(userData.password, data.password)){
+    //             return callBack("Please enter correct password", error);
+    //         }
+    //         return callBack(null, token);
+    //     });
+    // }
+
+    async loginUser(userData) {
+        try {
+            const token = helperClass.generateAccessToken({userData});
+            const loginUser = await userModel.loginUser(userData)
+            if(helperClass.bcryptDataCheck(userData.password, loginUser.password)){
+                return "Please enter correct password";
+            }else {
+            // console.log("token:   ", token);
+            return token;
             }
-            else if(helperClass.bcryptDataCheck(userData.password, data.password)){
-                return callBack("Please enter correct password", error);
-            }
-            return callBack(null, token);
-        });
+        } catch (error) {
+            return error;
+        }
     }
 
     /**

@@ -59,15 +59,32 @@ class UserController {
     * @param {*} res 
     * @returns 
     */
-    loginApi(req, res) {
-        const userData = {
-            email: req.body.email,
-            password: req.body.password
-        }
+    // loginApi(req, res) {
+    //     const userData = {
+    //         email: req.body.email,
+    //         password: req.body.password
+    //     }
 
-        userService.loginUser(userData, (error, token) => {
-            return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "User login successful!", token: token}));
-        })
+    //     userService.loginUser(userData, (error, token) => {
+    //         return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "User login successful!", token: token}));
+    //     })
+    // }
+
+    async loginApi(req, res) {
+        try {
+            const userData = {
+                email: req.body.email,
+                password: req.body.password
+            }
+            const loginUser = await userService.loginUser(userData)
+            if(loginUser.length < 30){
+                res.status(401).send({message: loginUser });
+            }   
+            res.send({success: true, message: "User login successful!", token: loginUser});
+        }catch (error) {
+            console.log(error);
+            res.status(500).send({success: false, message: "Some error occurred while logging user" });
+        }
     }
 
     /**

@@ -109,17 +109,32 @@ class UserModel {
      * @param {*} A valid userData is expected
      * @param {*} callBack 
      */
-    loginUser(userData, callBack) {
-        UserInfoModel.findOne({
-            'email': userData.email
-        }, (error, data) => {
-            if (error) {
-                return callBack(error, null);
-            } else if (!data) {
-                return callBack("This user doesn't exist! Please register.", null);
+    // loginUser(userData, callBack) {
+    //     UserInfoModel.findOne({
+    //         'email': userData.email
+    //     }, (error, data) => {
+    //         if (error) {
+    //             return callBack(error, null);
+    //         } else if (!data) {
+    //             return callBack("This user doesn't exist! Please register.", null);
+    //         }
+    //         return callBack(null, data);
+    //     });
+    // }
+
+    async loginUser(userData) {
+        try {
+            const loginUser = await UserInfoModel.findOne({'email': userData.email});
+            // console.log("Models login User Data 1:   ", loginUser);
+            if(!loginUser) {
+                return "This user doesn't exist! Please register.";
+            }else {
+            // console.log("Models login User Data", loginUser);
+            return loginUser;
             }
-            return callBack(null, data);
-        });
+        } catch (error) {
+            return error;
+        }
     }
 
     /**

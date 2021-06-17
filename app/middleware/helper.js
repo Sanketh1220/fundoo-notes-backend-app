@@ -11,8 +11,8 @@ class HelperClass {
      * @param {*} A valid employeeData is expected
      * @returns 
      */
-    generateAccessToken(employeeData) {
-        return jwt.sign(employeeData, SECRET_TOKEN, {
+    generateAccessToken(userData) {
+        return jwt.sign(userData, SECRET_TOKEN, {
             expiresIn: '36000s'
         });
     }
