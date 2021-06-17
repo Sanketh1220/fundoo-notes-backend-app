@@ -99,6 +99,7 @@ class UserModel {
             const userSaved = await user.save({});
             console.log(userSaved);
             return userSaved;
+            sendEmail.sendRegistrationEmail(userData);
         } catch (error) {
             return error;
         }

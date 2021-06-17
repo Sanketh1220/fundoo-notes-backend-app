@@ -22,16 +22,15 @@ class MailGun {
         })
     }
 
-    sendActivationLink(userData) {
-        const token = generateAccessToken(userData);
+    sendRegistrationEmail(userData) {
 
         const data = {
             from: 'noreply@fundooNotes.com',
             to: userData.email,
-            subject: "Account activation link",
+            subject: "Registration Successful",
             html: `
-            <h2>Please click on the link given below to activate your account</h2>
-            <p>${process.env.BASE_URL}/authentication/activate/${token}</p>
+            <h1>Fundoo Notes</h1>
+            <h2>Thank you registering with Fundoo Notes App!</h2>
         `
         }
 
