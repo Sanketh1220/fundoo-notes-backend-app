@@ -1,6 +1,6 @@
 const userService = require('../services/user');
 
-const {userDataValidation, userLoginData} = require('../middleware/validation');
+const {userDataValidation, userLoginData, userForgotPasswordData} = require('../middleware/validation');
 
 class UserController {
     /**
@@ -68,6 +68,12 @@ class UserController {
     */
     async forgotPasswordApi(req, res) {
         try {
+            let dataValidation = userForgotPasswordData.validate(req.body);
+            if (dataValidation.error) {
+                return res.status(400).send({
+                    message: dataValidation.error.details[0].message
+                });
+            }
             const userData = {
                 email: req.body.email
             }

@@ -80,7 +80,7 @@
     },
 
     "userLoginNegEmail": {
-        "email": "kamalesh.gandhi@gmailom",
+        "email": "kamalesh.gandhi@gmail",
         "password": "Kamalesh@123"
     },
 
@@ -89,9 +89,14 @@
         "message": "This user doesn't exist! Please register."
     },
 
+    "userLoginEmpPassword": {
+        "email": "sanketh.babbur11@gmail.com",
+        "password": ""
+    },
+
     "userLoginNegPassword": {
-        "email": "kamalesh.gandhi@gmail.com",
-        "password": "Kamalesh@13"
+        "email": "sanketh.babbur11@gmail.com",
+        "password": "MyNewPassword@2"
     },
 
     "userLoginNegPasswordRes": {

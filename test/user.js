@@ -119,7 +119,7 @@ describe('POST /register', () => {
             });
     });
 
-    it('givenInvalidEmailItShould_makePOSTRequestToLoginUser_andReturnTokenAndStatusCodeAs200', (done) => {
+    it('givenInvalidEmailItShould_failToMakePOSTRequestToLoginUser_andReturnsStatusCodeAs400', (done) => {
         let userData = userInputs.userLoginNegEmail;
         chai.request(server)
             .post('/login')
@@ -128,6 +128,38 @@ describe('POST /register', () => {
                 res.should.have.status(400);
                 res.body.should.be.a('object');
                 res.body.should.have.property("message").eql("\"email\" must be a valid email");
+                if (error) {
+                    return done(error);
+                }
+                done();
+            });
+    });
+
+    it('givenEmptyStringInPasswordItShould_failToMakePOSTRequestToLoginUser_andReturnsStatusCodeAs400', (done) => {
+        let userData = userInputs.userLoginEmpPassword;
+        chai.request(server)
+            .post('/login')
+            .send(userData)
+            .end((error, res) => {
+                res.should.have.status(400);
+                res.body.should.be.a('object');
+                res.body.should.have.property("message").eql("\"password\" is not allowed to be empty");
+                if (error) {
+                    return done(error);
+                }
+                done();
+            });
+    });
+
+    it('givenIncorrectPasswordItShould_failToMakePOSTRequestToLoginUser_andReturnsStatusCodeAs401', (done) => {
+        let userData = userInputs.userLoginNegPassword;
+        chai.request(server)
+            .post('/login')
+            .send(userData)
+            .end((error, res) => {
+                res.should.have.status(401);
+                res.body.should.be.a('object');
+                res.body.should.have.property("message").eql("Please enter correct password");
                 if (error) {
                     return done(error);
                 }
