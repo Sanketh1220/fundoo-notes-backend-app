@@ -143,22 +143,38 @@ class UserModel {
      * @param {*} A valid userData is expected
      * @param {*} callBack 
      */
-    forgotPassword(userData, callBack) {
-        console.log("Models", userData);
+    // forgotPassword(userData, callBack) {
+    //     console.log("Models", userData);
+    //     try {
+    //         const user = UserInfoModel.findOne({
+    //             email: userData.email
+    //         });
+
+    //         if (!user) {
+    //             return callBack("user with given email doesn't exist", null);
+    //         }
+
+    //         sendEmail.sendPasswordResetLink(userData);
+
+    //         return callBack(null, "Password reset link sent to your email account");
+    //     } catch (error) {
+    //         console.log(error, "error Occurred")
+    //     }
+    // }
+
+    async forgotPassword(userData) {
         try {
-            const user = UserInfoModel.findOne({
-                email: userData.email
-            });
+            console.log("Models", userData);
+            const user = await UserInfoModel.findOne({email: userData.email});
 
             if (!user) {
-                return callBack("user with given email doesn't exist", null);
+                return "User with given email doesn't exist!";
             }
 
             sendEmail.sendPasswordResetLink(userData);
-
-            return callBack(null, "Password reset link sent to your email account");
+            return "Password reset link sent to your email account!";
         } catch (error) {
-            console.log(error, "error Occurred")
+            return error;
         }
     }
 

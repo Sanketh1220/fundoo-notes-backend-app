@@ -93,15 +93,30 @@ class UserController {
     * @param {*} res 
     * @returns 
     */
-    forgotPasswordApi(req, res) {
-        const userData = {
-            email: req.body.email
-        }
+    // forgotPasswordApi(req, res) {
+    //     const userData = {
+    //         email: req.body.email
+    //     }
 
-        console.log("Controller Data: ", userData)
-        userService.forgotPassword(userData, (error, data) => {
-            return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "Password reset link Sent to your email successfully!"}));
-        })
+    //     console.log("Controller Data: ", userData)
+    //     userService.forgotPassword(userData, (error, data) => {
+    //         return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "Password reset link Sent to your email successfully!"}));
+    //     })
+    // }
+
+    async forgotPasswordApi(req, res) {
+        try {
+            const userData = {
+                email: req.body.email
+            }
+            const forgotPassword = await userService.forgotPassword(userData);
+            if(forgotPassword == "User with given email doesn't exist!") {
+                return res.status(404).send({message: forgotPassword});
+            }
+            return res.send({success: true, message: forgotPassword});
+        } catch (error) {
+            return res.status(500).send({message: error});
+        }
     }
     
     /**

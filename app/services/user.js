@@ -65,10 +65,19 @@ class UserService {
      * @param {*} A valid userData is expected 
      * @param {*} callBack 
      */
-    forgotPassword(userData, callBack) {
-        userModel.forgotPassword(userData, (error, data) => {
-            return ((error) ? callBack(error.null) : callBack(null, data));
-        })
+    // forgotPassword(userData, callBack) {
+    //     userModel.forgotPassword(userData, (error, data) => {
+    //         return ((error) ? callBack(error.null) : callBack(null, data));
+    //     })
+    // }
+
+    async forgotPassword(userData) {
+        try {
+            const forgotPassword = userModel.forgotPassword(userData)
+            return forgotPassword;
+        } catch (error) {
+            return error;
+        }
     }
 
     /**
