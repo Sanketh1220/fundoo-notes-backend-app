@@ -183,27 +183,24 @@ class UserModel {
      * @param {*} A valid userData is expected
      * @param {*} callBack 
      */
-    resetPassword(userData, email, callBack) {
+    // 
+    
+    async resetPassword(userData, email) {
         try {
             const salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
             const hashPassword = bcrypt.hashSync(userData.password, salt);
     
-            UserInfoModel.findOne({'email': email}, (err, data) => {
-                const myData = data;
-                console.log("myData at models", myData);
-                if(err) {
-                    console.log(err)
-                }
-                UserInfoModel.findByIdAndUpdate(myData.id, {
-                    firstName: myData.firstName,
-                    lastName: myData.lastName,
-                    email: myData.email,
-                    password: hashPassword
-                }, {new : true}, (error, data) => {
-                        return((error) ? (callBack(error, null)) : (callBack(null, data)));
-                });
-                sendEmail.sendSuccessEmail(myData); 
-            });
+            const resetPasswordData = await UserInfoModel.findOne({'email': email})
+                // const myData = resetPasswordData;
+            console.log("myData at models", resetPasswordData);
+            const updatedPassword = await UserInfoModel.findByIdAndUpdate(resetPasswordData.id, {
+                firstName: resetPasswordData.firstName,
+                lastName: resetPasswordData.lastName,
+                email: resetPasswordData.email,
+                password: hashPassword
+            }, {new : true})
+            return updatedPassword;
+            sendEmail.sendSuccessEmail(resetPasswordData);
         } catch (error) {
             console.log(error);
         }

@@ -125,20 +125,40 @@ class UserController {
     * @param {*} res 
     * @returns 
     */
-    passwordResetApi(req, res) {
-        const userPassword = {
-            password: req.body.password,
-            confirmPassword: req.body.confirmPassword
-        }
+    // passwordResetApi(req, res) {
+    //     const userPassword = {
+    //         password: req.body.password,
+    //         confirmPassword: req.body.confirmPassword
+    //     }
 
-        const userToken = req.headers.auth;
-        console.log(userToken);
-        if(userPassword.password == userPassword.confirmPassword) {
-            userService.resetPassword(userPassword, userToken, (error, data) => {
-                return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "Password is changed successfully!"}));
-            })
-        }else {
-            return res.status(500).send({message: "Please enter same password in both password and confirmPassword fields"});
+    //     const userToken = req.headers.auth;
+    //     console.log(userToken);
+    //     if(userPassword.password == userPassword.confirmPassword) {
+    //         userService.resetPassword(userPassword, userToken, (error, data) => {
+    //             return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "Password is changed successfully!"}));
+    //         })
+    //     }else {
+    //         return res.status(500).send({message: "Please enter same password in both password and confirmPassword fields"});
+    //     }
+    // }
+
+    async passwordResetApi(req, res) {
+        try {
+            const userPassword = {
+                password: req.body.password,
+                confirmPassword: req.body.confirmPassword
+            }
+    
+            const userToken = req.headers.auth;
+            console.log(userToken);
+            if(userPassword.password == userPassword.confirmPassword) {
+                const resetPassword = await userService.resetPassword(userPassword, userToken);
+                return res.send({success: true, message: "Password is changed successfully!"});
+            }else {
+                return res.status(500).send({message: "Please enter same password in both password and confirmPassword fields"});
+            }
+        } catch (error) {
+            res.status(500).send({message: error})
         }
     }
 }
