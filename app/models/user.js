@@ -71,21 +71,6 @@ class UserModel {
      * @param {*} A valid userData is expected
      * @param {*} callBack 
      */
-    // createInfo(userData, callBack) {
-    //     const user = new UserInfoModel({
-    //         firstName: userData.firstName,
-    //         lastName: userData.lastName,
-    //         email: userData.email,
-    //         password: userData.password
-    //     });
-
-    //     console.log('models user data', user);
-    //     user.save({}, (error, data) => {
-    //         return ((error) ? (callBack(error, null)) : (callBack(null, data)));
-    //     })
-    //     // sendEmail.sendActivationLink(userData);
-    // }
-
     async createInfo(userData) {
         try {
             const user = new UserInfoModel({
@@ -95,9 +80,7 @@ class UserModel {
                 password: userData.password
             });
     
-            console.log('models user data', user);
             const userSaved = await user.save({});
-            console.log(userSaved);
             return userSaved;
             sendEmail.sendRegistrationEmail(userData);
         } catch (error) {
@@ -110,27 +93,12 @@ class UserModel {
      * @param {*} A valid userData is expected
      * @param {*} callBack 
      */
-    // loginUser(userData, callBack) {
-    //     UserInfoModel.findOne({
-    //         'email': userData.email
-    //     }, (error, data) => {
-    //         if (error) {
-    //             return callBack(error, null);
-    //         } else if (!data) {
-    //             return callBack("This user doesn't exist! Please register.", null);
-    //         }
-    //         return callBack(null, data);
-    //     });
-    // }
-
     async loginUser(userData) {
         try {
             const loginUser = await UserInfoModel.findOne({'email': userData.email});
-            // console.log("Models login User Data 1:   ", loginUser);
             if(!loginUser) {
                 return "This user doesn't exist! Please register.";
             }else {
-            // console.log("Models login User Data", loginUser);
             return loginUser;
             }
         } catch (error) {
@@ -143,25 +111,6 @@ class UserModel {
      * @param {*} A valid userData is expected
      * @param {*} callBack 
      */
-    // forgotPassword(userData, callBack) {
-    //     console.log("Models", userData);
-    //     try {
-    //         const user = UserInfoModel.findOne({
-    //             email: userData.email
-    //         });
-
-    //         if (!user) {
-    //             return callBack("user with given email doesn't exist", null);
-    //         }
-
-    //         sendEmail.sendPasswordResetLink(userData);
-
-    //         return callBack(null, "Password reset link sent to your email account");
-    //     } catch (error) {
-    //         console.log(error, "error Occurred")
-    //     }
-    // }
-
     async forgotPassword(userData) {
         try {
             console.log("Models", userData);
@@ -183,8 +132,6 @@ class UserModel {
      * @param {*} A valid userData is expected
      * @param {*} callBack 
      */
-    // 
-    
     async resetPassword(userData, email) {
         try {
             const salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
@@ -192,7 +139,6 @@ class UserModel {
     
             const resetPasswordData = await UserInfoModel.findOne({'email': email})
                 // const myData = resetPasswordData;
-            console.log("myData at models", resetPasswordData);
             const updatedPassword = await UserInfoModel.findByIdAndUpdate(resetPasswordData.id, {
                 firstName: resetPasswordData.firstName,
                 lastName: resetPasswordData.lastName,
@@ -202,7 +148,7 @@ class UserModel {
             return updatedPassword;
             sendEmail.sendSuccessEmail(resetPasswordData);
         } catch (error) {
-            console.log(error);
+            return error;
         }
     }
 }

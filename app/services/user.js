@@ -11,12 +11,6 @@ class UserService {
      * @param {*} A valid userData is expected 
      * @param {*} callBack 
      */
-    // createUserInfo(userData, callBack) {
-    //     userModel.createInfo(userData, (error, data) => {
-    //         return ((error) ? callBack(error.null) : callBack(null, data)); 
-    //     });
-    // }
-
     async createUserInfo(userData) {
         try {
             const createdUser = userModel.createInfo(userData)
@@ -31,20 +25,6 @@ class UserService {
      * @param {*} A valid userData is expected 
      * @param {*} callBack 
      */
-    // loginUser(userData, callBack) {
-    //     const token = helperClass.generateAccessToken({userData});
-
-    //     userModel.loginUser(userData, (error, data) => {
-    //         if (error) {
-    //             callBack(error, null);
-    //         }
-    //         else if(helperClass.bcryptDataCheck(userData.password, data.password)){
-    //             return callBack("Please enter correct password", error);
-    //         }
-    //         return callBack(null, token);
-    //     });
-    // }
-
     async loginUser(userData) {
         try {
             const token = helperClass.generateAccessToken({userData});
@@ -65,12 +45,6 @@ class UserService {
      * @param {*} A valid userData is expected 
      * @param {*} callBack 
      */
-    // forgotPassword(userData, callBack) {
-    //     userModel.forgotPassword(userData, (error, data) => {
-    //         return ((error) ? callBack(error.null) : callBack(null, data));
-    //     })
-    // }
-
     async forgotPassword(userData) {
         try {
             const forgotPassword = userModel.forgotPassword(userData)
@@ -85,22 +59,10 @@ class UserService {
      * @param {*} A valid userData is expected 
      * @param {*} callBack 
      */
-    // resetPassword(userData, token, callBack) {
-    //     const email = helperClass.getEmailFromToken(token);
-
-    //     userModel.resetPassword(userData, email, (error, data) => {
-    //         if(error) {
-    //             callBack(error, null);
-    //         }
-    //         return callBack(null, data);
-    //     });
-    // }
-
     async resetPassword(userData, token) {
         try {
             const email = helperClass.getEmailFromToken(token);
             const resetPassword = await userModel.resetPassword(userData, email);
-            console.log("resetPassword in services", resetPassword);
             return resetPassword;
         } catch (error) {
             return error;

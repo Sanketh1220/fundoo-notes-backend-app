@@ -9,26 +9,6 @@ class UserController {
      * @param {*} A valid req is expected
      * @param {*} res
      */
-    // registrationApi(req, res) {
-    //     let dataValidation = userDataValidation.validate(req.body);
-    //     if (dataValidation.error) {
-    //         return res.status(400).send({
-    //             message: dataValidation.error.details[0].message
-    //         });
-    //     }
-
-    //     const userData = {
-    //         firstName: req.body.firstName,
-    //         lastName: req.body.lastName,
-    //         email: req.body.email,
-    //         password: req.body.password
-    //     }
-
-    //     userService.createUserInfo(userData, (error, data) => {
-    //         return ((error) ? res.status(500).send({success: false, message: "Some error occurred while registering user" }) : res.send({success: true, message: "User registered!", data: data}));
-    //     });
-    // }
-
     async registrationApi(req, res) {
         try {
             let dataValidation = userDataValidation.validate(req.body);
@@ -37,7 +17,6 @@ class UserController {
                     message: dataValidation.error.details[0].message
                 });
             }
-
             const userData = {
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
@@ -59,17 +38,6 @@ class UserController {
     * @param {*} res 
     * @returns 
     */
-    // loginApi(req, res) {
-    //     const userData = {
-    //         email: req.body.email,
-    //         password: req.body.password
-    //     }
-
-    //     userService.loginUser(userData, (error, token) => {
-    //         return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "User login successful!", token: token}));
-    //     })
-    // }
-
     async loginApi(req, res) {
         try {
             const userData = {
@@ -93,17 +61,6 @@ class UserController {
     * @param {*} res 
     * @returns 
     */
-    // forgotPasswordApi(req, res) {
-    //     const userData = {
-    //         email: req.body.email
-    //     }
-
-    //     console.log("Controller Data: ", userData)
-    //     userService.forgotPassword(userData, (error, data) => {
-    //         return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "Password reset link Sent to your email successfully!"}));
-    //     })
-    // }
-
     async forgotPasswordApi(req, res) {
         try {
             const userData = {
@@ -125,30 +82,12 @@ class UserController {
     * @param {*} res 
     * @returns 
     */
-    // passwordResetApi(req, res) {
-    //     const userPassword = {
-    //         password: req.body.password,
-    //         confirmPassword: req.body.confirmPassword
-    //     }
-
-    //     const userToken = req.headers.auth;
-    //     console.log(userToken);
-    //     if(userPassword.password == userPassword.confirmPassword) {
-    //         userService.resetPassword(userPassword, userToken, (error, data) => {
-    //             return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "Password is changed successfully!"}));
-    //         })
-    //     }else {
-    //         return res.status(500).send({message: "Please enter same password in both password and confirmPassword fields"});
-    //     }
-    // }
-
     async passwordResetApi(req, res) {
         try {
             const userPassword = {
                 password: req.body.password,
                 confirmPassword: req.body.confirmPassword
             }
-    
             const userToken = req.headers.auth;
             console.log(userToken);
             if(userPassword.password == userPassword.confirmPassword) {
