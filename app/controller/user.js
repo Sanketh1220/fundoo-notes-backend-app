@@ -1,5 +1,4 @@
 const userService = require('../services/user');
-const jwt = require('jsonwebtoken');
 
 const {userDataValidation} = require('../middleware/validation');
 
