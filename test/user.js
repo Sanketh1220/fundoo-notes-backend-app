@@ -98,7 +98,7 @@ describe('POST /register', () => {
 
 /**
  * /POST request test
- * Positive and Negative - Registration of User Testing
+ * Positive and Negative - Login of User Testing
  */
  describe('POST /login', () => {
     it('givenValidDataItShould_makePOSTRequestToLoginUser_andReturnTokenAndStatusCodeAs200', (done) => {
@@ -160,6 +160,61 @@ describe('POST /register', () => {
                 res.should.have.status(401);
                 res.body.should.be.a('object');
                 res.body.should.have.property("message").eql("Please enter correct password");
+                if (error) {
+                    return done(error);
+                }
+                done();
+            });
+    });
+});
+
+/**
+ * /POST request test
+ * Positive and Negative - Forgot Password of User Testing
+ */
+ describe('POST /forgotPassword', () => {
+    it('givenValidDataItShould_makePOSTRequestToSendEmailToUserEmail_andReturnTokenAndStatusCodeAs200', (done) => {
+        let userData = userInputs.userForgotPasswordPos;
+        chai.request(server)
+            .post('/forgotPassword')
+            .send(userData)
+            .end((error, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property("success").eql(true);
+                res.body.should.have.property("message").eql("Password reset link sent to your email account!");
+                if (error) {
+                    return done(error);
+                }
+                done();
+            });
+    });
+
+    it('givenInvalidEmailItShould_failToMakePOSTRequestToSendEmailToUserEmail_andReturnsStatusCodeAs400', (done) => {
+        let userData = userInputs.userForgotPasswordNegEmail;
+        chai.request(server)
+            .post('/forgotPassword')
+            .send(userData)
+            .end((error, res) => {
+                res.should.have.status(400);
+                res.body.should.be.a('object');
+                res.body.should.have.property("message").eql("\"email\" must be a valid email");
+                if (error) {
+                    return done(error);
+                }
+                done();
+            });
+    });
+
+    it('givenValidEmail_WhoIsNotRegisteredItShould_failToMakePOSTRequestToSendEmailToUserEmail_andReturnsStatusCodeAs404', (done) => {
+        let userData = userInputs.userForgotPasswordNegNonRegistered;
+        chai.request(server)
+            .post('/forgotPassword')
+            .send(userData)
+            .end((error, res) => {
+                res.should.have.status(404);
+                res.body.should.be.a('object');
+                res.body.should.have.property("message").eql("User with given email doesn't exist!");
                 if (error) {
                     return done(error);
                 }

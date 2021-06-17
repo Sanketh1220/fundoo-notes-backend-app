@@ -102,5 +102,17 @@
     "userLoginNegPasswordRes": {
         "statusCode": 500,
         "message": "Please enter correct password"
+    },
+
+    "userForgotPasswordPos": {
+        "email": "sanketh.babbur11@gmail.com"
+    },
+
+    "userForgotPasswordNegEmail": {
+        "email": "sanketh.babbur11@gmail"
+    },
+
+    "userForgotPasswordNegNonRegistered": {
+        "email": "sanketh.babbur@gmail.com"
     }
 }
