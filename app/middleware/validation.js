@@ -7,5 +7,10 @@ const userDataValidation = joi.object({
     password: joi.string().min(8).max(28).required()
 });
 
+const userLoginData = joi.object({
+    email: joi.string().email().required().pattern(new RegExp("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$")),
+    password: joi.string().required()
+});
+
 //exporting object
-module.exports = {userDataValidation};
+module.exports = {userDataValidation, userLoginData};

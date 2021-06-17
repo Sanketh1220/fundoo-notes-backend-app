@@ -4,7 +4,7 @@
   "description": "fundoo notes api",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --timeout 10000",
+    "test": "nyc mocha",
     "start": "nodemon server.js"
   },
   "repository": {
@@ -27,7 +27,7 @@
     "express-joi-validation": "^5.0.0",
     "joi-validator": "^0.0.7",
     "jsonwebtoken": "^8.5.1",
-    "mailgun-js": "^0.22.0",
+    "mailgun-js": "^0.6.7",
     "mongoose": "^5.12.13",
     "nodemailer": "^6.6.1",
     "npm": "^7.17.0",
@@ -40,6 +40,7 @@
     "chai-http": "^4.3.0",
     "mocha": "^9.0.0",
     "nodemon": "^2.0.7",
+    "nyc": "^15.1.0",
     "should": "^13.2.3"
   }
 }

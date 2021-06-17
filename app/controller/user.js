@@ -1,6 +1,6 @@
 const userService = require('../services/user');
 
-const {userDataValidation} = require('../middleware/validation');
+const {userDataValidation, userLoginData} = require('../middleware/validation');
 
 class UserController {
     /**
@@ -39,6 +39,12 @@ class UserController {
     */
     async loginApi(req, res) {
         try {
+            let dataValidation = userLoginData.validate(req.body);
+            if (dataValidation.error) {
+                return res.status(400).send({
+                    message: dataValidation.error.details[0].message
+                });
+            }
             const userData = {
                 email: req.body.email,
                 password: req.body.password
