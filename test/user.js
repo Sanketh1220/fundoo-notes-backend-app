@@ -222,3 +222,26 @@ describe('POST /register', () => {
             });
     });
 });
+
+/**
+ * /PUT request test
+ * Positive and Negative - Reset Password of User Testing
+ */
+//  describe('POST /resetPassword', () => {
+//     it('givenDifferentPasswords_inPasswordAndConfirmFieldsItShould_failToMakePOSTRequestToSendEmailToUserEmail_andReturnsStatusCodeAs400', (done) => {
+//         let userData = userInputs.userResetPasswordNeg;
+//         chai.request(server)
+//             .post('/resetPassword')
+//             .send(userData)
+//             .end((error, res) => {
+//                 res.should.have.status(404);
+//                 res.body.should.be.a('object');
+//                 res.body.should.have.property("message").eql("Please enter same password in both password and confirmPassword fields");
+//                 if (error) {
+//                     return done(error);
+//                 }
+//                 done();
+//             });
+//     });
+// });
+

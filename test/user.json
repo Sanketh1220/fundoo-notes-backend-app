@@ -114,5 +114,15 @@
 
     "userForgotPasswordNegNonRegistered": {
         "email": "sanketh.babbur@gmail.com"
+    },
+
+    "userResetPasswordPos": {
+        "password": "MyNewestPassword@11",
+        "confirmPassword": "MyNewestPassword@11"
+    },
+
+    "userResetPasswordNeg": {
+        "password": "MyNewestPassword@11",
+        "confirmPassword": "MyNewestPas@11"
     }
 }

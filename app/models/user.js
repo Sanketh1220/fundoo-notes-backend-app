@@ -79,10 +79,10 @@ class UserModel {
                 email: userData.email,
                 password: userData.password
             });
-    
+            
             const userSaved = await user.save({});
-            return userSaved;
             sendEmail.sendRegistrationEmail(userData);
+            return userSaved;
         } catch (error) {
             return error;
         }
@@ -138,15 +138,14 @@ class UserModel {
             const hashPassword = bcrypt.hashSync(userData.password, salt);
     
             const resetPasswordData = await UserInfoModel.findOne({'email': email})
-                // const myData = resetPasswordData;
             const updatedPassword = await UserInfoModel.findByIdAndUpdate(resetPasswordData.id, {
                 firstName: resetPasswordData.firstName,
                 lastName: resetPasswordData.lastName,
                 email: resetPasswordData.email,
                 password: hashPassword
             }, {new : true})
-            return updatedPassword;
             sendEmail.sendSuccessEmail(resetPasswordData);
+            return updatedPassword;
         } catch (error) {
             return error;
         }
