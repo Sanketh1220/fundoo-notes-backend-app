@@ -9,24 +9,48 @@ class UserController {
      * @param {*} A valid req is expected
      * @param {*} res
      */
+    // registrationApi(req, res) {
+    //     let dataValidation = userDataValidation.validate(req.body);
+    //     if (dataValidation.error) {
+    //         return res.status(400).send({
+    //             message: dataValidation.error.details[0].message
+    //         });
+    //     }
+
+    //     const userData = {
+    //         firstName: req.body.firstName,
+    //         lastName: req.body.lastName,
+    //         email: req.body.email,
+    //         password: req.body.password
+    //     }
+
+    //     userService.createUserInfo(userData, (error, data) => {
+    //         return ((error) ? res.status(500).send({success: false, message: "Some error occurred while registering user" }) : res.send({success: true, message: "User registered!", data: data}));
+    //     });
+    // }
+
     async registrationApi(req, res) {
-        let dataValidation = userDataValidation.validate(req.body);
-        if (dataValidation.error) {
-            return res.status(400).send({
-                message: dataValidation.error.details[0].message
-            });
-        }
+        try {
+            let dataValidation = userDataValidation.validate(req.body);
+            if (dataValidation.error) {
+                return res.status(400).send({
+                    message: dataValidation.error.details[0].message
+                });
+            }
 
-        const userData = {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
-            password: req.body.password
+            const userData = {
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                email: req.body.email,
+                password: req.body.password
+            }
+            const userCreated = await userService.createUserInfo(userData);
+            res.send({success: true, message: "User registered!", data: userCreated});
+            
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({success: false, message: "Some error occurred while registering user" });
         }
-
-        await userService.createUserInfo(userData, (error, data) => {
-            return ((error) ? res.status(500).send({success: false, message: "Some error occurred while registering user" }) : res.send({success: true, message: "User registered!", data: data}));
-        });
     }
 
     /**
@@ -75,7 +99,8 @@ class UserController {
             confirmPassword: req.body.confirmPassword
         }
 
-        const userToken = req.headers.token;
+        const userToken = req.headers.auth;
+        console.log(userToken);
         if(userPassword.password == userPassword.confirmPassword) {
             userService.resetPassword(userPassword, userToken, (error, data) => {
                 return ((error) ? res.status(500).send({message: error}) : res.send({success: true, message: "Password is changed successfully!"}));

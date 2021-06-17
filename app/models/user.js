@@ -71,19 +71,37 @@ class UserModel {
      * @param {*} A valid userData is expected
      * @param {*} callBack 
      */
-    createInfo(userData, callBack) {
-        const user = new UserInfoModel({
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-            email: userData.email,
-            password: userData.password
-        });
+    // createInfo(userData, callBack) {
+    //     const user = new UserInfoModel({
+    //         firstName: userData.firstName,
+    //         lastName: userData.lastName,
+    //         email: userData.email,
+    //         password: userData.password
+    //     });
 
-        console.log('models user data', user);
-        user.save({}, (error, data) => {
-            return ((error) ? (callBack(error, null)) : (callBack(null, data)));
-        })
-        // sendEmail.sendActivationLink(userData);
+    //     console.log('models user data', user);
+    //     user.save({}, (error, data) => {
+    //         return ((error) ? (callBack(error, null)) : (callBack(null, data)));
+    //     })
+    //     // sendEmail.sendActivationLink(userData);
+    // }
+
+    async createInfo(userData) {
+        try {
+            const user = new UserInfoModel({
+                firstName: userData.firstName,
+                lastName: userData.lastName,
+                email: userData.email,
+                password: userData.password
+            });
+    
+            console.log('models user data', user);
+            const userSaved = await user.save({});
+            console.log(userSaved);
+            return userSaved;
+        } catch (error) {
+            return error;
+        }
     }
 
     /**

@@ -11,10 +11,19 @@ class UserService {
      * @param {*} A valid userData is expected 
      * @param {*} callBack 
      */
-    createUserInfo(userData, callBack) {
-        userModel.createInfo(userData, (error, data) => {
-            return ((error) ? callBack(error.null) : callBack(null, data)); 
-        });
+    // createUserInfo(userData, callBack) {
+    //     userModel.createInfo(userData, (error, data) => {
+    //         return ((error) ? callBack(error.null) : callBack(null, data)); 
+    //     });
+    // }
+
+    async createUserInfo(userData) {
+        try {
+            const createdUser = userModel.createInfo(userData)
+            return createdUser;
+        }catch (error) {
+            return error;
+        }
     }
 
     /**
