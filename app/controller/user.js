@@ -101,7 +101,10 @@ class UserController {
                 confirmPassword: req.body.confirmPassword
             }
             const userToken = req.headers.token;
-            if(userPassword.password == userPassword.confirmPassword) {
+            if(!req.headers.token) {
+                return res.status(500).send({message: "Please get token!"});
+            }
+            else if(userPassword.password == userPassword.confirmPassword) {
                 const resetPassword = await userService.resetPassword(userPassword, userToken);
                 return res.send({success: true, message: "Password is changed successfully!"});
             }else {
