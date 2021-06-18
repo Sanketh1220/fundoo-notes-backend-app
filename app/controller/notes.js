@@ -37,7 +37,7 @@ class NotesController {
                 description: req.body.description
             }
             const notesCreated = await notesService.createNotes(notesData);
-            res.send({success: true, message: "User registered!", data: notesCreated});
+            res.send({success: true, message: "Notes Created!", data: notesCreated});
         } catch (error) {
             console.log(error);
             res.status(500).send({success: false, message: "Some error occurred while creating notes" });
