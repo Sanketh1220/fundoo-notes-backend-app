@@ -1,8 +1,15 @@
 const notesService = require('../services/notes');
+const {notesCreationValidation} = require('../middleware/validation');
 
 class NotesController {
     async createNotesApi(req, res) {
         try {
+            let dataValidation = notesCreationValidation.validate(req.body);
+            if (dataValidation.error) {
+                return res.status(400).send({
+                    message: dataValidation.error.details[0].message
+                });
+            }
             const notesData = {
                 title: req.body.title,
                 description: req.body.description
