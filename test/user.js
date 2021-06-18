@@ -227,21 +227,59 @@ describe('POST /register', () => {
  * /PUT request test
  * Positive and Negative - Reset Password of User Testing
  */
-//  describe('POST /resetPassword', () => {
-//     it('givenDifferentPasswords_inPasswordAndConfirmFieldsItShould_failToMakePOSTRequestToSendEmailToUserEmail_andReturnsStatusCodeAs400', (done) => {
-//         let userData = userInputs.userResetPasswordNeg;
-//         chai.request(server)
-//             .post('/resetPassword')
-//             .send(userData)
-//             .end((error, res) => {
-//                 res.should.have.status(404);
-//                 res.body.should.be.a('object');
-//                 res.body.should.have.property("message").eql("Please enter same password in both password and confirmPassword fields");
-//                 if (error) {
-//                     return done(error);
-//                 }
-//                 done();
-//             });
-//     });
-// });
+ describe('POST /resetPassword', () => {
+    it('givenCorrectPasswordsAndTokenItShould_makePOSTRequestChangePasswordOfUser_andReturnsStatusCodeAs200', (done) => {
+        let userData = userInputs.userResetPasswordPos;
+        let userToken = userInputs.userResetPasswordToken;
+        chai.request(server)
+            .put('/resetPassword')
+            .set('token', userToken)
+            .send(userData)
+            .end((error, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property("success").eql(true);
+                res.body.should.have.property("message").eql("Password is changed successfully!");
+                if (error) {
+                    return done(error);
+                }
+                done();
+            });
+    });
+
+    it('givenNoTokenCorrectPasswordsItShould_failToMakePOSTRequestToSendEmailToUserEmail_andReturnsStatusCodeAs400', (done) => {
+        let userData = userInputs.userResetPasswordNeg;
+        chai.request(server)
+            .put('/resetPassword')
+            .set('headerParameter', '')
+            .send(userData)
+            .end((error, res) => {
+                res.should.have.status(401);
+                res.body.should.be.a('object');
+                res.body.should.have.property("message").eql("Please get token!");
+                if (error) {
+                    return done(error);
+                }
+                done();
+            });
+    });
+
+    it('givenMisMatchedPasswordsAndTokenItShould_failToMakePOSTRequestChangePasswordOfUser_andReturnsStatusCodeAs500', (done) => {
+        let userData = userInputs.userResetPasswordNeg;
+        let userToken = userInputs.userResetPasswordToken;
+        chai.request(server)
+            .put('/resetPassword')
+            .set('token', userToken)
+            .send(userData)
+            .end((error, res) => {
+                res.should.have.status(500);
+                res.body.should.be.a('object');
+                res.body.should.have.property("message").eql("Please enter same password in both password and confirmPassword fields!");
+                if (error) {
+                    return done(error);
+                }
+                done();
+            });
+    });
+});
 

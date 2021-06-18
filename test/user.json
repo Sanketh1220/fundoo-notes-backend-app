@@ -123,6 +123,8 @@
 
     "userResetPasswordNeg": {
         "password": "MyNewestPassword@11",
-        "confirmPassword": "MyNewestPas@11"
-    }
+        "confirmPassword": "MyNewestPassw@11"
+    },
+
+    "userResetPasswordToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhbmtldGguYmFiYnVyMTFAZ21haWwuY29tIiwiaWF0IjoxNjI0MDI0MjM1LCJleHAiOjE2MjQwNjAyMzV9.zZc7EELBBIpS1R0eQSjFA6zCDZdPku0kEaHbVTzObYg"
 }

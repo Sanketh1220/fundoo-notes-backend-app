@@ -95,20 +95,19 @@ class UserController {
     */
     async passwordResetApi(req, res) {
         try {
-            console.log(req.headers.token);
             const userPassword = {
                 password: req.body.password,
                 confirmPassword: req.body.confirmPassword
             }
             const userToken = req.headers.token;
-            if(!req.headers.token) {
-                return res.status(500).send({message: "Please get token!"});
+            if(!userToken) {
+                return res.status(401).send({message: "Please get token!"});
             }
             else if(userPassword.password == userPassword.confirmPassword) {
                 const resetPassword = await userService.resetPassword(userPassword, userToken);
                 return res.send({success: true, message: "Password is changed successfully!"});
             }else {
-                return res.status(500).send({message: "Please enter same password in both password and confirmPassword fields"});
+                return res.status(500).send({message: "Please enter same password in both password and confirmPassword fields!"});
             }
         } catch (error) {
             res.status(500).send({message: error})
