@@ -23,6 +23,15 @@ class NotesService {
             return error;
         }
     }
+
+    async getNoteById(notesId) {
+        try {
+            const getNote = await notesModel.getNoteById(notesId);
+            return getNote;
+        } catch (error) {
+            return error;
+        }
+    }
 }
 
 //exporting the class to utilize or call function created in this class

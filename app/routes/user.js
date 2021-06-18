@@ -17,9 +17,12 @@ module.exports = (app) => {
     //reset user password
     app.put('/resetPassword', userController.passwordResetApi);
 
-    //creation request api POST request
+    //notes creation api - POST request
     app.post('/createNotes', tokenCheck.tokenChecker, notesController.createNotesApi);
 
-    //get all notes request api GET request
+    //get all notes api - GET request
     app.get('/notes', tokenCheck.tokenChecker, notesController.getAllNotesApi);
+
+    //get note by Id api - GET request
+    app.get('/notes/:notesId', tokenCheck.tokenChecker, notesController.getNotesByIdApi);
 }

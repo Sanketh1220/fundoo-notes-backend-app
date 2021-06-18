@@ -25,9 +25,21 @@ class NotesController {
     async getAllNotesApi(req, res) {
         try {
             const getNotes = await notesService.getAllNotes();
-            res.send({success: true, message: "User registered!", data: getNotes});
+            res.send({success: true, message: "Notes Retrieved!", data: getNotes});
         } catch (error) {
-            res.status(500).send({success: false, message: "Some error occurred while retrieving notes" });
+            console.log(error);
+            res.status(500).send({success: false, message: "Some error occurred while retrieving notes"});
+        }
+    }
+
+    async getNotesByIdApi(req, res) {
+        try {
+            let notesId = req.params;
+            const getNote = await notesService.getNoteById(notesId);
+            res.send({success: true, message: "User registered!", data: getNote});
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({success: false, message: "Some error occurred while retrieving notes"});
         }
     }
 }

@@ -61,6 +61,15 @@ class NotesModel {
             return error;
         }
     }
+
+    async getNoteById(notesId) {
+        try {
+            const note = await NoteModel.findById(notesId.notesId);
+            return note
+        } catch (error) {
+            return error;
+        }
+    }
 }
 
 //exporting the class to utilize or call function created in this class
