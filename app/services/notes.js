@@ -8,10 +8,19 @@ class NotesService {
      */
     async createNotes(notesData) {
         try {
-            const createdNotes = notesModel.createInfo(notesData);
+            const createdNotes = await notesModel.createInfo(notesData);
             return createdNotes;
         } catch (error) {
-            return error
+            return error;
+        }
+    }
+
+    async getAllNotes() {
+        try {
+            const getNotes = await notesModel.getAllNotes();
+            return getNotes;
+        } catch (error) {
+            return error;
         }
     }
 }

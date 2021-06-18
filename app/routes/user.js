@@ -1,4 +1,5 @@
 const userController = require('../controller/user');
+const notesController = require('../controller/notes')
 const tokenCheck = require('../middleware/helper');
 
 //exporting it to server.js
@@ -15,4 +16,10 @@ module.exports = (app) => {
 
     //reset user password
     app.put('/resetPassword', userController.passwordResetApi);
+
+    //creation request api POST request
+    app.post('/createNotes', tokenCheck.tokenChecker, notesController.createNotesApi);
+
+    //get all notes request api GET request
+    app.get('/notes', tokenCheck.tokenChecker, notesController.getAllNotesApi);
 }

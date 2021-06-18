@@ -27,7 +27,7 @@ const NotesSchema = new mongoose.Schema({
     versionKey: false
 })
 
-const NotesModel = mongoose.model('Notes', NotesSchema);
+const NoteModel = mongoose.model('Notes', NotesSchema);
 
 module.exports = mongoose.model('Notes', NotesSchema);
 
@@ -41,13 +41,22 @@ class NotesModel {
      */
     async createInfo(notesData) {
         try {
-            const notes = new NotesModel({
+            const notes = new NoteModel({
                 title: notesData.title,
                 description: notesData.description
             });
 
             const notesSaved = await notes.save({});
             return notesSaved;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    async getAllNotes() {
+        try {
+            const notes = await NoteModel.find({});
+            return notes;
         } catch (error) {
             return error;
         }

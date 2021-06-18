@@ -16,10 +16,10 @@ const userForgotPasswordData = joi.object({
     email: joi.string().email().required().pattern(new RegExp("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$")),
 });
 
-const notesCreationData = joi.object({
+const notesCreationValidation = joi.object({
     title: joi.string().required(),
     description: joi.string().required()
 })
 
 //exporting object
-module.exports = {userDataValidation, userLoginData, userForgotPasswordData, notesCreationData};
+module.exports = {userDataValidation, userLoginData, userForgotPasswordData, notesCreationValidation};
