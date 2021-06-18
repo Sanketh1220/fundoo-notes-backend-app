@@ -70,6 +70,18 @@ class NotesModel {
             return error;
         }
     }
+
+    async updateNote(notesId, notesData) {
+        try {
+            const updatedNotes = await NoteModel.findByIdAndUpdate(notesId.notesId, {
+                title: notesData.title,
+                description: notesData.description
+            }, {new : true});
+            return updatedNotes;
+        } catch (error) {
+            return error;
+        }
+    }
 }
 
 //exporting the class to utilize or call function created in this class

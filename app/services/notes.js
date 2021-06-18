@@ -32,6 +32,15 @@ class NotesService {
             return error;
         }
     }
+
+    async updateNotesById(notesId, notesData) {
+        try {
+            const updateNote = await notesModel.updateNote(notesId, notesData);
+            return updateNote;
+        } catch (error) {
+            return error;
+        }
+    }
 }
 
 //exporting the class to utilize or call function created in this class

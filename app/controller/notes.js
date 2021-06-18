@@ -36,10 +36,32 @@ class NotesController {
         try {
             let notesId = req.params;
             const getNote = await notesService.getNoteById(notesId);
-            res.send({success: true, message: "User registered!", data: getNote});
+            res.send({success: true, message: "Notes Retrieved!", data: getNote});
         } catch (error) {
             console.log(error);
             res.status(500).send({success: false, message: "Some error occurred while retrieving notes"});
+        }
+    }
+
+    async UpdateNotesByIdApi(req, res) {
+        try {
+            let dataValidation = notesCreationValidation.validate(req.body);
+            if (dataValidation.error) {
+                return res.status(400).send({
+                    message: dataValidation.error.details[0].message
+                });
+            }
+
+            let notesId = req.params;
+            const notesData = {
+                title: req.body.title,
+                description: req.body.description
+            }
+            const updateNote = await notesService.updateNotesById(notesId, notesData);
+            res.send({success: true, message: "Notes Updated!", data: updateNote});
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({success: false, message: "Some error occurred while updating notes"});
         }
     }
 }

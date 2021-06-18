@@ -25,4 +25,7 @@ module.exports = (app) => {
 
     //get note by Id api - GET request
     app.get('/notes/:notesId', tokenCheck.tokenChecker, notesController.getNotesByIdApi);
+
+    //update note by Id api - PUT request
+    app.put('/notes/:notesId', tokenCheck.tokenChecker, notesController.UpdateNotesByIdApi);
 }
