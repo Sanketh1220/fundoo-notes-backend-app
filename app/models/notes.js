@@ -53,3 +53,6 @@ class NotesModel {
         }
     }
 }
+
+//exporting the class to utilize or call function created in this class
+module.exports = new NotesModel();
