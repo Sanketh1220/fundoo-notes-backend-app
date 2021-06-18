@@ -7,16 +7,16 @@
     },
     "host": "localhost:5000",
     "basePath": "/",
-    "tags": [],
+    "tags": ["User", "Notes"],
     "$schemes": [
         "http"
     ],
     "consumes": [],
     "produces": [],
     "paths": {
-        "/user/register": {
+        "/register": {
             "post": {
-                "tags": [],
+                "tags": ["User"],
                 "description": "user registration",
                 "parameters": [{
                     "name": "register user",
@@ -38,9 +38,9 @@
                 }
             }
         },
-        "/user/login": {
+        "/login": {
             "post": {
-                "tags": [],
+                "tags": ["User"],
                 "description": "user login",
                 "parameters": [{
                     "name": "Credentials",
@@ -58,6 +58,186 @@
                         "description": "Not Found"
                     }
                 }
+            }
+        },
+        "/forgotPassword": {
+            "post": {
+                "tags": ["User"],
+                "description": "user receives an email about link to reset password",
+                "parameters": [{
+                    "name": "email",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/ForgotPassword"
+                    }
+                }],
+                "responses":{
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description":"Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "505": {
+                        "description": "Internal Error"
+                    }
+                }
+            }
+        },
+        "/resetPassword": {
+            "put": {
+                "tags": ["User"],
+                "description": "reset password",
+                "parameters": [{
+                    "name": "passwords",
+                    "in": "body",
+                    "schema": {
+                        "$ref":"#/definitions/ResetPassword"
+                    }
+                },
+                {
+                    "name": "token",
+                    "in":"Headers"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "401": {
+                        "description":"Unauthorized User"
+                    },
+                    "500": {
+                        "description": "Internal Error"
+                    }
+                }
+            }
+        },
+        "/createNotes": {
+            "post": {
+                "tags": ["Notes"],
+                "description": "creating notes",
+                "parameters": [{
+                    "name": "create notes",
+                    "in": "body",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Notes"
+                    }
+                }],
+                "responses": {
+                    "201": {
+                        "description": "Registered"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "JWT": []
+                }]
+            }
+        },
+        "/notes": {
+            "get": {
+                "tags": ["Notes"],
+                "description": "get notes",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "JWT": []
+                }]
+            }
+        },
+        "/notes/{notesId}": {
+            "get": {
+                "tags": ["Notes"],
+                "description": "get notes by ID",
+                "parameters": [{
+                    "name": "notesId",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "JWT": []
+                }]
+            }
+        },
+        "/note/{notesId}": {
+            "put": {
+                "tags": ["Notes"],
+                "description": "update note using ID",
+                "parameters": [{
+                        "name": "notesId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "new NotesDetails",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Notes"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "JWT": []
+                }]
             }
         }
     },
@@ -93,6 +273,36 @@
                     "type": "string"
                 },
                 "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "ForgotPassword": {
+            "type": "object",
+            "properties": {
+                "email":{
+                    "type": "string"
+                }
+            }
+        },
+        "ResetPassword": {
+            "type": "object",
+            "properties": {
+                "password":{
+                    "type": "string"
+                },
+                "confirmPassword": {
+                    "type": "string"
+                }
+            }
+        },
+        "Notes": {
+            "type": "object", 
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "description": {
                     "type": "string"
                 }
             }
