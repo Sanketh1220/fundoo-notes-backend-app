@@ -1,3 +1,19 @@
+/*********************************************************************
+ * Execution    : 1. Default node with npm   cmd> node server.js
+ *                2. If nodemon installed    cmd> npm start
+ *
+ * Purpose      : To contain express routes
+ *
+ * @description
+ *
+ * @file        : routes/routes.js
+ * @overview    : Contains all the express routes
+ * @module      : this is necessary to use HTTP methods
+ * @author      : Sanketh Chigurupalli <sanketh.chigurupalli@gmail.com>
+ * @version     : - - -
+ * @since       : 13-06-2021
+ *********************************************************************/
+
 const userController = require('../controller/user');
 const notesController = require('../controller/notes')
 const tokenCheck = require('../middleware/helper');

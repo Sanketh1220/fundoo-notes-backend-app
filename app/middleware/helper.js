@@ -1,3 +1,19 @@
+/*********************************************************************
+ * Execution    : 1. Default node with npm   cmd> node server.js
+ *                2. If nodemon installed    cmd> npm start
+ *
+ * Purpose      : To authenticate and authorize user
+ *
+ * @description
+ *
+ * @file        : middleware/helper.js
+ * @overview    : helps to validate password, generates token, validates token and decodes email from token
+ * @module      : this is necessary to access the data in the database.
+ * @author      : Sanketh Chigurupalli <sanketh.chigurupalli@gmail.com>
+ * @version     : - - -
+ * @since       : 13-06-2021
+ *********************************************************************/
+
 const jwt = require('jsonwebtoken');
 
 //requiring package bcrypt

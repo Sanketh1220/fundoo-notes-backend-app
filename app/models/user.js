@@ -1,3 +1,19 @@
+/*********************************************************************
+ * Execution    : 1. Default node with npm   cmd> node server.js
+ *                2. If nodemon installed    cmd> npm start
+ *
+ * Purpose      : Describing the schema for database.
+ *
+ * @description
+ *
+ * @file        : models/user.js
+ * @overview    : Provides schema for database and performs mongoose CRUD operations
+ * @module      : this is necessary to perform CRUD operations, login and store the data
+ * @author      : Sanketh Chigurupalli <sanketh.chigurupalli@gmail.com>
+ * @version     : 1.0.0
+ * @since       : 13-06-2021
+ *********************************************************************/
+
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 const SALT_WORK_FACTOR = 10;

@@ -1,3 +1,19 @@
+/*********************************************************************
+ * Execution    : 1. Default node with npm   cmd> node server.js
+ *                2. If nodemon installed    cmd> npm start
+ *
+ * Purpose      : User input data validation
+ *
+ * @description
+ *
+ * @file        : middleware/validation.js
+ * @overview    : validates user input data
+ * @module      : this is necessary to validate user input data
+ * @author      : Sanketh Chigurupalli <sanketh.chigurupalli@gmail.com>
+ * @version     : - - -
+ * @since       : 13-06-2021
+ *********************************************************************/
+
 const joi = require('@hapi/joi');
 
 const userDataValidation = joi.object({

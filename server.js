@@ -1,3 +1,19 @@
+/*********************************************************************
+ * Execution    : 1. Default node with npm   cmd> node server.js
+ *                2. If nodemon installed    cmd> npm start
+ *
+ * Purpose      : Starting point for the project
+ *
+ * @description
+ *
+ * @file        : server.js
+ * @overview    : Set up the server, connect to database
+ * @module      : this is necessary to run the fundoo notes app API
+ * @author      : Sanketh Chigurupalli <sanketh.chigurupalli@gmail.com>
+ * @version     : _ _ _
+ * @since       : 13-06-2021
+ *********************************************************************/
+
 require('dotenv').config();
 const express = require('express');
 const databaseConnection = require('./config/dbConfig');

@@ -1,7 +1,29 @@
+/*********************************************************************
+ * Execution    : 1. Default node with npm   cmd> node server.js
+ *                2. If nodemon installed    cmd> npm start
+ * 
+ * Purpose      : Controls the operations of notes creation and other CRUD
+ * 
+ * @description
+ * 
+ * @file        : controllers/notes.js
+ * @overview    : controls notes creation, deletion, update and retrieval tasks
+ * @module      : this is necessary to register new user and give authorization.
+ * @author      : Sanketh Chigurupalli <sanketh.chigurupalli@gmail.com>
+ * @version     : 1.0.0
+ * @since       : 18-06-2021
+ *********************************************************************/
+
 const notesService = require('../services/notes');
 const {notesCreationValidation} = require('../middleware/validation');
 
 class NotesController {
+    /**
+     * @description function written to create notes into the database
+     * @param {*} a valid req body is expected
+     * @param {*} res 
+     * @returns response
+     */
     async createNotesApi(req, res) {
         try {
             let dataValidation = notesCreationValidation.validate(req.body);
@@ -22,6 +44,12 @@ class NotesController {
         }
     }
 
+    /**
+     * @description function written to get all the notes from the database
+     * @param {*} req 
+     * @param {*} res 
+     * @returns response
+     */
     async getAllNotesApi(req, res) {
         try {
             const getNotes = await notesService.getAllNotes();
@@ -32,6 +60,12 @@ class NotesController {
         }
     }
 
+    /**
+     * @description function written to get notes using ID from the database
+     * @param {*} req 
+     * @param {*} res 
+     * @returns response
+     */
     async getNotesByIdApi(req, res) {
         try {
             let notesId = req.params;
@@ -43,6 +77,12 @@ class NotesController {
         }
     }
 
+    /**
+     * @description function written to update notes using ID from the database
+     * @param {*} req 
+     * @param {*} res 
+     * @returns response
+     */
     async UpdateNotesByIdApi(req, res) {
         try {
             let dataValidation = notesCreationValidation.validate(req.body);

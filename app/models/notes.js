@@ -1,3 +1,19 @@
+/*********************************************************************
+ * Execution    : 1. Default node with npm   cmd> node server.js
+ *                2. If nodemon installed    cmd> npm start
+ *
+ * Purpose      : Describing the schema for database.
+ *
+ * @description
+ *
+ * @file        : models/notes.js
+ * @overview    : Provides schema for database and performs mongoose CRUD operations
+ * @module      : this is necessary to perform CRUD operations, login and store the data
+ * @author      : Sanketh Chigurupalli <sanketh.chigurupalli@gmail.com>
+ * @version     : 1.0.0
+ * @since       : 18-06-2021
+ *********************************************************************/
+
 const mongoose = require("mongoose");
 
 const NotesSchema = new mongoose.Schema({
@@ -35,8 +51,8 @@ module.exports = mongoose.model('Notes', NotesSchema);
 class NotesModel {
 
     /**
-     * @description function written to create user data into database
-     * @param {*} notesData 
+     * @description function written to create notes into database
+     * @param {*} a valid notesData is expected
      * @returns saved data or if error returns error
      */
     async createInfo(notesData) {
@@ -51,6 +67,10 @@ class NotesModel {
         }
     }
 
+    /**
+     * @description function written to get all notes from database 
+     * @returns retrieved notes or if error returns error
+     */
     async getAllNotes() {
         try {
             return await NoteModel.find({});
@@ -59,6 +79,11 @@ class NotesModel {
         }
     }
 
+    /**
+     * @description function written to get notes by Id into database 
+     * @param {*} valid notesId is expected
+     * @returns notes of particular Id or if any error return error
+     */
     async getNoteById(notesId) {
         try {
             return await NoteModel.findById(notesId.notesId);
@@ -67,6 +92,12 @@ class NotesModel {
         }
     }
 
+    /**
+     * @description function written to update notes by Id into database 
+     * @param {*} a valid notesId is expected
+     * @param {*} a valid notesData is expected
+     * @returns notes of particular Id or if any error return error
+     */
     async updateNote(notesId, notesData) {
         try {
             return await NoteModel.findByIdAndUpdate(notesId.notesId, {

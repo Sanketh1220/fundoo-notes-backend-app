@@ -1,3 +1,19 @@
+/*********************************************************************
+ * Execution    : 1. Default node with npm   cmd> node user.js
+ *                2. If nodemon installed    cmd> npm test
+ *
+ * Purpose      : To test the api's
+ *
+ * @description : tests all the positive and negative cases
+ *
+ * @file        : test/user.js
+ * @overview    : tests the HTTP methods with different possibilities
+ * @module      : this is necessary to make sure the program works properly
+ * @author      : Sanketh Chigurupalli <sanketh.chigurupalli@gmail.com>
+ * @version     : - - -
+ * @since       : 15-06-2021
+ *********************************************************************/
+
 const mocha = require('mocha');
 const chai = require('chai');
 const chaiHttp = require('chai-http');

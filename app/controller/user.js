@@ -1,3 +1,19 @@
+/*********************************************************************
+ * Execution    : 1. Default node with npm   cmd> node server.js
+ *                2. If nodemon installed    cmd> npm start
+ * 
+ * Purpose      : Controls the operations of user creation and login
+ * 
+ * @description
+ * 
+ * @file        : controllers/user.js
+ * @overview    : controls the operations of user creation, login, forgot password and reset password
+ * @module      : this is necessary to register new user and give authorization.
+ * @author      : Sanketh Chigurupalli <sanketh.chigurupalli@gmail.com>
+ * @version     : 1.0.0
+ * @since       : 13-06-2021
+ *********************************************************************/
+
 const userService = require('../services/user');
 
 const {userDataValidation, userLoginData, userForgotPasswordData} = require('../middleware/validation');
