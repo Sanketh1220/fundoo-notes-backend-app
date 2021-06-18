@@ -1,12 +1,7 @@
 const mailgun = require('mailgun-js');
-const {
-    generateAccessToken
-} = require('../app/middleware/helper');
+const {generateAccessToken} = require('../app/middleware/helper');
 const DOMAIN = process.env.DOMAIN;
-const mg = mailgun({
-    apiKey: MAILGUN_APIKEY,
-    domain: DOMAIN
-});
+const mg = mailgun({apiKey: MAILGUN_APIKEY,domain: DOMAIN});
 class MailGun {
 
     sendMail(email) {
@@ -46,7 +41,7 @@ class MailGun {
             from: 'noreply@fundooNotes.com',
             to: userData.email,
             subject: "Reset Password link, Fundoo Notes App",
-            html: `
+            html:`
             <h2>Please click on the link given below to reset your password</h2>
             <p>${process.env.BASE_URL}/resetPassword/${token}</p>
         `
