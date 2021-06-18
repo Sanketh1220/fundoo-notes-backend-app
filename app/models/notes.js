@@ -45,9 +45,7 @@ class NotesModel {
                 title: notesData.title,
                 description: notesData.description
             });
-
-            const notesSaved = await notes.save({});
-            return notesSaved;
+            return await notes.save({});
         } catch (error) {
             return error;
         }
@@ -55,8 +53,7 @@ class NotesModel {
 
     async getAllNotes() {
         try {
-            const notes = await NoteModel.find({});
-            return notes;
+            return await NoteModel.find({});
         } catch (error) {
             return error;
         }
@@ -64,8 +61,7 @@ class NotesModel {
 
     async getNoteById(notesId) {
         try {
-            const note = await NoteModel.findById(notesId.notesId);
-            return note
+            return await NoteModel.findById(notesId.notesId);
         } catch (error) {
             return error;
         }
@@ -73,11 +69,10 @@ class NotesModel {
 
     async updateNote(notesId, notesData) {
         try {
-            const updatedNotes = await NoteModel.findByIdAndUpdate(notesId.notesId, {
+            return await NoteModel.findByIdAndUpdate(notesId.notesId, {
                 title: notesData.title,
                 description: notesData.description
             }, {new : true});
-            return updatedNotes;
         } catch (error) {
             return error;
         }

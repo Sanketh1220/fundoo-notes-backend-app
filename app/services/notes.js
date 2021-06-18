@@ -8,8 +8,7 @@ class NotesService {
      */
     async createNotes(notesData) {
         try {
-            const createdNotes = await notesModel.createInfo(notesData);
-            return createdNotes;
+            return await notesModel.createInfo(notesData);
         } catch (error) {
             return error;
         }
@@ -17,8 +16,7 @@ class NotesService {
 
     async getAllNotes() {
         try {
-            const getNotes = await notesModel.getAllNotes();
-            return getNotes;
+            return await notesModel.getAllNotes();
         } catch (error) {
             return error;
         }
@@ -26,8 +24,7 @@ class NotesService {
 
     async getNoteById(notesId) {
         try {
-            const getNote = await notesModel.getNoteById(notesId);
-            return getNote;
+            return await notesModel.getNoteById(notesId);
         } catch (error) {
             return error;
         }
@@ -35,8 +32,7 @@ class NotesService {
 
     async updateNotesById(notesId, notesData) {
         try {
-            const updateNote = await notesModel.updateNote(notesId, notesData);
-            return updateNote;
+            return await notesModel.updateNote(notesId, notesData);
         } catch (error) {
             return error;
         }
