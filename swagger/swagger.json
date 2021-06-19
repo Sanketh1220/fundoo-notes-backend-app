@@ -71,12 +71,12 @@
                         "$ref": "#/definitions/ForgotPassword"
                     }
                 }],
-                "responses":{
+                "responses": {
                     "200": {
                         "description": "Successful"
                     },
                     "400": {
-                        "description":"Bad Request"
+                        "description": "Bad Request"
                     },
                     "404": {
                         "description": "Not Found"
@@ -92,22 +92,23 @@
                 "tags": ["User"],
                 "description": "reset password",
                 "parameters": [{
-                    "name": "passwords",
-                    "in": "body",
-                    "schema": {
-                        "$ref":"#/definitions/ResetPassword"
+                        "name": "passwords",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/ResetPassword"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "header"
                     }
-                },
-                {
-                    "name": "token",
-                    "in": "header"
-                }],
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful"
                     },
                     "401": {
-                        "description":"Unauthorized User"
+                        "description": "Unauthorized User"
                     },
                     "500": {
                         "description": "Internal Error"
@@ -238,6 +239,48 @@
                 "security": [{
                     "JWT": []
                 }]
+
+            }
+        },
+        "/delete/{:notesId}": {
+            "put": {
+                "tags": ["Notes"],
+                "description": "delete note using ID",
+                "parameters": [{
+                        "name": "notesId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "delete description",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/DeleteNote"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "JWT": []
+                }]
             }
         }
     },
@@ -280,7 +323,7 @@
         "ForgotPassword": {
             "type": "object",
             "properties": {
-                "email":{
+                "email": {
                     "type": "string"
                 }
             }
@@ -288,7 +331,7 @@
         "ResetPassword": {
             "type": "object",
             "properties": {
-                "password":{
+                "password": {
                     "type": "string"
                 },
                 "confirmPassword": {
@@ -297,13 +340,21 @@
             }
         },
         "Notes": {
-            "type": "object", 
+            "type": "object",
             "properties": {
                 "title": {
                     "type": "string"
                 },
                 "description": {
                     "type": "string"
+                }
+            }
+        },
+        "DeleteNote": {
+            "type": "object",
+            "properties": {
+                "isDeleted": {
+                    "type": "boolean"
                 }
             }
         }
