@@ -100,7 +100,7 @@
                 },
                 {
                     "name": "token",
-                    "in":"Headers"
+                    "in": "header"
                 }],
                 "responses": {
                     "200": {
