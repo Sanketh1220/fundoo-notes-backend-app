@@ -494,4 +494,43 @@ describe('Notes API', () => {
                 });
         });
     });
+
+    /**
+     * /DELETE request test
+     * Positive and Negative - Deleting a single contact using ID into database 
+     */
+     describe('PUT /delete/:notesId', () => {
+        it('givenValidDataItShould_deleteOrPUTNotesSuccessfullyUsingID_andReturnsStatusCodeAs200', (done) => {
+            chai.request(server)
+                .put('/delete/60ce06afb2b3c723334777f0')
+                .send(userInputs.notesDelPos)
+                .set('token', token)
+                .end((error, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property("success").eql(true);
+                    res.body.should.have.property("message").eql("Note Deleted!");
+                    if (error) {
+                        return done(error);
+                    }
+                    done();
+                });
+        });
+
+        it('givenInValidDataItShould_deleteOrPUTNotesSuccessfullyUsingID_andReturnsStatusCodeAs400', (done) => {
+            chai.request(server)
+                .put('/delete/60ce06afb2b3c723334777f0')
+                .send(userInputs.notesDelNeg)
+                .set('token', token)
+                .end((error, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property("message").eql("\"isDeleted\" must be a boolean");
+                    if (error) {
+                        return done(error);
+                    }
+                    done();
+                });
+        });
+    });
 });

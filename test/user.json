@@ -110,5 +110,13 @@
     "notesPutNegDescription": {
         "title": "Test Notes",
         "description": ""
+    },
+
+    "notesDelPos": {
+        "isDeleted": true
+    },
+
+    "notesDelNeg": {
+        "isDeleted": ""
     }
 }
