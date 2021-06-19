@@ -243,7 +243,7 @@ describe('POST /register', () => {
  * /PUT request test
  * Positive and Negative - Reset Password of User Testing
  */
- describe('POST /resetPassword', () => {
+ describe('PUT /resetPassword', () => {
     it('givenCorrectPasswordsAndTokenItShould_makePOSTRequestChangePasswordOfUser_andReturnsStatusCodeAs200', (done) => {
         let userData = userInputs.userResetPasswordPos;
         let userToken = userInputs.userResetPasswordToken;
@@ -443,10 +443,10 @@ describe('Notes API', () => {
      * /PUT request test
      * Positive and Negative - Updating a single contact using ID into database 
      */
-    describe('PUT /addressBook/:addressBookId', () => {
+    describe('PUT /notes/:notesId', () => {
         it('givenValidDataItShould_updateOrPUTNotesSuccessfullyUsingID_andReturnsStatusCodeAs200', (done) => {
             chai.request(server)
-                .put('/notes/60ccedfb5597a6e2d6aecc60')
+                .put('/note/60ccedfb5597a6e2d6aecc60')
                 .send(userInputs.notesPutPos)
                 .set('token', token)
                 .end((error, res) => {
@@ -464,7 +464,7 @@ describe('Notes API', () => {
 
         it('givenInvalidTitle_andValidDescription_failsToMakePUTRequestToUpdateNote_andReturnsStatusCodeAs400', (done) => {
             chai.request(server)
-                .put('/notes/60ccedfb5597a6e2d6aecc60')
+                .put('/note/60ccedfb5597a6e2d6aecc60')
                 .send(userInputs.notesPutNegTitle)
                 .set('token', token)
                 .end((error, res) => {
@@ -480,7 +480,7 @@ describe('Notes API', () => {
 
         it('givenInvalidDescription_andValidTitle_failsToMakePUTRequestToUpdateNote_andReturnsStatusCodeAs400', (done) => {
             chai.request(server)
-                .put('/notes/60ccedfb5597a6e2d6aecc60')
+                .put('/note/60ccedfb5597a6e2d6aecc60')
                 .send(userInputs.notesPutNegDescription)
                 .set('token', token)
                 .end((error, res) => {
