@@ -68,6 +68,14 @@ class NotesService {
             return error;
         }
     }
+
+    async deleteNoteById(notesId, notesData) {
+        try {
+            return await notesModel.deleteNote(notesId, notesData);
+        } catch (error) {
+            return error
+        }
+    }
 }
 
 //exporting the class to utilize or call function created in this class

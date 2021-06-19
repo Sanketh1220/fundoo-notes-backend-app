@@ -15,7 +15,7 @@
  *********************************************************************/
 
 const notesService = require('../services/notes');
-const {notesCreationValidation} = require('../middleware/validation');
+const {notesCreationValidation, notesDeletionValidation} = require('../middleware/validation');
 
 class NotesController {
     /**
@@ -99,6 +99,28 @@ class NotesController {
             }
             const updateNote = await notesService.updateNotesById(notesId, notesData);
             res.send({success: true, message: "Notes Updated!", data: updateNote});
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({success: false, message: "Some error occurred while updating notes"});
+        }
+    }
+
+    async deleteNotesByIdApi(req, res) {
+        try {
+            let dataValidation = notesDeletionValidation.validate(req.body);
+            if (dataValidation.error) {
+                return res.status(400).send({
+                    message: dataValidation.error.details[0].message
+                });
+            }
+
+            let notesId = req.params;
+            const notesData = {
+                _id: notesId,
+                isDeleted: req.body.isDeleted
+            }
+            const deleteNote = await notesService.deleteNoteById(notesId, notesData);
+            res.send({success: true, message: "Note Deleted!"});
         } catch (error) {
             console.log(error);
             res.status(500).send({success: false, message: "Some error occurred while updating notes"});

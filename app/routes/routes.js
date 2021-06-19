@@ -44,4 +44,7 @@ module.exports = (app) => {
 
     //update note by Id api - PUT request
     app.put('/note/:notesId', tokenCheck.tokenChecker, notesController.UpdateNotesByIdApi);
+
+    //delete note by Id api - PUT request
+    app.put('/delete/:notesId', tokenCheck.tokenChecker, notesController.deleteNotesByIdApi);
 }

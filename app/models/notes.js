@@ -18,22 +18,20 @@ const mongoose = require("mongoose");
 
 const NotesSchema = new mongoose.Schema({
     title: {
-        type: String,
-        required: true
+        type: String
     },
     description: {
-        type: String,
-        required: true
+        type: String
     },
-    isDelete: {
+    isDeleted: {
         type: Boolean,
         default: false
     },
-    isArchive: {
+    isArchived: {
         type: Boolean,
         default: false
     },
-    ifPin: {
+    isPinned: {
         type: Boolean,
         default: false
     }
@@ -61,6 +59,7 @@ class NotesModel {
                 title: notesData.title,
                 description: notesData.description
             });
+            console.log('notes on model', notes);
             return await notes.save({});
         } catch (error) {
             return error;
@@ -104,6 +103,22 @@ class NotesModel {
                 title: notesData.title,
                 description: notesData.description
             }, {new : true});
+        } catch (error) {
+            return error;
+        }
+    }
+
+    /**
+     * @description function written to update isDeleted to true
+     * @param {*} notesId 
+     * @param {*} notesData 
+     * @returns data else if error returns error
+     */
+    async deleteNote(notesId, notesData) {
+        try {
+            return await NoteModel.findByIdAndUpdate(notesId.notesId, {
+                isDeleted: notesData.isDeleted
+            }, {new: true});
         } catch (error) {
             return error;
         }

@@ -35,7 +35,11 @@ const userForgotPasswordData = joi.object({
 const notesCreationValidation = joi.object({
     title: joi.string().required(),
     description: joi.string().required()
-})
+});
+
+const notesDeletionValidation = joi.object({
+    isDeleted: joi.boolean().required()
+});
 
 //exporting object
-module.exports = {userDataValidation, userLoginData, userForgotPasswordData, notesCreationValidation};
+module.exports = {userDataValidation, userLoginData, userForgotPasswordData, notesCreationValidation, notesDeletionValidation};
