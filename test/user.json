@@ -1,0 +1,122 @@
+{
+    "userCreatePos": {
+        "firstName": "Rajan",
+        "lastName": "Koushik",
+        "email": "rajan.koushik@gmail.com",
+        "password": "rajan@123"
+    },
+
+    "userCreateNegFirstName": {
+        "firstName": "",
+        "lastName": "Koushik",
+        "email": "rajan.koushik@gmail.com",
+        "password": "rajan@123"
+    },
+
+    "userCreateNegLastName": {
+        "firstName": "Rajan",
+        "lastName": "",
+        "email": "rajan.koushik@gmail.com",
+        "password": "rajan@123"
+    },
+
+    "userCreateNegEmail": {
+        "firstName": "Rajan",
+        "lastName": "Koushik",
+        "email": "rajan.koushik@gmailcom",
+        "password": "sanSan@123"
+    },
+
+    "userCreateNegPassword": {
+        "firstName": "Rajan",
+        "lastName": "Koushik",
+        "email": "rajan.koushik@gmail.com",
+        "password": ""
+    },
+
+    "userLoginPos": {
+        "email": "kamalesh.gandhi@gmail.com",
+        "password": "Kamalesh@123"
+    },
+
+    "userLoginNegEmail": {
+        "email": "kamalesh.gandhi@gmail",
+        "password": "Kamalesh@123"
+    },
+
+    "userLoginEmpPassword": {
+        "email": "sanketh.babbur11@gmail.com",
+        "password": ""
+    },
+
+    "userLoginNegPassword": {
+        "email": "sanketh.babbur11@gmail.com",
+        "password": "MyNewPassword@2"
+    },
+
+    "userForgotPasswordPos": {
+        "email": "sanketh.babbur11@gmail.com"
+    },
+
+    "userForgotPasswordNegEmail": {
+        "email": "sanketh.babbur11@gmail"
+    },
+
+    "userForgotPasswordNegNonRegistered": {
+        "email": "sanketh.babbur@gmail.com"
+    },
+
+    "userResetPasswordPos": {
+        "password": "MyNewestPassword@11",
+        "confirmPassword": "MyNewestPassword@11"
+    },
+
+    "userResetPasswordNeg": {
+        "password": "MyNewestPassword@11",
+        "confirmPassword": "MyNewestPassw@11"
+    },
+
+    "userResetPasswordToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhbmtldGguYmFiYnVyMTFAZ21haWwuY29tIiwiaWF0IjoxNjI0MDI0MjM1LCJleHAiOjE2MjQwNjAyMzV9.zZc7EELBBIpS1R0eQSjFA6zCDZdPku0kEaHbVTzObYg",
+
+    "notesCreatePos": {
+        "title": "Test Notes",
+        "description": "testing notes app"
+    },
+
+    "notesCreateNegTitle": {
+        "title": "",
+        "description": "this is my second notes"
+    },
+
+    "notesCreateNegDescription": {
+        "title": "Test Notes",
+        "description": ""
+    },
+
+    "getNotesById": "60ccd2061412cbce156d1b54",
+
+    "getNotesByIdNeg": "60ccd2061412cbce156d1b",
+
+    "notesPutPos": {
+        "title": "Test Notes",
+        "description": "testing notes app"
+    },
+
+    "notesPutNegTitle": {
+        "title": "",
+        "description": "this is my second notes"
+    },
+
+    "notesPutNegDescription": {
+        "title": "Test Notes",
+        "description": ""
+    },
+
+    "notesDelPos": {
+        "isDeleted": true
+    },
+
+    "notesDelNeg": {
+        "isDeleted": ""
+    }
+}

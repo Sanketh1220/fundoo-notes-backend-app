@@ -1,21 +1,34 @@
+/*********************************************************************
+ * Execution    : 1. Default node with npm   cmd> node server.js
+ *                2. If nodemon installed    cmd> npm start
+ *
+ * Purpose      : Describing the schema for database.
+ *
+ * @description
+ *
+ * @file        : models/user.js
+ * @overview    : Provides schema for database and performs mongoose CRUD operations
+ * @module      : this is necessary to perform CRUD operations, login and store the data
+ * @author      : Sanketh Chigurupalli <sanketh.chigurupalli@gmail.com>
+ * @version     : 1.0.0
+ * @since       : 13-06-2021
+ *********************************************************************/
+
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
-const { example } = require("yargs");
-const { c } = require("tar");
 const SALT_WORK_FACTOR = 10;
+const sendEmail = require("../../utils/mailGun");
 
 const UserInfoSchema = new mongoose.Schema({
     firstName: {
         type: String,
         required: true,
         validate: /^[a-zA-Z ]{2,30}$/,
-        unique: true
     },
     lastName: {
         type: String,
         required: true,
         validate: /^[a-zA-Z]{2,30}$/,
-        unique: true
     },
     email: {
         type: String,
@@ -26,14 +39,14 @@ const UserInfoSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    },
+    }
 }, {
     // generates the time stamp the data is been added
     timestamps: true,
     versionKey: false
 })
 
-UserInfoSchema.pre('save', function(next) {
+UserInfoSchema.pre('save', function (next) {
     var user = this;
 
     // only hash the password if it has been modified (or is new)
@@ -74,27 +87,21 @@ class UserModel {
      * @param {*} A valid userData is expected
      * @param {*} callBack 
      */
-    createInfo(userData, callBack) {
-
-        var query = userData.email;
-        UserInfoModel.findOne({email:query}, (error, example) => {
-            if(error) callBack(error, null);
-            if(example){
-                return callBack ("This user is already registered, Please sign in!", null)
-            }
-            else {
-                const user = new UserInfoModel ({
-                    firstName: userData.firstName,
-                    lastName: userData.lastName,
-                    email: userData.email,
-                    password: userData.password
-                });
-        
-                user.save({}, (error, data) => {
-                    return((error) ? (callBack(error, null)) : (callBack(null, data)));
-                })
-            }
-        });
+    async createInfo(userData) {
+        try {
+            const user = new UserInfoModel({
+                firstName: userData.firstName,
+                lastName: userData.lastName,
+                email: userData.email,
+                password: userData.password
+            });
+            
+            const userSaved = await user.save({});
+            sendEmail.sendRegistrationEmail(userData);
+            return userSaved;
+        } catch (error) {
+            return error;
+        }
     }
 
     /**
@@ -102,15 +109,62 @@ class UserModel {
      * @param {*} A valid userData is expected
      * @param {*} callBack 
      */
-    loginUser(userData, callBack) {
-        UserInfoModel.findOne({'email': userData.email}, (error, data) => {
-            if(error) {
-                return callBack(error, null);
-            } else if (!data) {
-                return callBack ("This user doesn't exist! Please register.", null);
+    async loginUser(userData) {
+        try {
+            const loginUser = await UserInfoModel.findOne({'email': userData.email});
+            if(!loginUser) {
+                return "This user doesn't exist! Please register.";
+            }else {
+            return loginUser;
             }
-            return callBack(null, data); 
-        });
+        } catch (error) {
+            return error;
+        }
+    }
+
+    /**
+     * @description function written to send reset password link to user 
+     * @param {*} A valid userData is expected
+     * @param {*} callBack 
+     */
+    async forgotPassword(userData) {
+        try {
+            console.log("Models", userData);
+            const user = await UserInfoModel.findOne({email: userData.email});
+
+            if (!user) {
+                return "User with given email doesn't exist!";
+            }
+
+            sendEmail.sendPasswordResetLink(userData);
+            return "Password reset link sent to your email account!";
+        } catch (error) {
+            return error;
+        }
+    }
+
+    /**
+     * @description function written to update password of user into database
+     * @param {*} A valid userData is expected
+     * @param {*} callBack 
+     */
+    async resetPassword(userData, email) {
+        try {
+            const salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
+            const hashPassword = bcrypt.hashSync(userData.password, salt);
+    
+            const resetPasswordData = await UserInfoModel.findOne({'email': email})
+            const updatedPassword = await UserInfoModel.findByIdAndUpdate(resetPasswordData.id, {
+                firstName: resetPasswordData.firstName,
+                lastName: resetPasswordData.lastName,
+                email: resetPasswordData.email,
+                password: hashPassword
+            }, {new : true})
+            sendEmail.sendSuccessEmail(resetPasswordData);
+            return updatedPassword;
+        } catch (error) {
+            return error;
+        }
     }
 }
 

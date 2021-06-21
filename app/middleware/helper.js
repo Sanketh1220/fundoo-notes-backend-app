@@ -1,3 +1,19 @@
+/*********************************************************************
+ * Execution    : 1. Default node with npm   cmd> node server.js
+ *                2. If nodemon installed    cmd> npm start
+ *
+ * Purpose      : To authenticate and authorize user
+ *
+ * @description
+ *
+ * @file        : middleware/helper.js
+ * @overview    : helps to validate password, generates token, validates token and decodes email from token
+ * @module      : this is necessary to access the data in the database.
+ * @author      : Sanketh Chigurupalli <sanketh.chigurupalli@gmail.com>
+ * @version     : - - -
+ * @since       : 13-06-2021
+ *********************************************************************/
+
 const jwt = require('jsonwebtoken');
 
 //requiring package bcrypt
@@ -11,9 +27,9 @@ class HelperClass {
      * @param {*} A valid employeeData is expected
      * @returns 
      */
-    generateAccessToken(employeeData) {
-        return jwt.sign(employeeData, SECRET_TOKEN, {
-            expiresIn: '3600s'
+    generateAccessToken(userData) {
+        return jwt.sign(userData, SECRET_TOKEN, {
+            expiresIn: '36000s'
         });
     }
 
@@ -57,6 +73,16 @@ class HelperClass {
                 message: "Unauthorized User, Provide token to get authorized!"
             });
         }
+    }
+
+    /**
+     * @description function written to verify and decode data from token
+     * @param {*} token 
+     * @returns decoded email of user
+     */
+    getEmailFromToken(token){
+        const decoded = jwt.verify(token, process.env.SECRET_TOKEN);
+        return decoded.email
     }
 }
 
