@@ -34,13 +34,13 @@ Create (.env) file and insert
 
     URL="(Your mongoDB URL)"
 
-    PORT=3000
+    PORT=5000
 
     SECRET_TOKEN="(Any secret code so as to authorize the user)"
 
 ## npm start
 Runs the app
-Open http://localhost:3000 to view it in the browser.
+Open http://localhost:5000 to view it in the browser.
 
 ## npm test
 Runs to execute the unit test cases via [Mocha](https://mochajs.org/).
