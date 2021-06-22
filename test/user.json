@@ -76,47 +76,5 @@
         "confirmPassword": "MyNewestPassw@11"
     },
 
-    "userResetPasswordToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhbmtldGguYmFiYnVyMTFAZ21haWwuY29tIiwiaWF0IjoxNjI0MDI0MjM1LCJleHAiOjE2MjQwNjAyMzV9.zZc7EELBBIpS1R0eQSjFA6zCDZdPku0kEaHbVTzObYg",
-
-    "notesCreatePos": {
-        "title": "Test Notes",
-        "description": "testing notes app"
-    },
-
-    "notesCreateNegTitle": {
-        "title": "",
-        "description": "this is my second notes"
-    },
-
-    "notesCreateNegDescription": {
-        "title": "Test Notes",
-        "description": ""
-    },
-
-    "getNotesById": "60ccd2061412cbce156d1b54",
-
-    "getNotesByIdNeg": "60ccd2061412cbce156d1b",
-
-    "notesPutPos": {
-        "title": "Test Notes",
-        "description": "testing notes app"
-    },
-
-    "notesPutNegTitle": {
-        "title": "",
-        "description": "this is my second notes"
-    },
-
-    "notesPutNegDescription": {
-        "title": "Test Notes",
-        "description": ""
-    },
-
-    "notesDelPos": {
-        "isDeleted": true
-    },
-
-    "notesDelNeg": {
-        "isDeleted": ""
-    }
+    "userResetPasswordToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhbmtldGguYmFiYnVyMTFAZ21haWwuY29tIiwiaWF0IjoxNjI0MDI0MjM1LCJleHAiOjE2MjQwNjAyMzV9.zZc7EELBBIpS1R0eQSjFA6zCDZdPku0kEaHbVTzObYg"
 }

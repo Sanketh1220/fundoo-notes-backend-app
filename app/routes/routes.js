@@ -15,7 +15,7 @@
  *********************************************************************/
 
 const userController = require('../controller/user');
-const notesController = require('../controller/notes')
+const notesController = require('../controller/notes');
 const tokenCheck = require('../middleware/helper');
 const redisCache = require('../middleware/redis');
 
@@ -39,7 +39,6 @@ module.exports = (app) => {
 
     //get all notes api - GET request
     app.get('/notes', tokenCheck.verifyToken, notesController.getAllNotes);
-    // redisCache.checkCache,
 
     //get note by Id api - GET request
     app.get('/notes/:notesId', tokenCheck.verifyToken, redisCache.checkCache, notesController.getNotesById);
