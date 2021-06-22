@@ -21,20 +21,21 @@ class RedisClass {
     /**
      * @description function written to provide data to user in minimal time using caching
      * @param {*} a req valid request is expected
-     * @param {*} res depends in the request of user
-     * @param {*} if there is no data function shifts to next function
+     * @param {*} res depends on the request of user
+     * @param {*} if there is no data function calls for next function
      */
     checkCache = (req, res, next) => {
-        const notesId = req.params;
-        console.log('Notes Id at Redis', notesId);
-        client.get(notesId, (error, data) => {
+        const  noteId  = req.params;
+        console.log('Notes Id at Redis', noteId);
+        client.get(noteId, (error, data) => {
             if(error) return(error);
             if(data != null) {
                 res.send({success: true, message: "Notes Retrieved!", data: data});
             }else {
                 next();
             }
-        })
+        });
     }
 }
+
 module.exports = new RedisClass();

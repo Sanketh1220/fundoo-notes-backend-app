@@ -23,30 +23,30 @@ const redisCache = require('../middleware/redis');
 module.exports = (app) => {
 
     //registration api POST request
-    app.post('/register', userController.registrationApi);
+    app.post('/register', userController.registration);
 
     //login api POST request
-    app.post('/login', userController.loginApi);
+    app.post('/login', userController.login);
 
     //sends password reset link
-    app.post('/forgotPassword', userController.forgotPasswordApi);
+    app.post('/forgotPassword', userController.forgotPassword);
 
     //reset user password
-    app.put('/resetPassword', userController.passwordResetApi);
+    app.put('/resetPassword', userController.passwordReset);
 
     //notes creation api - POST request
-    app.post('/createNotes', tokenCheck.verifyToken, notesController.createNotesApi);
+    app.post('/createNotes', tokenCheck.verifyToken, notesController.createNotes);
 
     //get all notes api - GET request
-    app.get('/notes', tokenCheck.verifyToken, notesController.getAllNotesApi);
+    app.get('/notes', tokenCheck.verifyToken, notesController.getAllNotes);
     // redisCache.checkCache,
 
     //get note by Id api - GET request
-    app.get('/notes/:notesId', tokenCheck.verifyToken, redisCache.checkCache, notesController.getNotesByIdApi);
+    app.get('/notes/:notesId', tokenCheck.verifyToken, redisCache.checkCache, notesController.getNotesById);
 
     //update note by Id api - PUT request
-    app.put('/note/:notesId', tokenCheck.verifyToken, notesController.updateNotesByIdApi);
+    app.put('/note/:notesId', tokenCheck.verifyToken, notesController.updateNotesById);
 
     //delete note by Id api - PUT request
-    app.put('/delete/:notesId', tokenCheck.verifyToken, notesController.deleteNotesByIdApi);
+    app.put('/delete/:notesId', tokenCheck.verifyToken, notesController.deleteNotesById);
 }

@@ -26,7 +26,7 @@ class NotesController {
      * @param {*} res 
      * @returns response
      */
-    async createNotesApi(req, res) {
+    async createNotes(req, res) {
         try {
             let dataValidation = notesCreationValidation.validate(req.body);
             if (dataValidation.error) {
@@ -52,14 +52,14 @@ class NotesController {
      * @param {*} res 
      * @returns response
      */
-    async getAllNotesApi(req, res) {
+    async getAllNotes(req, res) {
         try {
             // console.log(req.params);
-            const getAllNotes = notes;
+            // const getAllNotes = notes;
             // console.log('Get all notes : ${getAllNOtes}', getAllNotes);
             const getNotes = await notesService.getAllNotes();
-            const data = await getNotes.json();
-            client.setex(getAllNotes, 3600, data);
+            // const data = await getNotes.json();
+            // client.setex(getAllNotes, 3600, data);
             res.send({success: true, message: "Notes Retrieved!", data: getNotes});
         } catch (error) {
             console.log(error);
@@ -73,12 +73,14 @@ class NotesController {
      * @param {*} res 
      * @returns response
      */
-    async getNotesByIdApi(req, res) {
+    async getNotesById(req, res) {
         try {
             const notesId = req.params;
+            console.log('Note Id as params', notesId);
             const getNote = await notesService.getNoteById(notesId);
-            const data = await getNote.json();
-            client.setex(notesId, 3600, data);
+            // const data = await getNote.json();
+            console.log(getNote);
+            client.setex(notesId, 3600, getNote);
             res.send({success: true, message: "Notes Retrieved!", data: getNote});
         } catch (error) {
             console.log(error);
@@ -92,7 +94,7 @@ class NotesController {
      * @param {*} res 
      * @returns response
      */
-    async updateNotesByIdApi(req, res) {
+    async updateNotesById(req, res) {
         try {
             let dataValidation = notesCreationValidation.validate(req.body);
             if (dataValidation.error) {
@@ -114,7 +116,7 @@ class NotesController {
         }
     }
 
-    async deleteNotesByIdApi(req, res) {
+    async deleteNotesById(req, res) {
         try {
             let dataValidation = notesDeletionValidation.validate(req.body);
             if (dataValidation.error) {
