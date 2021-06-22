@@ -16,6 +16,8 @@
 
 const notesService = require('../services/notes');
 const {notesCreationValidation, notesDeletionValidation} = require('../middleware/validation');
+const redis = require('redis');
+const client = redis.createClient(process.env.REDIS_PORT);
 
 class NotesController {
     /**
@@ -52,7 +54,12 @@ class NotesController {
      */
     async getAllNotesApi(req, res) {
         try {
+            // console.log(req.params);
+            const getAllNotes = notes;
+            // console.log('Get all notes : ${getAllNOtes}', getAllNotes);
             const getNotes = await notesService.getAllNotes();
+            const data = await getNotes.json();
+            client.setex(getAllNotes, 3600, data);
             res.send({success: true, message: "Notes Retrieved!", data: getNotes});
         } catch (error) {
             console.log(error);
@@ -83,7 +90,7 @@ class NotesController {
      * @param {*} res 
      * @returns response
      */
-    async UpdateNotesByIdApi(req, res) {
+    async updateNotesByIdApi(req, res) {
         try {
             let dataValidation = notesCreationValidation.validate(req.body);
             if (dataValidation.error) {

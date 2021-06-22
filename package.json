@@ -28,10 +28,11 @@
     "express-joi-validation": "^5.0.0",
     "joi-validator": "^0.0.7",
     "jsonwebtoken": "^8.5.1",
-    "mailgun-js": "^0.6.7",
+    "mailgun-js": "^0.22.0",
     "mongoose": "^5.12.13",
     "nodemailer": "^6.6.1",
     "npm": "^7.17.0",
+    "redis": "^3.1.2",
     "schema-validator": "^3.3.1",
     "swagger-ui-express": "^4.1.6",
     "winston": "^3.3.3"
