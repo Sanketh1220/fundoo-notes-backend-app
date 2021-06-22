@@ -75,8 +75,10 @@ class NotesController {
      */
     async getNotesByIdApi(req, res) {
         try {
-            let notesId = req.params;
+            const notesId = req.params;
             const getNote = await notesService.getNoteById(notesId);
+            const data = await getNote.json();
+            client.setex(notesId, 3600, data);
             res.send({success: true, message: "Notes Retrieved!", data: getNote});
         } catch (error) {
             console.log(error);

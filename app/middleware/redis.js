@@ -25,9 +25,9 @@ class RedisClass {
      * @param {*} if there is no data function shifts to next function
      */
     checkCache = (req, res, next) => {
-        const getAllNotes = notes;
-        console.log(getAllNotes);
-        client.get(getAllNotes, (error, data) => {
+        const notesId = req.params;
+        console.log('Notes Id at Redis', notesId);
+        client.get(notesId, (error, data) => {
             if(error) return(error);
             if(data != null) {
                 res.send({success: true, message: "Notes Retrieved!", data: data});

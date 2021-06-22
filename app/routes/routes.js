@@ -38,11 +38,11 @@ module.exports = (app) => {
     app.post('/createNotes', tokenCheck.verifyToken, notesController.createNotesApi);
 
     //get all notes api - GET request
-    app.get('/notes', tokenCheck.verifyToken, redisCache.checkCache, notesController.getAllNotesApi);
+    app.get('/notes', tokenCheck.verifyToken, notesController.getAllNotesApi);
     // redisCache.checkCache,
 
     //get note by Id api - GET request
-    app.get('/notes/:notesId', tokenCheck.verifyToken, notesController.getNotesByIdApi);
+    app.get('/notes/:notesId', tokenCheck.verifyToken, redisCache.checkCache, notesController.getNotesByIdApi);
 
     //update note by Id api - PUT request
     app.put('/note/:notesId', tokenCheck.verifyToken, notesController.updateNotesByIdApi);
