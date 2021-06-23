@@ -51,8 +51,16 @@ class RedisClass {
      * @param userId
      * @param data
      */
-    setDataInCache = () => {
+    setDataInCache = (data) => {
         client.set(notes, JSON.stringify(data));
+    }
+
+    /**
+     * @description clearing cache
+     */
+    clearCache = () => {
+        client.flushall();
+        console.log('Cache is cleared!')
     }
 }
 

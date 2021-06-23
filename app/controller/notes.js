@@ -16,6 +16,7 @@
 
 const notesService = require('../services/notes');
 const {notesCreationValidation, notesDeletionValidation} = require('../middleware/validation');
+const redisClass = require('../middleware/redis')
 const redis = require('redis');
 const client = redis.createClient(process.env.REDIS_PORT);
 
@@ -113,6 +114,7 @@ class NotesController {
                 description: req.body.description
             }
             const updateNote = await notesService.updateNotesById(notesId, notesData);
+            redisClass.setDataInCache(updateNote);
             res.send({success: true, message: "Notes Updated!", data: updateNote});
         } catch (error) {
             console.log(error);
