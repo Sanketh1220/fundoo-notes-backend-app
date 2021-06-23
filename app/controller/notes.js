@@ -55,16 +55,11 @@ class NotesController {
      */
     async getAllNotes(req, res) {
         try {
-            // console.log(req.query.name);
             const getNotes = req.params;
-            // console.log('Get all notes : ${getAllNOtes}', getAllNotes);
             const getAllNotes = await notesService.getAllNotes();
-            console.log('Get param : ', getNotes);
-            console.log('Get all notes : ', getAllNotes);
             const data = await JSON.stringify(getAllNotes);
-            console.log('Data at controller', data);
-            console.log('Data type of data', typeof(data));
-            client.SETEX(getNotes.notes, 3600, data);
+            redisClass.setDataInCache(getNotes.notes, 3600, data)
+            // client.SETEX(getNotes.notes, 3600, data);
             res.send({success: true, message: "Notes Retrieved!", data: getAllNotes});
         } catch (error) {
             console.log(error);

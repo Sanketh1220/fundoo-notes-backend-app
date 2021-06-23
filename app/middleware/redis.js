@@ -24,7 +24,7 @@ class RedisClass {
      * @param {*} res depends on the request of user
      * @param {*} if there is no data function calls for next function
      */
-    checkCache = (req, res, next) => {
+    checkCache(req, res, next) {
         console.log("req param", req.params);
         const  getNotes  = req.params;
         console.log("req param", getNotes.notes);
@@ -51,14 +51,14 @@ class RedisClass {
      * @param userId
      * @param data
      */
-    setDataInCache = (data) => {
-        client.set(notes, JSON.stringify(data));
+    setDataInCache(key, time, value) {
+        client.SETEX(key, time, value);
     }
 
     /**
      * @description clearing cache
      */
-    clearCache = () => {
+    clearCache() {
         client.flushall();
         console.log('Cache is cleared!')
     }
