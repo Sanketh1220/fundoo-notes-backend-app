@@ -81,11 +81,8 @@ class NotesController {
     async getNotesById(req, res) {
         try {
             const notesId = req.params;
-            // console.log('Note Id as params', notesId);
             const getNote = await notesService.getNoteById(notesId);
-            // const data = await getNote.json();
             console.log(getNote);
-            // client.setex(notesId, 3600, getNote);
             res.send({success: true, message: "Notes Retrieved!", data: getNote});
         } catch (error) {
             console.log(error);
