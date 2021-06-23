@@ -54,13 +54,17 @@ class NotesController {
      */
     async getAllNotes(req, res) {
         try {
-            // console.log(req.params);
-            // const getAllNotes = notes;
+            // console.log(req.query.name);
+            const getNotes = req.params;
             // console.log('Get all notes : ${getAllNOtes}', getAllNotes);
-            const getNotes = await notesService.getAllNotes();
-            // const data = await getNotes.json();
-            // client.setex(getAllNotes, 3600, data);
-            res.send({success: true, message: "Notes Retrieved!", data: getNotes});
+            const getAllNotes = await notesService.getAllNotes();
+            console.log('Get param : ', getNotes);
+            console.log('Get all notes : ', getAllNotes);
+            const data = await JSON.stringify(getAllNotes);
+            console.log('Data at controller', data);
+            console.log('Data type of data', typeof(data));
+            client.SETEX(getNotes.notes, 3600, data);
+            res.send({success: true, message: "Notes Retrieved!", data: getAllNotes});
         } catch (error) {
             console.log(error);
             res.status(500).send({success: false, message: "Some error occurred while retrieving notes"});
@@ -76,11 +80,11 @@ class NotesController {
     async getNotesById(req, res) {
         try {
             const notesId = req.params;
-            console.log('Note Id as params', notesId);
+            // console.log('Note Id as params', notesId);
             const getNote = await notesService.getNoteById(notesId);
             // const data = await getNote.json();
             console.log(getNote);
-            client.setex(notesId, 3600, getNote);
+            // client.setex(notesId, 3600, getNote);
             res.send({success: true, message: "Notes Retrieved!", data: getNote});
         } catch (error) {
             console.log(error);
