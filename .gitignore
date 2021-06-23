@@ -102,3 +102,13 @@ dist
 
 # TernJS port file
 .tern-port
+
+packages-lock.json
+
+.vscode
+
+.nyc_output
+
+vscode-profile-2021-06-21-13-16-56.cpuprofile
+
+*.cpuprofile
