@@ -21,7 +21,7 @@ class LabelController {
     /**
      * @description function written to create label into database
      * @param {*} a valid req body is expected
-     * @param {*} res 
+     * @param {*} res
      */
     async createLabel(req, res) {
         try {
@@ -43,6 +43,11 @@ class LabelController {
         }
     }
 
+    /**
+     * @description function written to get all labels
+     * @param {*} req 
+     * @param {*} res 
+     */
     async getAllLabels(req, res) {
         try {
             const getLabels = await labelService.getAllLabels();
@@ -53,6 +58,11 @@ class LabelController {
         }
     }
 
+    /**
+     * @description function written to get label by ID
+     * @param {*} req 
+     * @param {*} res 
+     */
     async getLabelById(req, res) {
         try {
             let labelId = req.params;
@@ -64,6 +74,11 @@ class LabelController {
         }
     }
 
+    /**
+     * @description function written to update label
+     * @param {*} a valid req body is expected
+     * @param {*} res 
+     */
     async updateLabelById(req, res) {
         try {
             let dataValidation = labelValidation.validate(req.body);
@@ -85,6 +100,11 @@ class LabelController {
         }
     }
 
+    /**
+     * @description function written to delete label by ID
+     * @param {*} req 
+     * @param {*} res 
+     */
     async deleteLabelById(req, res) {
         try {
             let labelId = req.params;
@@ -97,4 +117,5 @@ class LabelController {
     }
 }
 
+//exporting class to utilize or call function created in this class
 module.exports = new LabelController();
