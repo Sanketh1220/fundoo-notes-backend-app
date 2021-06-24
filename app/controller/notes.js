@@ -59,7 +59,6 @@ class NotesController {
             const getAllNotes = await notesService.getAllNotes();
             const data = await JSON.stringify(getAllNotes);
             redisClass.setDataInCache(getNotes.notes, 3600, data)
-            // client.SETEX(getNotes.notes, 3600, data);
             res.send({success: true, message: "Notes Retrieved!", data: getAllNotes});
         } catch (error) {
             console.log(error);

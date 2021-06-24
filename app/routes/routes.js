@@ -16,7 +16,8 @@
 
 const userController = require('../controller/user');
 const notesController = require('../controller/notes');
-const tokenCheck = require('../middleware/helper');
+const labelController = require('../controller/label');
+const tokenVerification = require('../middleware/helper');
 const redisCache = require('../middleware/redis');
 
 //exporting it to server.js
@@ -35,17 +36,32 @@ module.exports = (app) => {
     app.put('/resetPassword', userController.passwordReset);
 
     //notes creation api - POST request
-    app.post('/createNotes', tokenCheck.verifyToken, notesController.createNotes);
+    app.post('/createNotes', tokenVerification.verifyToken, notesController.createNotes);
 
     //get all notes api - GET request
-    app.get('/notes/:notes', tokenCheck.verifyToken, redisCache.checkCache, notesController.getAllNotes);
+    app.get('/notes/:notes', tokenVerification.verifyToken, redisCache.checkCache, notesController.getAllNotes);
 
     //get note by Id api - GET request
-    app.get('/notes/:notesId', tokenCheck.verifyToken, notesController.getNotesById);
+    app.get('/notes/:notesId', tokenVerification.verifyToken, notesController.getNotesById);
 
     //update note by Id api - PUT request
-    app.put('/note/:notesId', tokenCheck.verifyToken, notesController.updateNotesById);
+    app.put('/note/:notesId', tokenVerification.verifyToken, notesController.updateNotesById);
 
     //delete note by Id api - PUT request
-    app.put('/delete/:notesId', tokenCheck.verifyToken, notesController.deleteNotesById);
+    app.put('/delete/:notesId', tokenVerification.verifyToken, notesController.deleteNotesById);
+
+    //label creation api - POST request
+    app.post('/createLabel/:userId', tokenVerification.verifyToken, labelController.createLabel);
+
+    //get all labels api - GET request
+    app.get('/labels', tokenVerification.verifyToken, labelController.getAllLabels);
+
+    //get single label by ID api - GET request
+    app.get('/label/:labelId', tokenVerification.verifyToken, labelController.getLabelById);
+
+    //update single label by ID api - PUT request
+    app.put('/label/:labelId', tokenVerification.verifyToken, labelController.updateLabelById);
+
+    //delete label by ID api - DELETE request
+    app.delete('label/:labelId', tokenVerification.verifyToken, labelController.deleteLabelById);
 }
