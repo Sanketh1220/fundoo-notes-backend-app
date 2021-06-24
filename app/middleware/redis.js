@@ -27,7 +27,6 @@ class RedisClass {
     checkCache(req, res, next) {
         const  getNotes  = req.params;
         client.get(getNotes.notes, (error, data) => {
-            console.log(`data ${data}`);
             if(error) console.log(error);
             if(data !== null) {
                 data = JSON.parse(data);

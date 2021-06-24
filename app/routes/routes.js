@@ -41,9 +41,6 @@ module.exports = (app) => {
     //get all notes api - GET request
     app.get('/notes/:notes', tokenVerification.verifyToken, redisCache.checkCache, notesController.getAllNotes);
 
-    //get note by Id api - GET request
-    app.get('/notes/:notesId', tokenVerification.verifyToken, notesController.getNotesById);
-
     //update note by Id api - PUT request
     app.put('/note/:notesId', tokenVerification.verifyToken, notesController.updateNotesById);
 

@@ -59,7 +59,6 @@ class NotesModel {
                 title: notesData.title,
                 description: notesData.description
             });
-            console.log('notes on model', notes);
             return await notes.save({});
         } catch (error) {
             return error;

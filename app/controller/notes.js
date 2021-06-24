@@ -66,23 +66,23 @@ class NotesController {
         }
     }
 
-    /**
-     * @description function written to get notes using ID from the database
-     * @param {*} req 
-     * @param {*} res 
-     * @returns response
-     */
-    async getNotesById(req, res) {
-        try {
-            const notesId = req.params;
-            const getNote = await notesService.getNoteById(notesId);
-            console.log(getNote);
-            res.send({success: true, message: "Notes Retrieved!", data: getNote});
-        } catch (error) {
-            console.log(error);
-            res.status(500).send({success: false, message: "Some error occurred while retrieving notes"});
-        }
-    }
+    // /**
+    //  * @description function written to get notes using ID from the database
+    //  * @param {*} req 
+    //  * @param {*} res 
+    //  * @returns response
+    //  */
+    // async getNotesById(req, res) {
+    //     try {
+    //         const notesId = req.params;
+    //         const getNote = await notesService.getNoteById(notesId);
+    //         console.log(getNote);
+    //         res.send({success: true, message: "Notes Retrieved!", data: getNote});
+    //     } catch (error) {
+    //         console.log(error);
+    //         res.status(500).send({success: false, message: "Some error occurred while retrieving notes"});
+    //     }
+    // }
 
     /**
      * @description function written to update notes using ID from the database
@@ -105,7 +105,6 @@ class NotesController {
                 description: req.body.description
             }
             const updateNote = await notesService.updateNotesById(notesId, notesData);
-            redisClass.setDataInCache(updateNote);
             res.send({success: true, message: "Notes Updated!", data: updateNote});
         } catch (error) {
             console.log(error);

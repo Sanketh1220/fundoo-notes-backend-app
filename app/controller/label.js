@@ -113,7 +113,7 @@ class LabelController {
         try {
             let labelId = req.params;
             await labelService.deleteLabelById(labelId);
-            res.send({success: true, message: "Note Deleted!"});
+            res.send({success: true, message: "Label Deleted!"});
         } catch (error) {
             console.log(error);
             res.status(500).send({success: false, message: "Some error occurred while deleting label"});
