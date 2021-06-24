@@ -57,7 +57,7 @@ class LabelsModel {
 
     async deleteLabel(labelId) {
         try {
-            return await NoteModel.findByIdAndRemove(labelId.labelId);
+            return await LabelModel.findByIdAndRemove(labelId.labelId);
         } catch (error) {
             return error;
         }

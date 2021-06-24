@@ -63,5 +63,5 @@ module.exports = (app) => {
     app.put('/label/:labelId', tokenVerification.verifyToken, labelController.updateLabelById);
 
     //delete label by ID api - DELETE request
-    app.delete('label/:labelId', tokenVerification.verifyToken, labelController.deleteLabelById);
+    app.delete('/label/:labelId', tokenVerification.verifyToken, labelController.deleteLabelById);
 }

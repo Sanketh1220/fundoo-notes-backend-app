@@ -33,9 +33,9 @@ class LabelService {
         }
     }
 
-    async deleteLabelById(labelId, labelData) {
+    async deleteLabelById(labelId) {
         try {
-            return await labelsModel.deleteLabel(labelId, labelData);
+            return await labelsModel.deleteLabel(labelId);
         } catch (error) {
             return error
         }
