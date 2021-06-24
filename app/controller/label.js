@@ -11,7 +11,7 @@ class LabelController {
             // }
             const labelData = {
                 labelName: req.body.labelName,
-                userId: req.params
+                userId: req.params.userId
             }
             const labelCreated = await labelService.createLabel(labelData);
             res.send({success: true, message: "Label Created!", data: labelCreated});

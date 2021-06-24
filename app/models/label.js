@@ -6,8 +6,7 @@ const LabelSchema = new mongoose.Schema({
         required: true
     },
     userId: {
-        type: String,
-        required: true
+        type: String
     }
 }, {
     timestamps: true,
@@ -19,6 +18,7 @@ const LabelModel = mongoose.model('Label', LabelSchema);
 class LabelsModel {
     async createLabel(labelData) {
         try {
+            console.log('Models label data', labelData);
             const label = new LabelModel({
                 labelName: labelData.labelName,
                 userId: labelData.userId
