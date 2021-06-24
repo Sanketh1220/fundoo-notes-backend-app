@@ -16,6 +16,7 @@
 
 const labelService = require('../services/label');
 const {labelValidation} = require('../middleware/validation');
+const redisClass = require('../middleware/redis')
 
 class LabelController {
     /**
@@ -50,8 +51,11 @@ class LabelController {
      */
     async getAllLabels(req, res) {
         try {
-            const getLabels = await labelService.getAllLabels();
-            res.send({success: true, message: "Labels Retrieved!", data: getLabels});
+            const getLabels = req.params;
+            const getAllLabels = await labelService.getAllLabels();
+            const data = await JSON.stringify(getAllLabels);
+            redisClass.setDataInCache(getLabels.labels, 3600, data)
+            res.send({success: true, message: "Labels Retrieved!", data: getAllLabels});
         } catch (error) {
             console.log(error);
             res.status(500).send({success: false, message: "Some error occurred while retrieving labels"});

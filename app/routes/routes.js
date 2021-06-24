@@ -54,7 +54,7 @@ module.exports = (app) => {
     app.post('/createLabel/:userId', tokenVerification.verifyToken, labelController.createLabel);
 
     //get all labels api - GET request
-    app.get('/labels', tokenVerification.verifyToken, labelController.getAllLabels);
+    app.get('/labels/:labels', tokenVerification.verifyToken, redisCache.checkLabelCache, labelController.getAllLabels);
 
     //get single label by ID api - GET request
     app.get('/label/:labelId', tokenVerification.verifyToken, labelController.getLabelById);
