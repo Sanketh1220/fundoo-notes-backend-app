@@ -60,8 +60,8 @@ module.exports = (app) => {
     app.get('/label/:labelId', tokenVerification.verifyToken, labelController.getLabelById);
 
     //update single label by ID api - PUT request
-    app.put('/label/:labelId', tokenVerification.verifyToken, labelController.updateLabelById);
+    app.put('/updateLabel/:labelId', tokenVerification.verifyToken, labelController.updateLabelById);
 
     //delete label by ID api - DELETE request
-    app.delete('/label/:labelId', tokenVerification.verifyToken, labelController.deleteLabelById);
+    app.delete('/deleteLabel/:labelId', tokenVerification.verifyToken, labelController.deleteLabelById);
 }
