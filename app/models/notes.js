@@ -47,7 +47,7 @@ const NotesSchema = new mongoose.Schema({
 
 const NoteModel = mongoose.model('Notes', NotesSchema);
 
-module.exports = mongoose.model('Notes', NotesSchema);
+// module.exports = mongoose.model('Notes', NotesSchema);
 
 //created a class to write functions
 class NotesModel {
@@ -137,6 +137,23 @@ class NotesModel {
         try {
             return await NoteModel.findByIdAndUpdate(noteId,
                 {$push : { "labels": labelData.labelId} },
+                {new: true});
+        } catch (error) {
+            return error;
+        }
+    }
+
+    /**
+     * @description function written to remove label to note
+     * @param {*} a valid noteId is expected
+     * @param {*} a valid labelData is expected
+     * @returns 
+     */
+    async deleteLabelFromNote(noteId, labelData) {
+        try {
+            // const label = (labelData.labelId[(0)]);
+            return await NoteModel.findByIdAndUpdate(noteId,
+                {$pull : { "labels": (labelData.labelId[(0)])} },
                 {new: true});
         } catch (error) {
             return error;

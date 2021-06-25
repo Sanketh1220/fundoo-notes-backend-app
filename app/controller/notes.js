@@ -160,6 +160,27 @@ class NotesController {
             res.status(500).send({success: false, message: "Some error occurred while adding label to notes"});
         }
     }
+
+    // /**
+    //  * @description function written to add label to note
+    //  * @param {*} a valid noteId is expected
+    //  * @param {*} a valid labelData is expected
+    //  * @returns 
+    //  */
+     async deleteLabelFromNote(req, res) {
+        try {
+            const noteId = req.body.noteId;
+            const labelData = {
+                labelId: [req.body.labelId]
+            }
+
+            const addLabelName = await notesService.deleteLabelFromNote(noteId, labelData);
+            res.send({success: true, message: "Label Deleted!", data: addLabelName});
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({success: false, message: "Some error occurred while deleting label from notes"});
+        }
+    }
 }
 
 //exporting th whole class to utilize or call function created in this class

@@ -83,6 +83,14 @@ class NotesService {
             return error
         }
     }
+
+    async deleteLabelFromNote(noteId, labelData) {
+        try {
+            return await notesModel.deleteLabelFromNote(noteId, labelData);
+        } catch (error) {
+            return error
+        }
+    }
 }
 
 //exporting the class to utilize or call function created in this class
