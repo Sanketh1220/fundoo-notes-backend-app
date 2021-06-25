@@ -66,6 +66,21 @@ class RedisClass {
     }
 
     /**
+     * @description appending data to cache
+     * @param {*} a valid key is expected
+     * @param {*} a valid data is expected
+     */
+    appendDataInCache(key, data) {
+        client.APPEND(key, data);
+    }
+
+    cacheAvailabilityCheck(key) {
+
+        const ans = client.exists(key);
+        console.log(ans);
+    }
+
+    /**
      * @description clearing cache
      */
     clearCache() {

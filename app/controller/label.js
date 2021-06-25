@@ -37,6 +37,8 @@ class LabelController {
                 userId: req.params.userId
             }
             const labelCreated = await labelService.createLabel(labelData);
+            redisClass.cacheAvailabilityCheck("Error");
+            // redisClass.appendDataInCache(labels, labelCreated);
             res.send({success: true, message: "Label Created!", data: labelCreated});
         } catch (error) {
             console.log(error);
