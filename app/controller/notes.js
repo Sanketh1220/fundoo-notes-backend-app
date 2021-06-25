@@ -162,7 +162,7 @@ class NotesController {
     }
 
     // /**
-    //  * @description function written to add label to note
+    //  * @description function written to delete label from note
     //  * @param {*} a valid noteId is expected
     //  * @param {*} a valid labelData is expected
     //  * @returns 

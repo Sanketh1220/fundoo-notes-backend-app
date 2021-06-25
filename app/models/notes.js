@@ -144,7 +144,7 @@ class NotesModel {
     }
 
     /**
-     * @description function written to remove label to note
+     * @description function written to remove label from note
      * @param {*} a valid noteId is expected
      * @param {*} a valid labelData is expected
      * @returns 

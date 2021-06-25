@@ -84,6 +84,12 @@ class NotesService {
         }
     }
 
+    /**
+     * @description function written to delete label from note
+     * @param {*} a valid noteId is expected
+     * @param {*} a valid labelData is expected
+     * @returns 
+     */
     async deleteLabelFromNote(noteId, labelData) {
         try {
             return await notesModel.deleteLabelFromNote(noteId, labelData);
