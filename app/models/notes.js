@@ -127,6 +127,12 @@ class NotesModel {
         }
     }
 
+    /**
+     * @description function written to add label to note
+     * @param {*} a valid noteId is expected
+     * @param {*} a valid labelData is expected
+     * @returns 
+     */
     async addLabelToNote(noteId, labelData) {
         try {
             return await NoteModel.findByIdAndUpdate(noteId,

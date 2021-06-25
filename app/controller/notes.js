@@ -112,6 +112,12 @@ class NotesController {
         }
     }
 
+    /**
+     * @description function written to delete note by ID
+     * @param {*} req 
+     * @param {*} res 
+     * @returns response
+     */
     async deleteNotesById(req, res) {
         try {
             let dataValidation = notesDeletionValidation.validate(req.body);
@@ -134,6 +140,12 @@ class NotesController {
         }
     }
 
+    /**
+     * @description function written to add label to note
+     * @param {*} a valid noteId is expected
+     * @param {*} a valid labelData is expected
+     * @returns 
+     */
     async addLabelToNote(req, res) {
         try {
             const noteId = req.body.noteId;
