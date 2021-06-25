@@ -47,8 +47,6 @@ const NotesSchema = new mongoose.Schema({
 
 const NoteModel = mongoose.model('Notes', NotesSchema);
 
-// module.exports = mongoose.model('Notes', NotesSchema);
-
 //created a class to write functions
 class NotesModel {
 

@@ -7,7 +7,7 @@
     },
     "host": "localhost:5000",
     "basePath": "/",
-    "tags": ["User", "Notes", "Labels"],
+    "tags": ["User", "Notes", "Labels", "Notes and Labels"],
     "$schemes": [
         "http"
     ],
@@ -418,6 +418,66 @@
                     "JWT": []
                 }]
             }
+        },
+        "/addLabel": {
+            "put": {
+                "tags": ["Notes and Labels"],
+                "description": "Add Label To Note",
+                "parameters": [{
+                    "name": "User and Label Details",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/LabelToNote"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "505": {
+                        "description": "Internal Error"
+                    }
+                },
+                "security": [{
+                    "JWT": []
+                }]
+            }
+        },
+        "/deleteLabel": {
+            "put": {
+                "tags": ["Notes and Labels"],
+                "description": "Delete Label From Note",
+                "parameters": [{
+                    "name": "User and Label Details",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/LabelToNote"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "505": {
+                        "description": "Internal Error"
+                    }
+                },
+                "security": [{
+                    "JWT": []
+                }]
+            }
         }
     },
     "securityDefinitions": {
@@ -499,6 +559,17 @@
             "properties": {
                 "labelName": {
                     "type": "string"
+                }
+            }
+        },
+        "LabelToNote": {
+            "type": "object",
+            "properties": {
+                "noteId": {
+                    "type":"string"
+                },
+                "labelId": {
+                    "type":"string"
                 }
             }
         }
