@@ -15,7 +15,7 @@
  *********************************************************************/
 
 const notesService = require('../services/notes');
-const {notesCreationValidation, notesDeletionValidation} = require('../middleware/validation');
+const {notesCreationValidation, notesDeletionValidation, addingLabelToNotesValidation} = require('../middleware/validation');
 const redisClass = require('../middleware/redis')
 const redis = require('redis');
 const client = redis.createClient(process.env.REDIS_PORT);
@@ -131,6 +131,21 @@ class NotesController {
         } catch (error) {
             console.log(error);
             res.status(500).send({success: false, message: "Some error occurred while updating notes"});
+        }
+    }
+
+    async addLabelToNote(req, res) {
+        try {
+            const noteId = req.body.noteId;
+            const labelData = {
+                labelId: [req.body.labelId]
+            }
+
+            const addLabelName = await notesService.addLabelToNote(noteId, labelData);
+            res.send({success: true, message: "Label Added!", data: addLabelName});
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({success: false, message: "Some error occurred while adding label to notes"});
         }
     }
 }

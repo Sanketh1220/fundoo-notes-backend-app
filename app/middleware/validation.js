@@ -43,7 +43,12 @@ const notesDeletionValidation = joi.object({
 
 const labelValidation = joi.object({
     labelName: joi.string().required()
+});
+
+const addingLabelToNotesValidation = joi.object({
+    noteId: joi.string().required(),
+    labelId: joi.string().required()
 })
 
 //exporting object
-module.exports = {userDataValidation, userLoginData, userForgotPasswordData, notesCreationValidation, notesDeletionValidation, labelValidation};
+module.exports = {userDataValidation, userLoginData, userForgotPasswordData, notesCreationValidation, notesDeletionValidation, labelValidation, addingLabelToNotesValidation};

@@ -14,6 +14,7 @@
  * @since       : 18-06-2021
  *********************************************************************/
 
+const { array } = require("@hapi/joi");
 const mongoose = require("mongoose");
 
 const NotesSchema = new mongoose.Schema({
@@ -34,6 +35,9 @@ const NotesSchema = new mongoose.Schema({
     isPinned: {
         type: Boolean,
         default: false
+    },
+    labels : {
+        type: [String]
     }
 }, {
     // generates the time stamp the data is been added
@@ -118,6 +122,16 @@ class NotesModel {
             return await NoteModel.findByIdAndUpdate(notesId.notesId, {
                 isDeleted: notesData.isDeleted
             }, {new: true});
+        } catch (error) {
+            return error;
+        }
+    }
+
+    async addLabelToNote(noteId, labelData) {
+        try {
+            return await NoteModel.findByIdAndUpdate(noteId,
+                {$push : { "labels": labelData.labelId} },
+                {new: true});
         } catch (error) {
             return error;
         }

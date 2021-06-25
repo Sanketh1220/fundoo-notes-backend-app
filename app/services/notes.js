@@ -76,6 +76,14 @@ class NotesService {
             return error
         }
     }
+
+    async addLabelToNote(noteId, labelData) {
+        try {
+            return await notesModel.addLabelToNote(noteId, labelData);
+        } catch (error) {
+            return error
+        }
+    }
 }
 
 //exporting the class to utilize or call function created in this class
