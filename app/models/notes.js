@@ -14,7 +14,6 @@
  * @since       : 18-06-2021
  *********************************************************************/
 
-const { array } = require("@hapi/joi");
 const mongoose = require("mongoose");
 
 const NotesSchema = new mongoose.Schema({
@@ -149,7 +148,6 @@ class NotesModel {
      */
     async deleteLabelFromNote(noteId, labelData) {
         try {
-            // const label = (labelData.labelId[(0)]);
             return await NoteModel.findByIdAndUpdate(noteId,
                 {$pull : { "labels": (labelData.labelId[(0)])} },
                 {new: true});

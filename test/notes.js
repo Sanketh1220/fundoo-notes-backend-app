@@ -283,7 +283,7 @@ describe('Notes API', () => {
      * /PUT request test
      * Positive and Negative - Deleting label from note using Note ID into database 
      */
-     describe('PUT /addLabel/', () => {
+     describe('PUT /deleteLabel/', () => {
         it('givenValidDataItShould_addLabelToNoteSuccessfully_andReturnsStatusCodeAs200', (done) => {
             chai.request(server)
                 .put('/deleteLabel')

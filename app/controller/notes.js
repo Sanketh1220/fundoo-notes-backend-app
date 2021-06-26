@@ -149,12 +149,12 @@ class NotesController {
         }
     }
 
-    // /**
-    //  * @description function written to delete label from note
-    //  * @param {*} a valid noteId is expected
-    //  * @param {*} a valid labelData is expected
-    //  * @returns 
-    //  */
+    /**
+     * @description function written to delete label from note
+     * @param {*} a valid noteId is expected
+     * @param {*} a valid labelData is expected
+     * @returns 
+     */
      async deleteLabelFromNote(req, res) {
         try {
             let dataValidation = addingRemovingLabelValidation.validate(req.body);
