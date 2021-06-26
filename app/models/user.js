@@ -129,13 +129,10 @@ class UserModel {
      */
     async forgotPassword(userData) {
         try {
-            console.log("Models", userData);
             const user = await UserInfoModel.findOne({email: userData.email});
-
             if (!user) {
                 return "User with given email doesn't exist!";
             }
-
             sendEmail.sendPasswordResetLink(userData);
             return "Password reset link sent to your email account!";
         } catch (error) {
@@ -152,7 +149,6 @@ class UserModel {
         try {
             const salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
             const hashPassword = bcrypt.hashSync(userData.password, salt);
-    
             const resetPasswordData = await UserInfoModel.findOne({'email': email})
             const updatedPassword = await UserInfoModel.findByIdAndUpdate(resetPasswordData.id, {
                 firstName: resetPasswordData.firstName,
