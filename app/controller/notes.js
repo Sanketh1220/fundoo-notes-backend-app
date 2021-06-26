@@ -15,7 +15,7 @@
  *********************************************************************/
 
 const notesService = require('../services/notes');
-const {notesCreationValidation, notesDeletionValidation, addingLabelToNotesValidation} = require('../middleware/validation');
+const {notesCreationValidation, notesDeletionValidation, addingRemovingLabelValidation} = require('../middleware/validation');
 const redisClass = require('../middleware/redis')
 const redis = require('redis');
 const client = redis.createClient(process.env.REDIS_PORT);
@@ -65,24 +65,6 @@ class NotesController {
             res.status(500).send({success: false, message: "Some error occurred while retrieving notes"});
         }
     }
-
-    // /**
-    //  * @description function written to get notes using ID from the database
-    //  * @param {*} req 
-    //  * @param {*} res 
-    //  * @returns response
-    //  */
-    // async getNotesById(req, res) {
-    //     try {
-    //         const notesId = req.params;
-    //         const getNote = await notesService.getNoteById(notesId);
-    //         console.log(getNote);
-    //         res.send({success: true, message: "Notes Retrieved!", data: getNote});
-    //     } catch (error) {
-    //         console.log(error);
-    //         res.status(500).send({success: false, message: "Some error occurred while retrieving notes"});
-    //     }
-    // }
 
     /**
      * @description function written to update notes using ID from the database
@@ -148,6 +130,12 @@ class NotesController {
      */
     async addLabelToNote(req, res) {
         try {
+            let dataValidation = addingRemovingLabelValidation.validate(req.body);
+            if (dataValidation.error) {
+                return res.status(400).send({
+                    message: dataValidation.error.details[0].message
+                });
+            }
             const noteId = req.body.noteId;
             const labelData = {
                 labelId: [req.body.labelId]
@@ -169,6 +157,12 @@ class NotesController {
     //  */
      async deleteLabelFromNote(req, res) {
         try {
+            let dataValidation = addingRemovingLabelValidation.validate(req.body);
+            if (dataValidation.error) {
+                return res.status(400).send({
+                    message: dataValidation.error.details[0].message
+                });
+            }
             const noteId = req.body.noteId;
             const labelData = {
                 labelId: [req.body.labelId]

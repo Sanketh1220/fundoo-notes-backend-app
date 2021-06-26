@@ -14,20 +14,20 @@
  * @since       : 22-06-2021
  *********************************************************************/
 
- const mocha = require('mocha');
- const chai = require('chai');
- const chaiHttp = require('chai-http');
- require('superagent');
- const server = require('../server');
- const userInputs = require('./notes.json');
- const labelInputs = require('./labels.json');
- const userInput = require('./user.json');
- 
- //assertion style
- const should = chai.should();
- chai.use(chaiHttp);
- 
- describe('Notes API', () => {
+const mocha = require('mocha');
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+require('superagent');
+const server = require('../server');
+const userInputs = require('./notes.json');
+const labelInputs = require('./labels.json');
+const userInput = require('./user.json');
+
+//assertion style
+const should = chai.should();
+chai.use(chaiHttp);
+
+describe('Notes API', () => {
 
     let token = '';
 
@@ -188,7 +188,7 @@
      * /DELETE request test
      * Positive and Negative - Deleting a single contact using ID into database 
      */
-     describe('PUT /delete/:notesId', () => {
+    describe('PUT /delete/:notesId', () => {
         it('givenValidDataItShould_deleteOrPUTNotesSuccessfullyUsingID_andReturnsStatusCodeAs200', (done) => {
             chai.request(server)
                 .put('/delete/60ce06afb2b3c723334777f0')
@@ -224,10 +224,122 @@
     });
 
     /**
+     * /PUT request test
+     * Positive and Negative - Adding label to note using Note ID into database 
+     */
+    describe('PUT /addLabel/', () => {
+        it('givenValidDataItShould_addLabelToNoteSuccessfully_andReturnsStatusCodeAs200', (done) => {
+            chai.request(server)
+                .put('/addLabel')
+                .send(userInputs.addLabelToNotePos)
+                .set('token', token)
+                .end((error, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property("success").eql(true);
+                    res.body.should.have.property("message").eql("Label Added!");
+                    res.body.should.have.property("data").should.be.a('object');
+                    if (error) {
+                        return done(error);
+                    }
+                    done();
+                });
+        });
+
+        it('givenInValidNoteIdItShould_failToAddLabelToNote_andReturnsStatusCodeAs400', (done) => {
+            chai.request(server)
+                .put('/addLabel')
+                .send(userInputs.addLabelToNoteNegNoteId)
+                .set('token', token)
+                .end((error, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property("message").eql("\"noteId\" is not allowed to be empty");
+                    if (error) {
+                        return done(error);
+                    }
+                    done();
+                });
+        });
+
+        it('givenInValidLabelIdItShould_failToAddLabelToNote_andReturnsStatusCodeAs400', (done) => {
+            chai.request(server)
+                .put('/addLabel')
+                .send(userInputs.addLabelToNoteNegLabelId)
+                .set('token', token)
+                .end((error, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property("message").eql("\"labelId\" is not allowed to be empty");
+                    if (error) {
+                        return done(error);
+                    }
+                    done();
+                });
+        });
+    });
+
+    /**
+     * /PUT request test
+     * Positive and Negative - Deleting label from note using Note ID into database 
+     */
+     describe('PUT /addLabel/', () => {
+        it('givenValidDataItShould_addLabelToNoteSuccessfully_andReturnsStatusCodeAs200', (done) => {
+            chai.request(server)
+                .put('/deleteLabel')
+                .send(userInputs.deleteLabelFromNotePos)
+                .set('token', token)
+                .end((error, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property("success").eql(true);
+                    res.body.should.have.property("message").eql("Label Deleted!");
+                    res.body.should.have.property("data").should.be.a('object');
+                    if (error) {
+                        return done(error);
+                    }
+                    done();
+                });
+        });
+
+        it('givenInValidNoteIdItShould_failToAddLabelToNote_andReturnsStatusCodeAs400', (done) => {
+            chai.request(server)
+                .put('/deleteLabel')
+                .send(userInputs.deleteLabelToNoteNegNoteId)
+                .set('token', token)
+                .end((error, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property("message").eql("\"noteId\" is not allowed to be empty");
+                    if (error) {
+                        return done(error);
+                    }
+                    done();
+                });
+        });
+
+        it('givenInValidLabelIdItShould_failToAddLabelToNote_andReturnsStatusCodeAs400', (done) => {
+            chai.request(server)
+                .put('/deleteLabel')
+                .send(userInputs.deleteLabelToNoteNegLabelId)
+                .set('token', token)
+                .end((error, res) => {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property("message").eql("\"labelId\" is not allowed to be empty");
+                    if (error) {
+                        return done(error);
+                    }
+                    done();
+                });
+        });
+    });
+
+    /**
      * /POST request test
      * Positive and Negative - Creation of Labels
      */
-     describe('POST labels /create', () => {
+    describe('POST labels /create', () => {
         it('givenValidDataItShould_makePOSTRequestAndCreateLabel_andReturnsStatusCodeAs200', (done) => {
             let labelData = labelInputs.labelCreatePos
             chai.request(server)
@@ -269,7 +381,7 @@
      * /GET request test
      * Positive and Negative - Get all Labels from database
      */
-     describe('GET all /labels', () => {
+    describe('GET all /labels', () => {
         it('givenValidRequest_successfullyMakesGETRequestToGetAllLabels_andReturnsStatusCodeAs200', (done) => {
             chai.request(server)
                 .get('/labels/labels')
@@ -287,12 +399,12 @@
                 });
         });
     });
-    
+
     /**
      * /GET request test
      * Positive and Negative - Get notes by Id from database Test 
      */
-     describe('GET labels using ID /label/:labelId', () => {
+    describe('GET labels using ID /label/:labelId', () => {
         it('givenValidRequest_successfullyMakesGETRequest_toGetSingleNotes_andReturnsStatusCodeAs200', (done) => {
             chai.request(server)
                 .get('/label/60d45f0bb0734760a4bddd2a')
@@ -372,7 +484,7 @@
      * /DELETE request test
      * Positive and Negative - Deleting a single contact using ID into database 
      */
-     describe('PUT /deleteLabel/:labelId', () => {
+    describe('PUT /deleteLabel/:labelId', () => {
         it('givenValidDataItShould_deleteLabelSuccessfullyUsingID_andReturnsStatusCodeAs200', (done) => {
             chai.request(server)
                 .delete('/deleteLabel/60d4bfb1da59098c02f43fc6')

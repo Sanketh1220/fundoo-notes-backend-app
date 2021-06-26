@@ -39,5 +39,35 @@
 
     "notesDelNeg": {
         "isDeleted": ""
+    },
+
+    "addLabelToNotePos": {
+        "noteId": "60d5cdcae7844db7911c9181",
+        "labelId": "Hey i am going to be deleted"
+    },
+
+    "deleteLabelFromNotePos": {
+        "noteId": "60d5cdcae7844db7911c9181",
+        "labelId": "Hey i am going to be deleted"
+    },
+
+    "addLabelToNoteNegNoteId": {
+        "noteId": "",
+        "labelId": "Hey i am going to be deleted"
+    },
+
+    "addLabelToNoteNegLabelId": {
+        "noteId": "60d5cdcae7844db7911c9181",
+        "labelId": ""
+    },
+
+    "deleteLabelToNoteNegNoteId": {
+        "noteId": "",
+        "labelId": "Hey i am going to be deleted"
+    },
+
+    "deleteLabelToNoteNegLabelId": {
+        "noteId": "60d5cdcae7844db7911c9181",
+        "labelId": ""
     }
 }
