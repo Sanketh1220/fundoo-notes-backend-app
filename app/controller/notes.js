@@ -15,7 +15,10 @@
  *********************************************************************/
 
 const notesService = require('../services/notes');
-const {notesCreationValidation, notesDeletionValidation} = require('../middleware/validation');
+const {notesCreationValidation, notesDeletionValidation, addingRemovingLabelValidation} = require('../middleware/validation');
+const redisClass = require('../middleware/redis')
+const redis = require('redis');
+const client = redis.createClient(process.env.REDIS_PORT);
 
 class NotesController {
     /**
@@ -24,7 +27,7 @@ class NotesController {
      * @param {*} res 
      * @returns response
      */
-    async createNotesApi(req, res) {
+    async createNotes(req, res) {
         try {
             let dataValidation = notesCreationValidation.validate(req.body);
             if (dataValidation.error) {
@@ -50,27 +53,13 @@ class NotesController {
      * @param {*} res 
      * @returns response
      */
-    async getAllNotesApi(req, res) {
+    async getAllNotes(req, res) {
         try {
-            const getNotes = await notesService.getAllNotes();
-            res.send({success: true, message: "Notes Retrieved!", data: getNotes});
-        } catch (error) {
-            console.log(error);
-            res.status(500).send({success: false, message: "Some error occurred while retrieving notes"});
-        }
-    }
-
-    /**
-     * @description function written to get notes using ID from the database
-     * @param {*} req 
-     * @param {*} res 
-     * @returns response
-     */
-    async getNotesByIdApi(req, res) {
-        try {
-            let notesId = req.params;
-            const getNote = await notesService.getNoteById(notesId);
-            res.send({success: true, message: "Notes Retrieved!", data: getNote});
+            const getNotes = req.params;
+            const getAllNotes = await notesService.getAllNotes();
+            const data = await JSON.stringify(getAllNotes);
+            redisClass.setDataInCache(getNotes.notes, 3600, data)
+            res.send({success: true, message: "Notes Retrieved!", data: getAllNotes});
         } catch (error) {
             console.log(error);
             res.status(500).send({success: false, message: "Some error occurred while retrieving notes"});
@@ -83,7 +72,7 @@ class NotesController {
      * @param {*} res 
      * @returns response
      */
-    async UpdateNotesByIdApi(req, res) {
+    async updateNotesById(req, res) {
         try {
             let dataValidation = notesCreationValidation.validate(req.body);
             if (dataValidation.error) {
@@ -105,7 +94,13 @@ class NotesController {
         }
     }
 
-    async deleteNotesByIdApi(req, res) {
+    /**
+     * @description function written to delete note by ID
+     * @param {*} req 
+     * @param {*} res 
+     * @returns response
+     */
+    async deleteNotesById(req, res) {
         try {
             let dataValidation = notesDeletionValidation.validate(req.body);
             if (dataValidation.error) {
@@ -124,6 +119,60 @@ class NotesController {
         } catch (error) {
             console.log(error);
             res.status(500).send({success: false, message: "Some error occurred while updating notes"});
+        }
+    }
+
+    /**
+     * @description function written to add label to note
+     * @param {*} a valid noteId is expected
+     * @param {*} a valid labelData is expected
+     * @returns 
+     */
+    async addLabelToNote(req, res) {
+        try {
+            let dataValidation = addingRemovingLabelValidation.validate(req.body);
+            if (dataValidation.error) {
+                return res.status(400).send({
+                    message: dataValidation.error.details[0].message
+                });
+            }
+            const noteId = req.body.noteId;
+            const labelData = {
+                labelId: [req.body.labelId]
+            }
+
+            const addLabelName = await notesService.addLabelToNote(noteId, labelData);
+            res.send({success: true, message: "Label Added!", data: addLabelName});
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({success: false, message: "Some error occurred while adding label to notes"});
+        }
+    }
+
+    /**
+     * @description function written to delete label from note
+     * @param {*} a valid noteId is expected
+     * @param {*} a valid labelData is expected
+     * @returns 
+     */
+     async deleteLabelFromNote(req, res) {
+        try {
+            let dataValidation = addingRemovingLabelValidation.validate(req.body);
+            if (dataValidation.error) {
+                return res.status(400).send({
+                    message: dataValidation.error.details[0].message
+                });
+            }
+            const noteId = req.body.noteId;
+            const labelData = {
+                labelId: [req.body.labelId]
+            }
+
+            const addLabelName = await notesService.deleteLabelFromNote(noteId, labelData);
+            res.send({success: true, message: "Label Deleted!", data: addLabelName});
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({success: false, message: "Some error occurred while deleting label from notes"});
         }
     }
 }

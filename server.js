@@ -21,6 +21,7 @@ const app = express();
 const swaggerUI = require('swagger-ui-express');
 const logger = require('./config/logger');
 const swagger = require('./swagger/swagger.json');
+const redis = require('redis');
 
 databaseConnection();
 
@@ -39,7 +40,9 @@ require('./app/routes/routes')(app);
 //defining a simple root statement
 app.get('/', (req, res) => {
     res.send("<h1>Welcome to Fundoo Notes Backend App!</h1>");
-})
+});
+
+
 
 //declaring a port number for server to run
 app.listen(process.env.PORT, ()=>{

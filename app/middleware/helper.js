@@ -53,7 +53,7 @@ class HelperClass {
      * @param {*} next is a method 
      * @returns 
      */
-     tokenChecker(req, res, next) {
+     verifyToken(req, res, next) {
         let token = req.get("token");
         if (token) {
             jwt.verify(token, SECRET_TOKEN, error => {

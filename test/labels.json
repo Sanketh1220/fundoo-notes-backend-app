@@ -1,0 +1,13 @@
+{
+    "labelCreatePos": {
+        "labelName": "New label Cards"
+    },
+
+    "userId": "60c4597634863b5812d0f877",
+
+    "labelCreateNeg": {"labelName": ""},
+
+    "getLabelById": "60d45f0bb0734760a4bddd2a",
+
+    "getLabelByIdNeg": "60d45f0bb0734760a4bdd"
+}

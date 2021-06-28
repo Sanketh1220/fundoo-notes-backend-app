@@ -45,19 +45,6 @@ class NotesService {
     /**
      * @description this function is written to trigger or call the models function
      * @param {*} notesId 
-     * @returns error if it has error else data
-     */
-    async getNoteById(notesId) {
-        try {
-            return await notesModel.getNoteById(notesId);
-        } catch (error) {
-            return error;
-        }
-    }
-
-    /**
-     * @description this function is written to trigger or call the models function
-     * @param {*} notesId 
      * @param {*} notesData 
      * @returns error if it has error else data
      */
@@ -69,9 +56,43 @@ class NotesService {
         }
     }
 
+    /**
+     * @description function written to delete note by ID
+     * @param {*} a valid notesId is expected
+     * @param {*} a valid labelData is expected
+     * @returns 
+     */
     async deleteNoteById(notesId, notesData) {
         try {
             return await notesModel.deleteNote(notesId, notesData);
+        } catch (error) {
+            return error
+        }
+    }
+
+    /**
+     * @description function written to add label to note
+     * @param {*} a valid noteId is expected
+     * @param {*} a valid labelData is expected
+     * @returns 
+     */
+    async addLabelToNote(noteId, labelData) {
+        try {
+            return await notesModel.addLabelToNote(noteId, labelData);
+        } catch (error) {
+            return error
+        }
+    }
+
+    /**
+     * @description function written to delete label from note
+     * @param {*} a valid noteId is expected
+     * @param {*} a valid labelData is expected
+     * @returns 
+     */
+    async deleteLabelFromNote(noteId, labelData) {
+        try {
+            return await notesModel.deleteLabelFromNote(noteId, labelData);
         } catch (error) {
             return error
         }

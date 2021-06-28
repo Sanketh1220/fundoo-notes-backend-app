@@ -7,7 +7,7 @@
     },
     "host": "localhost:5000",
     "basePath": "/",
-    "tags": ["User", "Notes"],
+    "tags": ["User", "Notes", "Labels", "Notes and Labels"],
     "$schemes": [
         "http"
     ],
@@ -144,7 +144,7 @@
                 }]
             }
         },
-        "/notes": {
+        "/notes/{notes}": {
             "get": {
                 "tags": ["Notes"],
                 "description": "get notes",
@@ -158,38 +158,6 @@
                     },
                     "401": {
                         "description": "Unauthorized"
-                    },
-                    "500": {
-                        "description": "Internal Server Error"
-                    }
-                },
-                "security": [{
-                    "JWT": []
-                }]
-            }
-        },
-        "/notes/{notesId}": {
-            "get": {
-                "tags": ["Notes"],
-                "description": "get notes by ID",
-                "parameters": [{
-                    "name": "notesId",
-                    "in": "path",
-                    "required": true,
-                    "type": "string"
-                }],
-                "responses": {
-                    "200": {
-                        "description": "Successful"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    },
-                    "404": {
-                        "description": "Not Found"
                     },
                     "500": {
                         "description": "Internal Server Error"
@@ -243,7 +211,7 @@
             }
         },
         "/delete/{:notesId}": {
-            "put": {
+            "delete": {
                 "tags": ["Notes"],
                 "description": "delete note using ID",
                 "parameters": [{
@@ -276,6 +244,234 @@
                     },
                     "500": {
                         "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "JWT": []
+                }]
+            }
+        },
+        "/createLabel/{userId}": {
+            "post": {
+                "tags": ["Labels"],
+                "description": "create notes",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                    "name": "create label",
+                    "in": "body",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Label"
+                    }
+                }],
+                "responses": {
+                    "201": {
+                        "description": "Registered"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "JWT": []
+                }]
+            }
+        },
+        "/labels/{labels}": {
+            "get": {
+                "tags": ["Labels"],
+                "description": "get labels",
+                "parameters": [{
+                    "name": "labels",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "JWT": []
+                }]
+            }
+        },
+        "/label/{labelId}": {
+            "get": {
+                "tags": ["Labels"],
+                "description": "get label by ID",
+                "parameters": [{
+                    "name": "labelId",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "JWT": []
+                }]
+            }
+        },
+        "/updateLabel/{labelId}": {
+            "put": {
+                "tags": ["Labels"],
+                "description": "update label by ID",
+                "parameters": [{
+                    "name": "labelId",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "new LabelDetails",
+                    "in": "body",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/Label"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "JWT": []
+                }]
+            }
+        },
+        "/deleteLabel/{labelId}": {
+            "delete": {
+                "tags": ["Labels"],
+                "description": "delete label by ID",
+                "parameters": [{
+                    "name": "labelId",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [{
+                    "JWT": []
+                }]
+            }
+        },
+        "/addLabel": {
+            "put": {
+                "tags": ["Notes and Labels"],
+                "description": "Add Label To Note",
+                "parameters": [{
+                    "name": "User and Label Details",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/LabelToNote"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "505": {
+                        "description": "Internal Error"
+                    }
+                },
+                "security": [{
+                    "JWT": []
+                }]
+            }
+        },
+        "/deleteLabel": {
+            "put": {
+                "tags": ["Notes and Labels"],
+                "description": "Delete Label From Note",
+                "parameters": [{
+                    "name": "User and Label Details",
+                    "in": "body",
+                    "schema": {
+                        "$ref": "#/definitions/LabelToNote"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "505": {
+                        "description": "Internal Error"
                     }
                 },
                 "security": [{
@@ -355,6 +551,25 @@
             "properties": {
                 "isDeleted": {
                     "type": "boolean"
+                }
+            }
+        },
+        "Label": {
+            "type": "object",
+            "properties": {
+                "labelName": {
+                    "type": "string"
+                }
+            }
+        },
+        "LabelToNote": {
+            "type": "object",
+            "properties": {
+                "noteId": {
+                    "type":"string"
+                },
+                "labelId": {
+                    "type":"string"
                 }
             }
         }

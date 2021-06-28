@@ -1,0 +1,73 @@
+{
+    "notesCreatePos": {
+        "title": "Test Notes",
+        "description": "testing notes app"
+    },
+
+    "notesCreateNegTitle": {
+        "title": "",
+        "description": "this is my second notes"
+    },
+
+    "notesCreateNegDescription": {
+        "title": "Test Notes",
+        "description": ""
+    },
+
+    "getNotesById": "60d1ec33dcb70161ff688e09",
+
+    "getNotesByIdNeg": "60ccd2061412cbce156d1b",
+
+    "notesPutPos": {
+        "title": "Test Notes",
+        "description": "testing notes app"
+    },
+
+    "notesPutNegTitle": {
+        "title": "",
+        "description": "this is my second notes"
+    },
+
+    "notesPutNegDescription": {
+        "title": "Test Notes",
+        "description": ""
+    },
+
+    "notesDelPos": {
+        "isDeleted": true
+    },
+
+    "notesDelNeg": {
+        "isDeleted": ""
+    },
+
+    "addLabelToNotePos": {
+        "noteId": "60d5cdcae7844db7911c9181",
+        "labelId": "Hey i am going to be deleted"
+    },
+
+    "deleteLabelFromNotePos": {
+        "noteId": "60d5cdcae7844db7911c9181",
+        "labelId": "Hey i am going to be deleted"
+    },
+
+    "addLabelToNoteNegNoteId": {
+        "noteId": "",
+        "labelId": "Hey i am going to be deleted"
+    },
+
+    "addLabelToNoteNegLabelId": {
+        "noteId": "60d5cdcae7844db7911c9181",
+        "labelId": ""
+    },
+
+    "deleteLabelToNoteNegNoteId": {
+        "noteId": "",
+        "labelId": "Hey i am going to be deleted"
+    },
+
+    "deleteLabelToNoteNegLabelId": {
+        "noteId": "60d5cdcae7844db7911c9181",
+        "labelId": ""
+    }
+}

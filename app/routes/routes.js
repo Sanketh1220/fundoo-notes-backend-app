@@ -15,36 +15,56 @@
  *********************************************************************/
 
 const userController = require('../controller/user');
-const notesController = require('../controller/notes')
-const tokenCheck = require('../middleware/helper');
+const notesController = require('../controller/notes');
+const labelController = require('../controller/label');
+const tokenVerification = require('../middleware/helper');
+const redisCache = require('../middleware/redis');
 
 //exporting it to server.js
 module.exports = (app) => {
 
     //registration api POST request
-    app.post('/register', userController.registrationApi);
+    app.post('/register', userController.registration);
 
     //login api POST request
-    app.post('/login', userController.loginApi);
+    app.post('/login', userController.login);
 
     //sends password reset link
-    app.post('/forgotPassword', userController.forgotPasswordApi);
+    app.post('/forgotPassword', userController.forgotPassword);
 
     //reset user password
-    app.put('/resetPassword', userController.passwordResetApi);
+    app.put('/resetPassword', userController.passwordReset);
 
     //notes creation api - POST request
-    app.post('/createNotes', tokenCheck.tokenChecker, notesController.createNotesApi);
+    app.post('/createNotes', tokenVerification.verifyToken, notesController.createNotes);
 
     //get all notes api - GET request
-    app.get('/notes', tokenCheck.tokenChecker, notesController.getAllNotesApi);
-
-    //get note by Id api - GET request
-    app.get('/notes/:notesId', tokenCheck.tokenChecker, notesController.getNotesByIdApi);
+    app.get('/notes/:notes', tokenVerification.verifyToken, redisCache.checkCache, notesController.getAllNotes);
 
     //update note by Id api - PUT request
-    app.put('/note/:notesId', tokenCheck.tokenChecker, notesController.UpdateNotesByIdApi);
+    app.put('/note/:notesId', tokenVerification.verifyToken, notesController.updateNotesById);
 
     //delete note by Id api - PUT request
-    app.put('/delete/:notesId', tokenCheck.tokenChecker, notesController.deleteNotesByIdApi);
+    app.put('/delete/:notesId', tokenVerification.verifyToken, notesController.deleteNotesById);
+
+    //label creation api - POST request
+    app.post('/createLabel/:userId', tokenVerification.verifyToken, labelController.createLabel);
+
+    //get all labels api - GET request
+    app.get('/labels/:labels', tokenVerification.verifyToken, redisCache.checkLabelCache, labelController.getAllLabels);
+
+    //get single label by ID api - GET request
+    app.get('/label/:labelId', tokenVerification.verifyToken, labelController.getLabelById);
+
+    //update single label by ID api - PUT request
+    app.put('/updateLabel/:labelId', tokenVerification.verifyToken, labelController.updateLabelById);
+
+    //delete label by ID api - DELETE request
+    app.delete('/deleteLabel/:labelId', tokenVerification.verifyToken, labelController.deleteLabelById);
+
+    //add label to note api - PUT request
+    app.put('/addLabel', tokenVerification.verifyToken, notesController.addLabelToNote);
+
+    //delete label from note api - PUT request
+    app.put('/deleteLabel', tokenVerification.verifyToken, notesController.deleteLabelFromNote);
 }

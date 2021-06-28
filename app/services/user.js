@@ -43,12 +43,11 @@ class UserService {
      */
     async loginUser(userData) {
         try {
-            const token = helperClass.generateAccessToken({userData});
             const loginUser = await userModel.loginUser(userData)
             if(helperClass.bcryptDataCheck(userData.password, loginUser.password)){
                 return "Please enter correct password";
             }else {
-            // console.log("token:   ", token);
+            const token = helperClass.generateAccessToken({userData});
             return token;
             }
         } catch (error) {

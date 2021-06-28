@@ -34,6 +34,9 @@ const NotesSchema = new mongoose.Schema({
     isPinned: {
         type: Boolean,
         default: false
+    },
+    labels : {
+        type: [String]
     }
 }, {
     // generates the time stamp the data is been added
@@ -42,8 +45,6 @@ const NotesSchema = new mongoose.Schema({
 })
 
 const NoteModel = mongoose.model('Notes', NotesSchema);
-
-module.exports = mongoose.model('Notes', NotesSchema);
 
 //created a class to write functions
 class NotesModel {
@@ -59,7 +60,6 @@ class NotesModel {
                 title: notesData.title,
                 description: notesData.description
             });
-            console.log('notes on model', notes);
             return await notes.save({});
         } catch (error) {
             return error;
@@ -119,6 +119,38 @@ class NotesModel {
             return await NoteModel.findByIdAndUpdate(notesId.notesId, {
                 isDeleted: notesData.isDeleted
             }, {new: true});
+        } catch (error) {
+            return error;
+        }
+    }
+
+    /**
+     * @description function written to add label to note
+     * @param {*} a valid noteId is expected
+     * @param {*} a valid labelData is expected
+     * @returns 
+     */
+    async addLabelToNote(noteId, labelData) {
+        try {
+            return await NoteModel.findByIdAndUpdate(noteId,
+                {$push : { "labels": labelData.labelId} },
+                {new: true});
+        } catch (error) {
+            return error;
+        }
+    }
+
+    /**
+     * @description function written to remove label from note
+     * @param {*} a valid noteId is expected
+     * @param {*} a valid labelData is expected
+     * @returns 
+     */
+    async deleteLabelFromNote(noteId, labelData) {
+        try {
+            return await NoteModel.findByIdAndUpdate(noteId,
+                {$pull : { "labels": (labelData.labelId[(0)])} },
+                {new: true});
         } catch (error) {
             return error;
         }

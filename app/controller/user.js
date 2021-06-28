@@ -24,7 +24,7 @@ class UserController {
      * @param {*} A valid req is expected
      * @param {*} res
      */
-    async registrationApi(req, res) {
+    async registration(req, res) {
         try {
             let dataValidation = userDataValidation.validate(req.body);
             if (dataValidation.error) {
@@ -53,7 +53,7 @@ class UserController {
     * @param {*} res 
     * @returns 
     */
-    async loginApi(req, res) {
+    async login(req, res) {
         try {
             let dataValidation = userLoginData.validate(req.body);
             if (dataValidation.error) {
@@ -82,7 +82,7 @@ class UserController {
     * @param {*} res 
     * @returns 
     */
-    async forgotPasswordApi(req, res) {
+    async forgotPassword(req, res) {
         try {
             let dataValidation = userForgotPasswordData.validate(req.body);
             if (dataValidation.error) {
@@ -109,7 +109,7 @@ class UserController {
     * @param {*} res 
     * @returns 
     */
-    async passwordResetApi(req, res) {
+    async passwordReset(req, res) {
         try {
             const userPassword = {
                 password: req.body.password,
