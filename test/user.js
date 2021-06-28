@@ -36,14 +36,14 @@ describe('POST /register', () => {
             .post('/register')
             .send(userData)
             .end((error, res) => {
+                if (error) {
+                    return done(error);
+                }
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.have.property("success").eql(true);
                 res.body.should.have.property("message").eql("User registered!");
-                if (error) {
-                    return done(error);
-                }
-                done();
+                return done();
             });
     });
 
@@ -53,13 +53,13 @@ describe('POST /register', () => {
             .post('/register')
             .send(userData)
             .end((error, res) => {
-                res.should.have.status(400);
-                res.body.should.be.a('object');
-                res.body.should.have.property("message").eql("\"firstName\" is not allowed to be empty");
                 if (error) {
                     return done(error);
                 }
-                done();
+                res.should.have.status(400);
+                res.body.should.be.a('object');
+                res.body.should.have.property("message").eql("\"firstName\" is not allowed to be empty");
+                return done();
             });
     });
 
@@ -69,13 +69,13 @@ describe('POST /register', () => {
             .post('/register')
             .send(userData)
             .end((error, res) => {
-                res.should.have.status(400);
-                res.body.should.be.a('object');
-                res.body.should.have.property("message").eql("\"lastName\" is not allowed to be empty");
                 if (error) {
                     return done(error);
                 }
-                done();
+                res.should.have.status(400);
+                res.body.should.be.a('object');
+                res.body.should.have.property("message").eql("\"lastName\" is not allowed to be empty");
+                return done();
             });
     });
 
@@ -85,13 +85,13 @@ describe('POST /register', () => {
             .post('/register')
             .send(userData)
             .end((error, res) => {
-                res.should.have.status(400);
-                res.body.should.be.a('object');
-                res.body.should.have.property("message").eql("\"email\" must be a valid email");
                 if (error) {
                     return done(error);
                 }
-                done();
+                res.should.have.status(400);
+                res.body.should.be.a('object');
+                res.body.should.have.property("message").eql("\"email\" must be a valid email");
+                return done();
             });
     });
 
@@ -101,13 +101,13 @@ describe('POST /register', () => {
             .post('/register')
             .send(userData)
             .end((error, res) => {
-                res.should.have.status(400);
-                res.body.should.be.a('object');
-                res.body.should.have.property("message").eql("\"password\" is not allowed to be empty");
                 if (error) {
                     return done(error);
                 }
-                done();
+                res.should.have.status(400);
+                res.body.should.be.a('object');
+                res.body.should.have.property("message").eql("\"password\" is not allowed to be empty");
+                return done();
             });
     });
 });
@@ -123,15 +123,15 @@ describe('POST /register', () => {
             .post('/login')
             .send(userData)
             .end((error, res) => {
+                if (error) {
+                    return done(error);
+                }
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.have.property("success").eql(true);
                 res.body.should.have.property("message").eql("User login successful!");
                 res.body.should.have.property("token");
-                if (error) {
-                    return done(error);
-                }
-                done();
+                return done();
             });
     });
 
@@ -141,13 +141,13 @@ describe('POST /register', () => {
             .post('/login')
             .send(userData)
             .end((error, res) => {
-                res.should.have.status(400);
-                res.body.should.be.a('object');
-                res.body.should.have.property("message").eql("\"email\" must be a valid email");
                 if (error) {
                     return done(error);
                 }
-                done();
+                res.should.have.status(400);
+                res.body.should.be.a('object');
+                res.body.should.have.property("message").eql("\"email\" must be a valid email");
+                return done();
             });
     });
 
@@ -157,13 +157,13 @@ describe('POST /register', () => {
             .post('/login')
             .send(userData)
             .end((error, res) => {
-                res.should.have.status(400);
-                res.body.should.be.a('object');
-                res.body.should.have.property("message").eql("\"password\" is not allowed to be empty");
                 if (error) {
                     return done(error);
                 }
-                done();
+                res.should.have.status(400);
+                res.body.should.be.a('object');
+                res.body.should.have.property("message").eql("\"password\" is not allowed to be empty");
+                return done();
             });
     });
 
@@ -173,13 +173,13 @@ describe('POST /register', () => {
             .post('/login')
             .send(userData)
             .end((error, res) => {
-                res.should.have.status(401);
-                res.body.should.be.a('object');
-                res.body.should.have.property("message").eql("Please enter correct password");
                 if (error) {
                     return done(error);
                 }
-                done();
+                res.should.have.status(401);
+                res.body.should.be.a('object');
+                res.body.should.have.property("message").eql("Please enter correct password");
+                return done();
             });
     });
 });
@@ -195,14 +195,14 @@ describe('POST /register', () => {
             .post('/forgotPassword')
             .send(userData)
             .end((error, res) => {
+                if (error) {
+                    return done(error);
+                }
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.have.property("success").eql(true);
                 res.body.should.have.property("message").eql("Password reset link sent to your email account!");
-                if (error) {
-                    return done(error);
-                }
-                done();
+                return done();
             });
     });
 
@@ -212,13 +212,13 @@ describe('POST /register', () => {
             .post('/forgotPassword')
             .send(userData)
             .end((error, res) => {
-                res.should.have.status(400);
-                res.body.should.be.a('object');
-                res.body.should.have.property("message").eql("\"email\" must be a valid email");
                 if (error) {
                     return done(error);
                 }
-                done();
+                res.should.have.status(400);
+                res.body.should.be.a('object');
+                res.body.should.have.property("message").eql("\"email\" must be a valid email");
+                return done();
             });
     });
 
@@ -228,13 +228,13 @@ describe('POST /register', () => {
             .post('/forgotPassword')
             .send(userData)
             .end((error, res) => {
-                res.should.have.status(404);
-                res.body.should.be.a('object');
-                res.body.should.have.property("message").eql("User with given email doesn't exist!");
                 if (error) {
                     return done(error);
                 }
-                done();
+                res.should.have.status(404);
+                res.body.should.be.a('object');
+                res.body.should.have.property("message").eql("User with given email doesn't exist!");
+                return done();
             });
     });
 });
@@ -252,14 +252,14 @@ describe('POST /register', () => {
             .set('token', userToken)
             .send(userData)
             .end((error, res) => {
+                if (error) {
+                    return done(error);
+                }
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.have.property("success").eql(true);
                 res.body.should.have.property("message").eql("Password is changed successfully!");
-                if (error) {
-                    return done(error);
-                }
-                done();
+                return done();
             });
     });
 
@@ -270,13 +270,13 @@ describe('POST /register', () => {
             .set('headerParameter', '')
             .send(userData)
             .end((error, res) => {
-                res.should.have.status(401);
-                res.body.should.be.a('object');
-                res.body.should.have.property("message").eql("Please get token!");
                 if (error) {
                     return done(error);
                 }
-                done();
+                res.should.have.status(401);
+                res.body.should.be.a('object');
+                res.body.should.have.property("message").eql("Please get token!");
+                return done();
             });
     });
 
@@ -288,13 +288,13 @@ describe('POST /register', () => {
             .set('token', userToken)
             .send(userData)
             .end((error, res) => {
-                res.should.have.status(500);
-                res.body.should.be.a('object');
-                res.body.should.have.property("message").eql("Please enter same password in both password and confirmPassword fields!");
                 if (error) {
                     return done(error);
                 }
-                done();
+                res.should.have.status(500);
+                res.body.should.be.a('object');
+                res.body.should.have.property("message").eql("Please enter same password in both password and confirmPassword fields!");
+                return done();
             });
     });
 });

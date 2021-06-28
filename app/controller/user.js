@@ -67,8 +67,8 @@ class UserController {
             }
             const loginUser = await userService.loginUser(userData)
             if(loginUser.length < 30){
-                res.status(401).send({message: loginUser });
-            }   
+                res.status(401).send({message: loginUser});
+            }
             res.send({success: true, message: "User login successful!", token: loginUser});
         }catch (error) {
             console.log(error);

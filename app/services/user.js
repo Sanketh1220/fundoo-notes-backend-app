@@ -29,7 +29,7 @@ class UserService {
      */
     async createUserInfo(userData) {
         try {
-            const createdUser = userModel.createInfo(userData)
+            const createdUser = await userModel.createInfo(userData);
             return createdUser;
         }catch (error) {
             return error;
