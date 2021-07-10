@@ -21,7 +21,6 @@ const jwt = require('jsonwebtoken');
 
 //Creating a class so as to avail all functions return in it
 class HelperClass {
-
     /**
      * @description function is return to generate a token when there is a valid user
      * @param {*} A valid employeeData is expected
