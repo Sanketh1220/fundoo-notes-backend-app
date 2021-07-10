@@ -116,6 +116,7 @@ class UserController {
                 confirmPassword: req.body.confirmPassword
             }
             const userToken = req.headers.token;
+            console.log(userToken);
             if(!userToken) {
                 return res.status(401).send({message: "Please get token!"});
             }
