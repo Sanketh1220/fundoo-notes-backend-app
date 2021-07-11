@@ -6,6 +6,9 @@ SERVER_IP=18.119.109.3
 APPS_HOME=/home/ec2-user/apps
 FOLDER_NAME=fd-backend
 
+echo "EC2 KEY: $EC2_SSH_KEY"
+echo "EC2 NAME: $EC2_SSH_USERNAME"
+
 echo "Building artifact"
 tar czf $BUNDLE_FILE app config swagger test utils package.json package-lock.json server.js
 echo "Publishing artifact to ec2"
