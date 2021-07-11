@@ -5,19 +5,18 @@ BUNDLE_FILE=$BUNDLE_FILE_BASE-$BUILD_NUMBER.tar.gz
 SERVER_IP=18.119.109.3
 APPS_HOME=/home/ec2-user/apps
 FOLDER_NAME=fd-backend
-
-echo "EC2 KEY: $EC2_SSH_KEY"
-echo "EC2 NAME: $EC2_SSH_USERNAME"
+EC2_SSH_KEY=/var/lib/jenkins/jenkins_key.pem
 
 echo "Building artifact"
 tar czf $BUNDLE_FILE app config swagger test utils package.json package-lock.json server.js
 echo "Publishing artifact to ec2"
-scp -i $EC2_SSH_KEY $BUNDLE_FILE ec2-user@$SERVER_IP:$APPS_HOME/$BUNDLE_FILE_BASE.tar.gz
+echo "$EC2_SSH_KEY $BUNDLE_FILE ec2-user@$SERVER_IP:$APPS_HOME/$BUNDLE_FILE_BASE.tar.gz"
+scp -o StrictHostKeyChecking=no -i $EC2_SSH_KEY $BUNDLE_FILE ec2-user@$SERVER_IP:$APPS_HOME/$BUNDLE_FILE_BASE.tar.gz
 echo "Removing bundle file"
 rm -rf $BUNDLE_FILE
 
 echo "SSHing to server using $EC2_SSH_KEY"
-ssh -i $EC2_SSH_KEY ec2-user@$SERVER_IP << 'ENDSSH'
+ssh -o StrictHostKeyChecking=no -i $EC2_SSH_KEY ec2-user@$SERVER_IP << 'ENDSSH'
 BUNDLE_FILE=fundoo-backend.tar.gz
 SERVER_IP=18.119.109.3
 APPS_HOME=/home/ec2-user/apps
