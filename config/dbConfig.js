@@ -1,5 +1,7 @@
-require('dotenv').config();
-require('../.env');
+const path = require('path');
+const configFile = process.env.NODE_ENV === 'production' ? '.env.prod' : '.env';
+console.log('Node env', process.env.NODE_ENV);
+require('dotenv').config({ path: path.join(__dirname, '..', configFile) });
 const mongoose = require('mongoose');
 const logger = require('./logger');
 

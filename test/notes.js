@@ -36,12 +36,12 @@ describe('Notes API', () => {
             .post('/login')
             .send(userInput.userLoginPos)
             .end((error, res) => {
-                token = res.body.token;
-                res.should.have.status(200);
                 if (error) {
                     return done(error);
                 }
-                done();
+                token = res.body.token;
+                res.should.have.status(200);
+                return done();
             });
     });
 
@@ -57,15 +57,15 @@ describe('Notes API', () => {
                 .send(notesData)
                 .set('token', token)
                 .end((error, res) => {
+                    if (error) {
+                        return done(error);
+                    }
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property("success").eql(true);
                     res.body.should.have.property("message").eql("Notes Created!");
                     res.body.should.have.property("data").should.be.a('object');
-                    if (error) {
-                        return done(error);
-                    }
-                    done();
+                    return done();
                 });
         });
 
@@ -76,13 +76,13 @@ describe('Notes API', () => {
                 .send(addressBookData)
                 .set('token', token)
                 .end((error, res) => {
-                    res.should.have.status(400);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property("message").eql("\"title\" is not allowed to be empty");
                     if (error) {
                         return done(error);
                     }
-                    done();
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property("message").eql("\"title\" is not allowed to be empty");
+                    return done();
                 });
         });
 
@@ -93,13 +93,13 @@ describe('Notes API', () => {
                 .send(addressBookData)
                 .set('token', token)
                 .end((error, res) => {
-                    res.should.have.status(400);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property("message").eql("\"description\" is not allowed to be empty");
                     if (error) {
                         return done(error);
                     }
-                    done();
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property("message").eql("\"description\" is not allowed to be empty");
+                    return done();
                 });
         });
     });
@@ -115,15 +115,15 @@ describe('Notes API', () => {
                 .get('/notes/notes')
                 .set('token', token)
                 .end((error, res) => {
+                    if (error) {
+                        return done(error);
+                    }
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property("success").eql(true);
                     res.body.should.have.property("message").eql("Notes Retrieved!");
                     res.body.should.have.property("data").should.be.a('object');
-                    if (error) {
-                        return done(error);
-                    }
-                    done();
+                    return done();
                 });
         });
     });
@@ -139,15 +139,15 @@ describe('Notes API', () => {
                 .send(userInputs.notesPutPos)
                 .set('token', token)
                 .end((error, res) => {
+                    if (error) {
+                        return done(error);
+                    }
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property("success").eql(true);
                     res.body.should.have.property("message").eql("Notes Updated!");
                     res.body.should.have.property("data").should.be.a('object');
-                    if (error) {
-                        return done(error);
-                    }
-                    done();
+                    return done();
                 });
         });
 
@@ -157,13 +157,13 @@ describe('Notes API', () => {
                 .send(userInputs.notesPutNegTitle)
                 .set('token', token)
                 .end((error, res) => {
-                    res.should.have.status(400);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property("message").eql("\"title\" is not allowed to be empty");
                     if (error) {
                         return done(error);
                     }
-                    done();
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property("message").eql("\"title\" is not allowed to be empty");
+                    return done();
                 });
         });
 
@@ -173,13 +173,13 @@ describe('Notes API', () => {
                 .send(userInputs.notesPutNegDescription)
                 .set('token', token)
                 .end((error, res) => {
-                    res.should.have.status(400);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property("message").eql("\"description\" is not allowed to be empty");
                     if (error) {
                         return done(error);
                     }
-                    done();
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property("message").eql("\"description\" is not allowed to be empty");
+                    return done();
                 });
         });
     });
@@ -195,14 +195,14 @@ describe('Notes API', () => {
                 .send(userInputs.notesDelPos)
                 .set('token', token)
                 .end((error, res) => {
+                    if (error) {
+                        return done(error);
+                    }
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property("success").eql(true);
                     res.body.should.have.property("message").eql("Note Deleted!");
-                    if (error) {
-                        return done(error);
-                    }
-                    done();
+                    return done();
                 });
         });
 
@@ -212,13 +212,13 @@ describe('Notes API', () => {
                 .send(userInputs.notesDelNeg)
                 .set('token', token)
                 .end((error, res) => {
-                    res.should.have.status(400);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property("message").eql("\"isDeleted\" must be a boolean");
                     if (error) {
                         return done(error);
                     }
-                    done();
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property("message").eql("\"isDeleted\" must be a boolean");
+                    return done();
                 });
         });
     });
@@ -234,15 +234,15 @@ describe('Notes API', () => {
                 .send(userInputs.addLabelToNotePos)
                 .set('token', token)
                 .end((error, res) => {
+                    if (error) {
+                        return done(error);
+                    }
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property("success").eql(true);
                     res.body.should.have.property("message").eql("Label Added!");
                     res.body.should.have.property("data").should.be.a('object');
-                    if (error) {
-                        return done(error);
-                    }
-                    done();
+                    return done();
                 });
         });
 
@@ -252,13 +252,13 @@ describe('Notes API', () => {
                 .send(userInputs.addLabelToNoteNegNoteId)
                 .set('token', token)
                 .end((error, res) => {
-                    res.should.have.status(400);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property("message").eql("\"noteId\" is not allowed to be empty");
                     if (error) {
                         return done(error);
                     }
-                    done();
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property("message").eql("\"noteId\" is not allowed to be empty");
+                    return done();
                 });
         });
 
@@ -268,13 +268,13 @@ describe('Notes API', () => {
                 .send(userInputs.addLabelToNoteNegLabelId)
                 .set('token', token)
                 .end((error, res) => {
-                    res.should.have.status(400);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property("message").eql("\"labelId\" is not allowed to be empty");
                     if (error) {
                         return done(error);
                     }
-                    done();
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property("message").eql("\"labelId\" is not allowed to be empty");
+                    return done();
                 });
         });
     });
@@ -290,15 +290,15 @@ describe('Notes API', () => {
                 .send(userInputs.deleteLabelFromNotePos)
                 .set('token', token)
                 .end((error, res) => {
+                    if (error) {
+                        return done(error);
+                    }
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property("success").eql(true);
                     res.body.should.have.property("message").eql("Label Deleted!");
                     res.body.should.have.property("data").should.be.a('object');
-                    if (error) {
-                        return done(error);
-                    }
-                    done();
+                    return done();
                 });
         });
 
@@ -308,13 +308,13 @@ describe('Notes API', () => {
                 .send(userInputs.deleteLabelToNoteNegNoteId)
                 .set('token', token)
                 .end((error, res) => {
-                    res.should.have.status(400);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property("message").eql("\"noteId\" is not allowed to be empty");
                     if (error) {
                         return done(error);
                     }
-                    done();
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property("message").eql("\"noteId\" is not allowed to be empty");
+                    return done();
                 });
         });
 
@@ -324,13 +324,13 @@ describe('Notes API', () => {
                 .send(userInputs.deleteLabelToNoteNegLabelId)
                 .set('token', token)
                 .end((error, res) => {
-                    res.should.have.status(400);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property("message").eql("\"labelId\" is not allowed to be empty");
                     if (error) {
                         return done(error);
                     }
-                    done();
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property("message").eql("\"labelId\" is not allowed to be empty");
+                    return done();
                 });
         });
     });
@@ -347,15 +347,15 @@ describe('Notes API', () => {
                 .send(labelData)
                 .set('token', token)
                 .end((error, res) => {
+                    if (error) {
+                        return done(error);
+                    }
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property("success").eql(true);
                     res.body.should.have.property("message").eql("Label Created!");
                     res.body.should.have.property("data").should.be.a('object');
-                    if (error) {
-                        return done(error);
-                    }
-                    done();
+                    return done();
                 });
         });
 
@@ -366,13 +366,13 @@ describe('Notes API', () => {
                 .send(labelData)
                 .set('token', token)
                 .end((error, res) => {
-                    res.should.have.status(400);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property("message").eql("\"labelName\" is not allowed to be empty");
                     if (error) {
                         return done(error);
                     }
-                    done();
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property("message").eql("\"labelName\" is not allowed to be empty");
+                    return done();
                 });
         });
     });
@@ -387,15 +387,15 @@ describe('Notes API', () => {
                 .get('/labels/labels')
                 .set('token', token)
                 .end((error, res) => {
+                    if (error) {
+                        return done(error);
+                    }
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property("success").eql(true);
                     res.body.should.have.property("message").eql("Labels Retrieved!");
                     res.body.should.have.property("data").should.be.a('object');
-                    if (error) {
-                        return done(error);
-                    }
-                    done();
+                    return done();
                 });
         });
     });
@@ -410,15 +410,15 @@ describe('Notes API', () => {
                 .get('/label/60d45f0bb0734760a4bddd2a')
                 .set('token', token)
                 .end((error, res) => {
+                    if (error) {
+                        return done(error);
+                    }
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property("success").eql(true);
                     res.body.should.have.property("message").eql("Label Retrieved!");
                     res.body.should.have.property("data").should.be.a('object');
-                    if (error) {
-                        return done(error);
-                    }
-                    done();
+                    return done();
                 });
         });
 
@@ -427,15 +427,15 @@ describe('Notes API', () => {
                 .get('/label/60d45f0bb0734760a4bddd')
                 .set('token', token)
                 .end((error, res) => {
+                    if (error) {
+                        return done(error);
+                    }
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property("success").eql(true);
                     res.body.should.have.property("message").eql("Label Retrieved!");
                     res.body.should.have.property("data").should.be.a('object');
-                    if (error) {
-                        return done(error);
-                    }
-                    done();
+                    return done();
                 });
         });
     });
@@ -451,15 +451,15 @@ describe('Notes API', () => {
                 .send(labelInputs.labelCreatePos)
                 .set('token', token)
                 .end((error, res) => {
+                    if (error) {
+                        return done(error);
+                    }
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property("success").eql(true);
                     res.body.should.have.property("message").eql("Label Name Updated!");
                     res.body.should.have.property("data").should.be.a('object');
-                    if (error) {
-                        return done(error);
-                    }
-                    done();
+                    return done();
                 });
         });
 
@@ -469,13 +469,13 @@ describe('Notes API', () => {
                 .send(labelInputs.labelCreateNeg)
                 .set('token', token)
                 .end((error, res) => {
-                    res.should.have.status(400);
-                    res.body.should.be.a('object');
-                    res.body.should.have.property("message").eql("\"labelName\" is not allowed to be empty");
                     if (error) {
                         return done(error);
                     }
-                    done();
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property("message").eql("\"labelName\" is not allowed to be empty");
+                    return done();
                 });
         });
     });
@@ -490,14 +490,14 @@ describe('Notes API', () => {
                 .delete('/deleteLabel/60d4bfb1da59098c02f43fc6')
                 .set('token', token)
                 .end((error, res) => {
+                    if (error) {
+                        return done(error);
+                    }
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.should.have.property("success").eql(true);
                     res.body.should.have.property("message").eql("Label Deleted!");
-                    if (error) {
-                        return done(error);
-                    }
-                    done();
+                    return done();
                 });
         });
     });

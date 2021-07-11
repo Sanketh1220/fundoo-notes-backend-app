@@ -67,8 +67,8 @@ class UserController {
             }
             const loginUser = await userService.loginUser(userData)
             if(loginUser.length < 30){
-                res.status(401).send({message: loginUser });
-            }   
+                res.status(401).send({message: loginUser});
+            }
             res.send({success: true, message: "User login successful!", token: loginUser});
         }catch (error) {
             console.log(error);
@@ -116,6 +116,7 @@ class UserController {
                 confirmPassword: req.body.confirmPassword
             }
             const userToken = req.headers.token;
+            console.log(userToken);
             if(!userToken) {
                 return res.status(401).send({message: "Please get token!"});
             }

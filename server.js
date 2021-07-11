@@ -22,6 +22,9 @@ const swaggerUI = require('swagger-ui-express');
 const logger = require('./config/logger');
 const swagger = require('./swagger/swagger.json');
 const redis = require('redis');
+const cors = require('cors');
+
+app.use(cors());
 
 databaseConnection();
 
@@ -42,7 +45,18 @@ app.get('/', (req, res) => {
     res.send("<h1>Welcome to Fundoo Notes Backend App!</h1>");
 });
 
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET , PUT , POST , DELETE");
+    res.header("Access-Control-Allow-Headers", "Content-Type, x-requested-with");
+    next(); // Important
+})
 
+app.all('/', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+})
 
 //declaring a port number for server to run
 app.listen(process.env.PORT, ()=>{
