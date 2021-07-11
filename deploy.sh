@@ -6,10 +6,14 @@ SERVER_IP=18.119.109.3
 APPS_HOME=/home/ec2-user/apps
 FOLDER_NAME=fd-backend
 
+echo "Building artifact"
 tar czf $BUNDLE_FILE app config swagger test utils package.json package-lock.json server.js
+echo "Publishing artifact to ec2"
 scp -i $EC2_SSH_KEY $BUNDLE_FILE ec2-user@$SERVER_IP:$APPS_HOME/$BUNDLE_FILE_BASE.tar.gz
+echo "Removing bundle file"
 rm -rf $BUNDLE_FILE
 
+echo "SSHing to server"
 ssh -i $EC2_SSH_KEY ec2-user@$SERVER_IP << 'ENDSSH'
 BUNDLE_FILE=fundoo-backend.tar.gz
 SERVER_IP=18.119.109.3
