@@ -1,7 +1,7 @@
 const mailgun = require('mailgun-js');
 const {generateAccessToken} = require('../app/middleware/helper');
 const DOMAIN = process.env.DOMAIN;
-const mg = mailgun({apiKey: MAILGUN_APIKEY,domain: DOMAIN});
+const mg = mailgun({apiKey: process.env.MAILGUN_APIKEY,domain: DOMAIN});
 class MailGun {
 
     sendMail(email) {
