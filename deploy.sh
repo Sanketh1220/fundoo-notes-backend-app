@@ -13,7 +13,7 @@ scp -i $EC2_SSH_KEY $BUNDLE_FILE ec2-user@$SERVER_IP:$APPS_HOME/$BUNDLE_FILE_BAS
 echo "Removing bundle file"
 rm -rf $BUNDLE_FILE
 
-echo "SSHing to server"
+echo "SSHing to server using $EC2_SSH_KEY"
 ssh -i $EC2_SSH_KEY ec2-user@$SERVER_IP << 'ENDSSH'
 BUNDLE_FILE=fundoo-backend.tar.gz
 SERVER_IP=18.119.109.3
