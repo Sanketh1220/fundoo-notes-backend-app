@@ -6,7 +6,7 @@ SERVER_IP=18.119.109.3
 APPS_HOME=/home/ec2-user/apps
 FOLDER_NAME=fd-backend
 
-tar czf $BUNDLE_FILE app config logger swagger test utils package.json package-lock.json server.js
+tar czf $BUNDLE_FILE app config swagger test utils package.json package-lock.json server.js
 scp -i $EC2_SSH_KEY $BUNDLE_FILE ec2-user@$SERVER_IP:$APPS_HOME/$BUNDLE_FILE_BASE.tar.gz
 rm -rf $BUNDLE_FILE
 
