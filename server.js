@@ -42,7 +42,7 @@ require('./app/routes/routes')(app);
 
 //defining a simple root statement
 app.get('/', (req, res) => {
-    res.send("<h1>Hey there! Welcome to FundooNotes Backend!</h1>");
+    res.send("<h1>Hey Class! Welcome to FundooNotes Backend!</h1>");
 });
 
 app.use((req, res, next) => {
